@@ -6,7 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import ru.trudexpert.server.domain.ListenerDetails;
+import ru.trudexpert.server.entity.Listener;
 import ru.trudexpert.server.exception.SnilsAlreadyRegisteredException;
 import ru.trudexpert.server.service.ListenerService;
 
@@ -18,9 +18,9 @@ public class ListenerController {
 
     @PostMapping("/create")
     public ResponseEntity<String> registerListener(
-            @RequestBody ListenerDetails listenerDetails
+            @RequestBody Listener listener
     ) throws SnilsAlreadyRegisteredException {
-        listenerService.createListener(listenerDetails);
+        listenerService.createListener(listener);
         return ResponseEntity.ok("Created");
     }
 }

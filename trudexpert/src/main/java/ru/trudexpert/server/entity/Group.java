@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 
 import javax.persistence.*;
+import java.time.Instant;
 import java.util.List;
 
 @Entity
@@ -23,22 +24,9 @@ public class Group {
     private Long number;
 
     @Column(name = "study_start_date", nullable = false)
-    private String studyStartDate;
+    private Instant studyStartDate;
 
     @Column(name = "study_end_date", nullable = false)
-    private String studyEndDate;
-
-    @OneToMany(mappedBy = "group", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Listener> listeners;
-
-    public void addListener(Listener listener){
-        listeners.add(listener);
-        listener.setGroup(this);
-    }
-
-    public void removeListener(Listener listener){
-        listeners.remove(listener);
-        listener.setGroup(null);
-    }
+    private Instant studyEndDate;
 
 }

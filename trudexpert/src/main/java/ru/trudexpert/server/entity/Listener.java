@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 
 import javax.persistence.*;
+import java.time.Instant;
 
 @Entity
 @Table(name = "listeners")
@@ -18,41 +19,45 @@ public class Listener {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "surname", nullable = false, precision = 100)
+    @Column(name = "surname", precision = 100)
     private String surname;
 
-    @Column(name = "name", nullable = false, precision = 80)
+    @Column(name = "name", precision = 80)
     private String name;
 
-    @Column(name = "patronymic", nullable = false, precision = 150)
+    @Column(name = "patronymic", precision = 150)
     private String patronymic;
 
-    @Column(name = "date_of_birth", nullable = false)
-    private String dateOfBirth;
+    @Column(name = "date_of_birth")
+    private Instant dateOfBirth;
 
-    @Column(name = "snils", nullable = false, precision = 50)
+    @Column(name = "snils", precision = 50)
     private String snils;
 
-    @Column(name = "gender", nullable = false, precision = 50)
+    @Column(name = "gender", precision = 50)
     private String gender;
 
-    @Column(name = "phone_number", nullable = false, precision = 100)
+    @Column(name = "phone_number", precision = 100)
     private String phoneNumber;
 
-    @Column(name = "citizenship_code", nullable = false)
+    @Column(name = "citizenship_code")
     private Long citizenshipCode;
 
-    @Column(name = "driver_license")
+    @Column(name = "driver_license", precision = 50)
     private String driverLicense;
 
-    @OneToOne(mappedBy = "listener", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @PrimaryKeyJoinColumn
-    private Passport passport;
+    @Column(name = "address", columnDefinition = "TEXT")
+    private String address;
 
-    @OneToOne(mappedBy = "listener", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @PrimaryKeyJoinColumn
-    private Address address;
+    @Column(name = "passport_series", precision = 50)
+    private String passportSeries;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Group group;
+    @Column(name = "passport_number", precision = 70)
+    private String passportNumber;
+
+    @Column(name = "passport_issued_by", columnDefinition = "TEXT")
+    private String passportIssuedBy;
+
+    @Column(name = "education", columnDefinition = "TEXT")
+    private String education;
 }
