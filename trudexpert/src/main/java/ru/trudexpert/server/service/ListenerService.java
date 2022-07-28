@@ -14,6 +14,7 @@ public class ListenerService {
 
     @Transactional
     public void createListener(Listener listener) throws SnilsAlreadyRegisteredException {
+        checkSnilsFree(listener.getSnils());
         listenerRepository.save(listener);
     }
 
