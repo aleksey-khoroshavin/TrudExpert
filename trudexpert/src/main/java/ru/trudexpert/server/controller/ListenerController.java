@@ -11,7 +11,7 @@ import ru.trudexpert.server.exception.SnilsAlreadyRegisteredException;
 import ru.trudexpert.server.service.ListenerService;
 
 @Controller
-@RequestMapping("/api/listener")
+@RequestMapping("/trudexpert/listener")
 @RequiredArgsConstructor
 public class ListenerController {
     private final ListenerService listenerService;

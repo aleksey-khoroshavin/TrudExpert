@@ -5,16 +5,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-//http://localhost:8080/api/greeting
+//http://localhost:8080/trudexpert/main
 
 @Controller
-@RequestMapping("/api/greeting")
+@RequestMapping("/trudexpert/main")
 @RequiredArgsConstructor
-public class GreetingController {
+public class MainController {
 
     @GetMapping
-    public String greeting(){
-        return "greeting";
+    public String openMainPage(){
+        return "main";
     }
 
 

@@ -10,10 +10,10 @@
                 <a class="nav-link" href="/"><i>Слушатели</i></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/main"><i>Группы</i></a>
+                <a class="nav-link" href="/main"><i>Курсы</i></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/main"><i>Курсы</i></a>
+                <a class="nav-link" href="/main"><i>Группы</i></a>
             </li>
 
             <li class="nav-item ml-5">

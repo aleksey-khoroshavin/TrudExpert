@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 
 @Controller
-@RequestMapping("/api/course")
+@RequestMapping("/trudexpert/course")
 @RequiredArgsConstructor
 public class CourseController {
 

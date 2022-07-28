@@ -1,4 +1,4 @@
-<#import "parts/common.ftlh" as c>
+<#import "parts/commons/common_main.ftlh" as c>
 
 <@c.page>
     <h5>Документация АНО ДПО "Труд Эксперт"</h5>
