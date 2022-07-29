@@ -17,16 +17,21 @@ import ru.trudexpert.server.service.ListenerService;
 public class ListenerController {
     private final ListenerService listenerService;
 
-//    @PostMapping("/create")
+    @GetMapping
+    public String openListenerPage(){
+        return "listeners";
+    }
+
+    @GetMapping("/add")
+    public String openListenerForm(){
+        return "/listeners/listener_add";
+    }
+
+//    @PostMapping("/add")
 //    public ResponseEntity<String> registerListener(
 //            @RequestBody Listener listener
 //    ) throws SnilsAlreadyRegisteredException {
 //        listenerService.createListener(listener);
 //        return ResponseEntity.ok("Created");
 //    }
-
-    @GetMapping
-    public String openListenerPage(){
-        return "listeners";
-    }
 }
