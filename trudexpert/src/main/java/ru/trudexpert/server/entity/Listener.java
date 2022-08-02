@@ -94,7 +94,7 @@ public class Listener {
                         null)
                 .setSnils(dto.getSnils())
                 .setGender(dto.getGender())
-                .setPhoneNumber(dto.getPhoneNumber())
+                .setPhoneNumber("+7-" + dto.getPhoneNumber())
                 .setCitizenshipCode(dto.getCitizenshipCode())
                 .setDriverLicense(dto.getDriverLicense())
                 .setAddress(dto.getAddress())

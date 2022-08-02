@@ -40,13 +40,16 @@ public class ListenerController {
 
     @GetMapping("/search")
     public String openSearchForm(@RequestParam(required = false, defaultValue = "") String surname, Model model){
-//        List<ListenerShortInfoDTO> listeners;
-//
-//        if(surname != null && !surname.isEmpty()){
-//            listeners = listenerService.getListenersBySurname(surname);
-//        }else{
-//            listeners = listenerService.getListeners();
-//        }
+        List<ListenerShortInfoDTO> listeners;
+
+        if(surname != null && !surname.isEmpty()){
+            listeners = listenerService.getListenersBySurname(surname);
+        }else{
+            listeners = listenerService.getListeners();
+        }
+
+        model.addAttribute("listeners", listeners);
+        model.addAttribute("surname", surname);
 
         return "/listeners/listener_search";
     }

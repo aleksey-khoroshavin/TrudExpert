@@ -9,6 +9,7 @@ import ru.trudexpert.server.exception.SnilsAlreadyRegisteredException;
 import ru.trudexpert.server.repository.ListenerRepository;
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -28,12 +29,18 @@ public class ListenerService {
         }
     }
 
-//    public List<ListenerShortInfoDTO> getListenersBySurname(String surname){
-//
-//    }
-//
-//    public List<ListenerShortInfoDTO> getListeners(){
-//
-//    }
+    public List<ListenerShortInfoDTO> getListenersBySurname(String surname){
+        return listenerRepository.findAllBySurname(surname)
+                .stream()
+                .map(ListenerShortInfoDTO::getFromEntity)
+                .collect(Collectors.toList());
+    }
+
+    public List<ListenerShortInfoDTO> getListeners(){
+        return listenerRepository.findAll()
+                .stream()
+                .map(ListenerShortInfoDTO::getFromEntity)
+                .collect(Collectors.toList());
+    }
 
 }

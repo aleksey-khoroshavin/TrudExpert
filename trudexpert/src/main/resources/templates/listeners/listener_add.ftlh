@@ -68,7 +68,13 @@
 
         <div class="form-group">
             <label for="typePhone">Номер телефона</label>
-            <input type="tel" name="phoneNumber" id="typePhone" class="form-control" placeholder="8-(___)-___-__-__"/>
+            <div class="input-group" id="typePhone">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">+7</div>
+                </div>
+                    <input type="tel" name="phoneNumber"  class="form-control" placeholder="(___)-___-__-__"/>
+            </div>
+
         </div>
 
         <div class="form-group">
@@ -78,11 +84,11 @@
 
         <div class="form-group">
             <label for="inputDriverLicense">Водительское удостоверение. (При наличии)</label>
-            <input type="text" name="driverLicense" class="form-control" id="inputDriverLicense" placeholder="Номер, кем выдано, дата выдачи, категория, стаж(при наличии)">
+            <input type="text" name="driverLicense" class="form-control" id="inputDriverLicense" placeholder="Номер, кем выдано, дата выдачи, категория(-и), стаж(при необходимости)">
         </div>
 
         <div class="form-group">
-            <label for="inputAddress">Адрес проживания</label>
+            <label for="inputAddress">Адрес регистрации</label>
             <input type="text" class="form-control" name="address" id="inputAddress" placeholder="Почтовый индекс, Город, Улица, Дом, Квартира">
         </div>
 
@@ -142,8 +148,8 @@
         const form = document.getElementById('addListenerForm');
 
         document.getElementById('typePhone').addEventListener('input', function (e) {
-            const x = e.target.value.replace(/\D/g, '').match(/(\d?)(\d{0,3})(\d{0,3})(\d{0,2})(\d{0,2})/);
-            e.target.value = !x[2] ? x[1] : x[1] + '-(' + x[2] + (x[3] ? ')-' + x[3] : '') + (x[4] ? '-' + x[4] : '') + (x[5] ? '-' + x[5] : '');
+            const x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,2})(\d{0,2})/);
+            e.target.value =  !x[2] ? x[1] : '(' + x[1] + ')-' + x[2] + (x[3] ? '-' + x[3] : '') + (x[4] ? '-' + x[4] : '');
         });
 
         form.onsubmit = function (event){
