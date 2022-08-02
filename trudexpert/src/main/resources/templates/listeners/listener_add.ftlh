@@ -68,7 +68,7 @@
 
         <div class="form-group">
             <label for="typePhone">Номер телефона</label>
-            <input type="tel" name="phoneNumber" id="typePhone" class="form-control" pattern="[8]{1}-[0-9]{3}-[0-9]{3}-[0-9]{2}-[0-9]{2}" placeholder="8-___-___-__-__"/>
+            <input type="tel" name="phoneNumber" id="typePhone" class="form-control" placeholder="8-(___)-___-__-__"/>
         </div>
 
         <div class="form-group">
@@ -140,6 +140,12 @@
 
     <script>
         const form = document.getElementById('addListenerForm');
+
+        document.getElementById('typePhone').addEventListener('input', function (e) {
+            const x = e.target.value.replace(/\D/g, '').match(/(\d?)(\d{0,3})(\d{0,3})(\d{0,2})(\d{0,2})/);
+            e.target.value = !x[2] ? x[1] : x[1] + '-(' + x[2] + (x[3] ? ')-' + x[3] : '') + (x[4] ? '-' + x[4] : '') + (x[5] ? '-' + x[5] : '');
+        });
+
         form.onsubmit = function (event){
             const xhr = new XMLHttpRequest();
             const formData = new FormData(form);
