@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>ru.nsk</groupId>
-	<artifactId>trudexpert</artifactId>
+	<artifactId>Organization_service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>trudexpert</name>
+	<name>Trudexpert organization service</name>
 	<description>Trud Expert Documentation project</description>
 	<properties>
 		<java.version>17</java.version>
