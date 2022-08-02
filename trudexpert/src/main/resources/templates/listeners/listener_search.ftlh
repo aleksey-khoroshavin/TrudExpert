@@ -17,30 +17,33 @@
     </div>
 
     <div>
-        <#list listeners as listener>
-            <table class="table">
-                <thead>
-                <tr>
-                    <th scope="col">Фамилия</th>
-                    <th scope="col">Имя</th>
-                    <th scope="col">Отчество</th>
-                    <th scope="col">Дата рождения</th>
-                    <th scope="col">Действие</th>
-                </tr>
-                </thead>
+        <table class="table table-bordered mt-5">
+            <thead>
+            <tr>
+                <th scope="col">Фамилия</th>
+                <th scope="col">Имя</th>
+                <th scope="col">Отчество</th>
+                <th scope="col">Дата рождения</th>
+                <th scope="col">Действие</th>
+            </tr>
+            </thead>
+            <#list listeners as listener>
                 <tr>
                     <td>${listener.surname}</td>
                     <td>${listener.name}</td>
                     <td>${listener.patronymic}</td>
                     <td>${listener.dateOfBirth}</td>
                     <td>
-
+                        <a href="/edit">Редактировать</a>
                     </td>
                 </tr>
-            </table>
-        <#else>
-            Не найдено слушателей в системе
-        </#list>
+            <#else>
+                <td>Не найдено</td>
+                <td>Не найдено</td>
+                <td>Не найдено</td>
+                <td>Не найдено</td>
+            </#list>
+        </table>
     </div>
 
 </@c.page>

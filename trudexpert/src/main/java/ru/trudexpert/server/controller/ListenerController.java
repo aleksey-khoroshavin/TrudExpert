@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.trudexpert.server.dto.ListenerDTO;
 import ru.trudexpert.server.dto.ListenerShortInfoDTO;
 import ru.trudexpert.server.entity.Listener;
+import ru.trudexpert.server.exception.ListenerAlreadyRegisteredException;
 import ru.trudexpert.server.exception.SnilsAlreadyRegisteredException;
 import ru.trudexpert.server.service.ListenerService;
 
@@ -33,7 +34,7 @@ public class ListenerController {
     @PostMapping("/add")
     public ResponseEntity<String> registerListener(
             @RequestBody ListenerDTO listenerDTO
-    ) throws SnilsAlreadyRegisteredException {
+    ) throws SnilsAlreadyRegisteredException, ListenerAlreadyRegisteredException {
         listenerService.createListener(listenerDTO);
         return ResponseEntity.ok("Created");
     }

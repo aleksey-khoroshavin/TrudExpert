@@ -89,9 +89,7 @@ public class Listener {
                 .setSurname(dto.getSurname())
                 .setName(dto.getName())
                 .setPatronymic(dto.getPatronymic())
-                .setDateOfBirth(dto.getDateOfBirth() != null && !dto.getDateOfBirth().isEmpty() ?
-                        LocalDate.parse(dto.getDateOfBirth(), formatter).atStartOfDay().toInstant(ZoneOffset.UTC) :
-                        null)
+                .setDateOfBirth(LocalDate.parse(dto.getDateOfBirth(), formatter).atStartOfDay().toInstant(ZoneOffset.UTC))
                 .setSnils(dto.getSnils())
                 .setGender(dto.getGender())
                 .setPhoneNumber("+7-" + dto.getPhoneNumber())
