@@ -2,6 +2,7 @@ package ru.trudexpert.server.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import ru.trudexpert.server.dto.ListenerDTO;
 import ru.trudexpert.server.entity.Listener;
 import ru.trudexpert.server.exception.SnilsAlreadyRegisteredException;
 import ru.trudexpert.server.repository.ListenerRepository;
@@ -13,8 +14,9 @@ public class ListenerService {
     private final ListenerRepository listenerRepository;
 
     @Transactional
-    public void createListener(Listener listener) throws SnilsAlreadyRegisteredException {
-        checkSnilsFree(listener.getSnils());
+    public void createListener(ListenerDTO listenerDTO) throws SnilsAlreadyRegisteredException {
+        checkSnilsFree(listenerDTO.getSnils());
+        Listener listener = Listener.getFromDTO(listenerDTO);
         listenerRepository.save(listener);
     }
 

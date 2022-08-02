@@ -3,10 +3,8 @@ package ru.trudexpert.server.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import ru.trudexpert.server.dto.ListenerDTO;
 import ru.trudexpert.server.entity.Listener;
 import ru.trudexpert.server.exception.SnilsAlreadyRegisteredException;
 import ru.trudexpert.server.service.ListenerService;
@@ -27,11 +25,11 @@ public class ListenerController {
         return "/listeners/listener_add";
     }
 
-//    @PostMapping("/add")
-//    public ResponseEntity<String> registerListener(
-//            @RequestBody Listener listener
-//    ) throws SnilsAlreadyRegisteredException {
-//        listenerService.createListener(listener);
-//        return ResponseEntity.ok("Created");
-//    }
+    @PostMapping(value = "/add")
+    public ResponseEntity<String> registerListener(
+            @RequestBody ListenerDTO listenerDTO
+    ) throws SnilsAlreadyRegisteredException {
+        listenerService.createListener(listenerDTO);
+        return ResponseEntity.ok("Created");
+    }
 }

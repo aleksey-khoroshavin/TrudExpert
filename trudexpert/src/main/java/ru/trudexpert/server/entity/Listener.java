@@ -4,9 +4,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import ru.trudexpert.server.dto.ListenerDTO;
 
 import javax.persistence.*;
 import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 
 @Entity
 @Table(name = "listeners")
@@ -15,6 +20,8 @@ import java.time.Instant;
 @Accessors(chain = true)
 @NoArgsConstructor
 public class Listener {
+    private static final String PATTERN_FORMAT = "yyyy-MM-dd";
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -28,7 +35,7 @@ public class Listener {
     @Column(name = "patronymic", precision = 150)
     private String patronymic;
 
-    @Column(name = "date_of_birth")
+    @Column(name = "date_of_birth", columnDefinition = "date")
     private Instant dateOfBirth;
 
     @Column(name = "snils", precision = 50)
@@ -58,6 +65,49 @@ public class Listener {
     @Column(name = "passport_issued_by", columnDefinition = "TEXT")
     private String passportIssuedBy;
 
-    @Column(name = "education", columnDefinition = "TEXT")
-    private String education;
+    @Column(name = "passport_issued_at", columnDefinition = "date")
+    private Instant passportIssuedAt;
+
+    @Column(name = "education_type", columnDefinition = "text")
+    private String educationType;
+
+    @Column(name = "education_document", columnDefinition = "TEXT")
+    private String educationDocument;
+
+    @Column(name = "education_document_issued_at", columnDefinition = "date")
+    private Instant educationDocumentIssuedAt;
+
+    public static Listener getFromDTO(ListenerDTO dto){
+        if(dto == null){
+            return null;
+        }
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(PATTERN_FORMAT)
+                .withZone(ZoneId.systemDefault());
+
+        return new Listener()
+                .setSurname(dto.getSurname())
+                .setName(dto.getName())
+                .setPatronymic(dto.getPatronymic())
+                .setDateOfBirth(dto.getDateOfBirth() != null && !dto.getDateOfBirth().isEmpty() ?
+                        LocalDate.parse(dto.getDateOfBirth(), formatter).atStartOfDay().toInstant(ZoneOffset.UTC) :
+                        null)
+                .setSnils(dto.getSnils())
+                .setGender(dto.getGender())
+                .setPhoneNumber(dto.getPhoneNumber())
+                .setCitizenshipCode(dto.getCitizenshipCode())
+                .setDriverLicense(dto.getDriverLicense())
+                .setAddress(dto.getAddress())
+                .setPassportSeries(dto.getPassportSeries())
+                .setPassportNumber(dto.getPassportNumber())
+                .setPassportIssuedBy(dto.getPassportIssuedBy())
+                .setPassportIssuedAt(dto.getPassportIssuedAt() != null && !dto.getPassportIssuedAt().isEmpty() ?
+                        LocalDate.parse(dto.getPassportIssuedAt(), formatter).atStartOfDay().toInstant(ZoneOffset.UTC) :
+                        null)
+                .setEducationType(dto.getEducationType())
+                .setEducationDocument(dto.getEducationDocument())
+                .setEducationDocumentIssuedAt(dto.getEducationDocumentIssuedAt() != null && !dto.getEducationDocumentIssuedAt().isEmpty()?
+                        LocalDate.parse(dto.getEducationDocumentIssuedAt(), formatter).atStartOfDay().toInstant(ZoneOffset.UTC) :
+                        null);
+    }
 }
