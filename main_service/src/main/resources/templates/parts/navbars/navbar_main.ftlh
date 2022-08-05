@@ -10,6 +10,9 @@
                 <a class="nav-link" href="/trudexpert/listener"><i>Слушатели</i></a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="/trudexpert/organization"><i>Организации</i></a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="/trudexpert/course"><i>Курсы</i></a>
             </li>
             <li class="nav-item">
