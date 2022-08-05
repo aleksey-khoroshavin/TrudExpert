@@ -23,21 +23,59 @@ public class ListenerService {
     private final ListenerRepository listenerRepository;
 
     @Transactional
-    public void createListener(ListenerDTO listenerDTO) throws SnilsAlreadyRegisteredException, ListenerAlreadyRegisteredException {
+    public void saveListener(ListenerDTO listenerDTO) throws SnilsAlreadyRegisteredException, ListenerAlreadyRegisteredException {
 
-        if(listenerDTO.getSnils()!= null && !listenerDTO.getSnils().isEmpty()){
-            checkSnilsFree(listenerDTO.getSnils());
-        }
-
+        checkSnilsFree(listenerDTO);
         checkUserMainDataFree(listenerDTO);
 
         Listener listener = Listener.getFromDTO(listenerDTO);
         listenerRepository.save(listener);
     }
 
-    private void checkSnilsFree(String snils) throws SnilsAlreadyRegisteredException {
-        if(listenerRepository.existsBySnils(snils)){
-            throw new SnilsAlreadyRegisteredException();
+    @Transactional
+    public void updateListener(ListenerDTO dto) throws ListenerNotFoundException, SnilsAlreadyRegisteredException {
+        checkSnilsFree(dto);
+
+        Listener listener = listenerRepository.findById(dto.getId()).orElse(null);
+
+        if(listener == null){
+            throw new ListenerNotFoundException();
+        }
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd").withZone(ZoneId.systemDefault());
+
+        listener.setId(dto.getId())
+                .setSurname(dto.getSurname())
+                .setName(dto.getName())
+                .setPatronymic(dto.getPatronymic())
+                .setDateOfBirth(LocalDate.parse(dto.getDateOfBirth(), formatter).atStartOfDay().toInstant(ZoneOffset.UTC))
+                .setSnils(dto.getSnils())
+                .setGender(dto.getGender())
+                .setPhoneNumber("+7-" + dto.getPhoneNumber())
+                .setCitizenshipCode(dto.getCitizenshipCode())
+                .setDriverLicense(dto.getDriverLicense())
+                .setAddress(dto.getAddress())
+                .setPassportSeries(dto.getPassportSeries())
+                .setPassportNumber(dto.getPassportNumber())
+                .setPassportIssuedBy(dto.getPassportIssuedBy())
+                .setPassportIssuedAt(dto.getPassportIssuedAt() != null && !dto.getPassportIssuedAt().isEmpty() ?
+                        LocalDate.parse(dto.getPassportIssuedAt(), formatter).atStartOfDay().toInstant(ZoneOffset.UTC) :
+                        null)
+                .setEducationType(dto.getEducationType())
+                .setEducationDocument(dto.getEducationDocument())
+                .setEducationDocumentIssuedAt(dto.getEducationDocumentIssuedAt() != null && !dto.getEducationDocumentIssuedAt().isEmpty()?
+                        LocalDate.parse(dto.getEducationDocumentIssuedAt(), formatter).atStartOfDay().toInstant(ZoneOffset.UTC) :
+                        null);
+
+        listenerRepository.save(listener);
+
+    }
+
+    private void checkSnilsFree(ListenerDTO listenerDTO) throws SnilsAlreadyRegisteredException {
+        if(listenerDTO.getSnils()!= null && !listenerDTO.getSnils().isEmpty()){
+            if(listenerRepository.existsBySnils(listenerDTO.getSnils())){
+                throw new SnilsAlreadyRegisteredException();
+            }
         }
     }
 

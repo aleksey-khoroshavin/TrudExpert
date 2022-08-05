@@ -126,36 +126,67 @@
 
         <div class="form-group">
             <label for="inputCitizenshipCode">Гражданство получателя (код страны по ОКСМ). По умолчанию №643 (Россия)</label>
-            <input type="text" name="citizenshipCode" class="form-control" id="inputCitizenshipCode" placeholder="Код страны по ОКСМ" value="643">
+            <input type="text" name="citizenshipCode" class="form-control" id="inputCitizenshipCode" placeholder="Код страны по ОКСМ"
+                    <#if type == 'edit'>
+                        value="${listener.citizenshipCode}"
+                    </#if>
+                    <#if type == 'add'>
+                        value="643"
+                    </#if>
+                   >
         </div>
 
         <div class="form-group">
             <label for="inputDriverLicense">Водительское удостоверение. (При наличии)</label>
-            <input type="text" name="driverLicense" class="form-control" id="inputDriverLicense" placeholder="Номер, кем выдано, дата выдачи, категория(-и), стаж(при необходимости)">
+            <input type="text" name="driverLicense" class="form-control" id="inputDriverLicense" placeholder="Номер, кем выдано, дата выдачи, категория(-и), стаж(при необходимости)"
+                    <#if type == 'edit'>
+                        value="${listener.driverLicense}"
+                    </#if>
+            >
         </div>
 
         <div class="form-group">
             <label for="inputAddress">Адрес регистрации</label>
-            <input type="text" class="form-control" name="address" id="inputAddress" placeholder="Почтовый индекс, Город, Улица, Дом, Квартира">
+            <input type="text" class="form-control" name="address" id="inputAddress" placeholder="Почтовый индекс, Город, Улица, Дом, Квартира"
+                    <#if type == 'edit'>
+                        value="${listener.address}"
+                    </#if>
+            >
         </div>
 
         <label for="passportForm"><b>Паспортные данные</b></label>
         <div class="form-row" id="passportForm">
             <div class="form-group col-md-2">
                 <label for="inputPassportSeries">Серия</label>
-                <input type="text" name="passportSeries" class="form-control" id="inputPassportSeries" placeholder="Серия">
+                <input type="text" name="passportSeries" class="form-control" id="inputPassportSeries" placeholder="Серия"
+                        <#if type == 'edit'>
+                            value="${listener.passportSeries}"
+                        </#if>
+                >
             </div>
             <div class="form-group col-md-2">
                 <label for="inputPassportNumber">Номер</label>
-                <input type="text" name="passportNumber" class="form-control" id="inputPassportNumber" placeholder="Номер">
+                <input type="text" name="passportNumber" class="form-control" id="inputPassportNumber" placeholder="Номер"
+                        <#if type == 'edit'>
+                            value="${listener.passportNumber}"
+                        </#if>
+                >
             </div>
             <div class="form-group col-md-8">
                 <label for="inputPassportIssuedBy">Кем выдан</label>
-                <input type="text" name="passportIssuedBy" class="form-control" id="inputPassportIssuedBy" placeholder="Кем выдан">
+                <input type="text" name="passportIssuedBy" class="form-control" id="inputPassportIssuedBy" placeholder="Кем выдан"
+                        <#if type == 'edit'>
+                            value="${listener.passportIssuedBy}"
+                        </#if>
+                >
             </div>
             <div class="form-group col-md-2">
                 <label for="inputIssuedDate">Дата выдачи</label>
-                <input id="inputIssuedDate" class="form-control" type="date" name="passportIssuedAt"/>
+                <input id="inputIssuedDate" class="form-control" type="date" name="passportIssuedAt"
+                        <#if type == 'edit'>
+                            value="${listener.passportIssuedAt!""}"
+                        </#if>
+                />
                 <i class="fas fa-calendar input-prefix"></i>
             </div>
         </div>
@@ -165,21 +196,52 @@
             <div class="form-group col-md-8">
             <label for="educationTypeSelect">Тип образования</label>
             <select class="form-control" id="educationTypeSelect" name="educationType">
-                <option>Высшеее</option>
-                <option>Средне профессиональное</option>
-                <option>Среднее общее</option>
-                <option>Основное общее</option>
+                <option <#if type == 'edit'>
+                            <#if "${listener.educationType}" == 'Высшее'>
+                                selected
+                            </#if>
+                        </#if>
+                >Высшеее</option>
+                <option
+                        <#if type == 'edit'>
+                            <#if "${listener.educationType}" == 'Средне профессиональное'>
+                                selected
+                            </#if>
+                        </#if>
+                >Средне профессиональное</option>
+                <option
+                        <#if type == 'edit'>
+                            <#if "${listener.educationType}" == 'Среднее общее'>
+                                selected
+                            </#if>
+                        </#if>
+                >Среднее общее</option>
+                <option
+                        <#if type == 'edit'>
+                            <#if "${listener.educationType}" == 'Основное общее'>
+                                selected
+                            </#if>
+                        </#if>
+                >Основное общее</option>
             </select>
             </div>
 
             <div class="form-group col-md-8">
             <label for="inputEducation">Документ об образовании</label>
-            <input type="text" name="educationDocument" class="form-control" id="inputEducation" placeholder="Серия, номер документа">
+            <input type="text" name="educationDocument" class="form-control" id="inputEducation" placeholder="Серия, номер документа"
+                    <#if type == 'edit'>
+                        value="${listener.educationDocument}"
+                    </#if>
+            >
             </div>
 
             <div class="form-group col-md-2">
             <label for="inputIssuedEducationDate">Дата выдачи</label>
-            <input id="inputIssuedEducationDate" class="form-control" type="date" name="educationDocumentIssuedAt"/>
+            <input id="inputIssuedEducationDate" class="form-control" type="date" name="educationDocumentIssuedAt"
+                    <#if type == 'edit'>
+                        value="${listener.educationDocumentIssuedAt!""}"
+                    </#if>
+            />
             <i class="fas fa-calendar input-prefix"></i>
             </div>
 
@@ -227,6 +289,34 @@
                         form.reset();
                         resultMessage.style.visibility = 'visible';
                         resultMessage.textContent = "Слушатель успешно добавлен в систему";
+                    } else {
+                        resultMessage.className = "alert alert-danger";
+                        resultMessage.style.visibility = 'visible';
+                        resultMessage.textContent = JSON.parse(xhr.responseText)["message"];
+                    }
+                }
+            }
+
+            return false;
+        }
+        </#if>
+
+        <#if type == 'edit'>
+        form.onsubmit = function (event) {
+            const xhr = new XMLHttpRequest();
+            const formData = new FormData(form);
+
+            xhr.open('POST', '/trudexpert/listener/update?listener_id=${listener.id}');
+            xhr.setRequestHeader("Content-Type", "application/json");
+
+            xhr.send(JSON.stringify(Object.fromEntries(formData)));
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        form.reset();
+                        resultMessage.style.visibility = 'visible';
+                        resultMessage.textContent = "Данные слушателя успешно обновлены";
                     } else {
                         resultMessage.className = "alert alert-danger";
                         resultMessage.style.visibility = 'visible';

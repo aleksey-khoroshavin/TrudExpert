@@ -18,6 +18,9 @@ public class ListenerDTO {
     private static final String PATTERN_FORMAT = "yyyy-MM-dd";
 
     @NotNull
+    private Long id;
+
+    @NotNull
     private String surname;
 
     @NotNull
@@ -66,6 +69,7 @@ public class ListenerDTO {
                 .withZone(ZoneId.systemDefault());
 
         return new ListenerDTO()
+                .setId(listener.getId())
                 .setSurname(listener.getSurname())
                 .setName(listener.getName())
                 .setPatronymic(listener.getPatronymic())

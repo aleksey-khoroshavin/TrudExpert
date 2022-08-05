@@ -35,7 +35,7 @@ public class ListenerController {
     public ResponseEntity<String> registerListener(
             @RequestBody ListenerDTO listenerDTO
     ) throws SnilsAlreadyRegisteredException, ListenerAlreadyRegisteredException {
-        listenerService.createListener(listenerDTO);
+        listenerService.saveListener(listenerDTO);
         return ResponseEntity.ok("Created");
     }
 
@@ -63,5 +63,15 @@ public class ListenerController {
         model.addAttribute("listener", listenerDTO);
 
         return "/listeners/listener_info";
+    }
+
+    @PostMapping("/update")
+    public ResponseEntity<String> updateListener(
+            @RequestParam(name = "listener_id") Long listenerId,
+            @RequestBody ListenerDTO listenerDTO
+    ) throws SnilsAlreadyRegisteredException, ListenerNotFoundException {
+        listenerDTO.setId(listenerId);
+        listenerService.updateListener(listenerDTO);
+        return ResponseEntity.ok("Updated");
     }
 }
