@@ -34,7 +34,7 @@
                     <td>${listener.patronymic}</td>
                     <td>${listener.dateOfBirth}</td>
                     <td>
-                        <a href="/trudexpert/listener/edit">Редактировать</a>
+                        <a href="/trudexpert/listener/edit?id=${listener.id}">Редактировать</a>
                     </td>
                 </tr>
             <#else>

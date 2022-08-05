@@ -6,6 +6,7 @@ import ru.trudexpert.server.dto.ListenerDTO;
 import ru.trudexpert.server.dto.ListenerShortInfoDTO;
 import ru.trudexpert.server.entity.Listener;
 import ru.trudexpert.server.exception.ListenerAlreadyRegisteredException;
+import ru.trudexpert.server.exception.ListenerNotFoundException;
 import ru.trudexpert.server.exception.SnilsAlreadyRegisteredException;
 import ru.trudexpert.server.repository.ListenerRepository;
 import javax.transaction.Transactional;
@@ -79,6 +80,14 @@ public class ListenerService {
                 .stream()
                 .map(ListenerShortInfoDTO::getFromEntity)
                 .collect(Collectors.toList());
+    }
+
+    public ListenerDTO getListenerById(Long id) throws ListenerNotFoundException {
+        Listener listener = listenerRepository.findById(id).orElse(null);
+        if(listener == null){
+            throw new ListenerNotFoundException();
+        }
+        return ListenerDTO.getFromEntity(listener);
     }
 
 }

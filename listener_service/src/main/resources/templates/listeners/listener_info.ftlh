@@ -18,7 +18,7 @@
             <i>Спасибо за понимание:)</i>
         </div>
         <#elseif type == 'edit'>
-            <h5>Изменение данных слушателя</h5>
+            <h5>Изменение данных слушателя: ${listener.surname} ${listener.name} ${listener.patronymic}</h5>
             <div>
                 Форма данных аналогична форме добавления новых слушателей. При изменении полей <b>ФИО и даты рождения</b> учитывайте,<br>
                 что их <b>отсутсвтие не позволит вам сохранить пользователя</b> в системе!<br><br>
@@ -30,21 +30,36 @@
         <div class="form-row">
             <div class="form-group col">
                 <label for="inputSurname">Фамилия</label>
-                <input type="text" name="surname" class="form-control" id="inputSurname" placeholder="Фамилия" required>
+                <input type="text" name="surname" class="form-control" id="inputSurname" placeholder="Фамилия" required
+                        <#if type == 'edit'>
+                            value="${listener.surname}"
+                        </#if>
+                >
             </div>
             <div class="form-group col">
                 <label for="inputName">Имя</label>
-                <input type="text" name="name" class="form-control" id="inputName" placeholder="Имя" required>
+                <input type="text" name="name" class="form-control" id="inputName" placeholder="Имя" required
+                        <#if type == 'edit'>
+                            value="${listener.name}"
+                        </#if>
+                >
             </div>
             <div class="form-group col">
                 <label for="inputPatronymic">Отчество</label>
-                <input type="text" name="patronymic" class="form-control" id="inputPatronymic" placeholder="Отчество (при наличии)">
+                <input type="text" name="patronymic" class="form-control" id="inputPatronymic" placeholder="Отчество (при наличии)"
+                        <#if type == 'edit'>
+                            value="${listener.patronymic}"
+                        </#if>>
             </div>
 
             <div class="form-group col-sm-2">
                 <div id="date-picker-example" class="md-form md-outline input-with-post-icon datepicker" inline="true">
                     <label for="inputDateOfBirth">Дата рождения</label>
-                    <input id="inputDateOfBirth" name="dateOfBirth" class="form-control" type="date" required/>
+                    <input id="inputDateOfBirth" name="dateOfBirth" class="form-control" type="date" required
+                            <#if type == 'edit'>
+                                value="${listener.dateOfBirth}"
+                            </#if>
+                    />
                     <i class="fas fa-calendar input-prefix"></i>
                 </div>
             </div>
@@ -52,7 +67,10 @@
 
         <div class="form-group">
             <label for="inputSnils">СНИЛС</label>
-            <input type="text" name="snils" class="form-control" id="inputSnils" placeholder="СНИЛС">
+            <input type="text" name="snils" class="form-control" id="inputSnils" placeholder="СНИЛС"
+                    <#if type == 'edit'>
+                        value="${listener.snils}"
+                    </#if>>
         </div>
 
         <fieldset class="form-group">
@@ -60,13 +78,29 @@
                 <legend class="col-form-label col-sm-1 pt-0">Пол</legend>
                 <div class="col-sm-10">
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="gender" id="male" value="Мужской" checked>
+                        <input class="form-check-input" type="radio" name="gender" id="male" value="Мужской"
+                                <#if type == 'edit'>
+                                    <#if "${listener.gender}" == "Мужской">
+                                        checked
+                                    </#if>
+                                </#if>
+
+                                <#if type == 'add'>
+                                    checked
+                                </#if>
+                        >
                         <label class="form-check-label" for="male">
                             Мужской
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="gender" id="female" value="Женский">
+                        <input class="form-check-input" type="radio" name="gender" id="female" value="Женский"
+                                <#if type == 'edit'>
+                                    <#if "${listener.gender}" == "Женский">
+                                        checked
+                                    </#if>
+                                </#if>
+                        >
                         <label class="form-check-label" for="female">
                             Женский
                         </label>
@@ -81,7 +115,11 @@
                 <div class="input-group-prepend">
                     <div class="input-group-text">+7</div>
                 </div>
-                    <input type="tel" name="phoneNumber"  class="form-control" placeholder="(___)-___-__-__"/>
+                    <input type="tel" name="phoneNumber"  class="form-control" placeholder="(___)-___-__-__"
+                            <#if type == 'edit'>
+                                value="${listener.phoneNumber}"
+                            </#if>
+                    />
             </div>
 
         </div>
@@ -148,7 +186,13 @@
         </div>
 
         <div class="form-group">
-            <button type="submit" class="btn btn-primary">Добавить слушателя</button>
+            <button type="submit" class="btn btn-primary">
+                <#if type == 'add'>
+                    Добавить слушателя
+                    <#elseif type == 'edit'>
+                    Сохранить изменения
+                </#if>
+            </button>
         </div>
 
         <div class="alert alert-success" role="alert" style="visibility: hidden" id="resultMessage">

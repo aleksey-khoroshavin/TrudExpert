@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.trudexpert.server.dto.ListenerDTO;
 import ru.trudexpert.server.dto.ListenerShortInfoDTO;
 import ru.trudexpert.server.exception.ListenerAlreadyRegisteredException;
+import ru.trudexpert.server.exception.ListenerNotFoundException;
 import ru.trudexpert.server.exception.SnilsAlreadyRegisteredException;
 import ru.trudexpert.server.service.ListenerService;
 
@@ -55,8 +56,12 @@ public class ListenerController {
     }
 
     @GetMapping("/edit")
-    public String openListenerEditForm(Model model){
+    public String openListenerEditForm(@RequestParam(name = "id") Long id, Model model) throws ListenerNotFoundException {
         model.addAttribute("type", "edit");
+
+        ListenerDTO listenerDTO = listenerService.getListenerById(id);
+        model.addAttribute("listener", listenerDTO);
+
         return "/listeners/listener_info";
     }
 }

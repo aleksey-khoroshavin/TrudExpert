@@ -18,6 +18,9 @@ public class ListenerShortInfoDTO {
     private static final String PATTERN_FORMAT = "dd.MM.yyyy";
 
     @NotNull
+    private Long id;
+
+    @NotNull
     private String surname;
 
     @NotNull
@@ -38,6 +41,7 @@ public class ListenerShortInfoDTO {
                 .withZone(ZoneId.systemDefault());
 
         return new ListenerShortInfoDTO()
+                .setId(listener.getId())
                 .setSurname(listener.getSurname())
                 .setName(listener.getName())
                 .setPatronymic(listener.getPatronymic())
