@@ -1,14 +1,12 @@
 package ru.trudexpert.server.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.trudexpert.server.dto.ListenerDTO;
 import ru.trudexpert.server.dto.ListenerShortInfoDTO;
-import ru.trudexpert.server.entity.Listener;
 import ru.trudexpert.server.exception.ListenerAlreadyRegisteredException;
 import ru.trudexpert.server.exception.SnilsAlreadyRegisteredException;
 import ru.trudexpert.server.service.ListenerService;
@@ -27,8 +25,9 @@ public class ListenerController {
     }
 
     @GetMapping("/add")
-    public String openListenerForm(){
-        return "/listeners/listener_add";
+    public String openListenerAddForm(Model model){
+        model.addAttribute("type", "add");
+        return "/listeners/listener_info";
     }
 
     @PostMapping("/add")
@@ -53,5 +52,11 @@ public class ListenerController {
         model.addAttribute("surname", surname);
 
         return "/listeners/listener_search";
+    }
+
+    @GetMapping("/edit")
+    public String openListenerEditForm(Model model){
+        model.addAttribute("type", "edit");
+        return "/listeners/listener_info";
     }
 }

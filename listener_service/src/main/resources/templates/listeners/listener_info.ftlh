@@ -1,21 +1,30 @@
 <#import "../parts/commons/common_listener.ftlh" as c>
 
 <@c.page>
-    <h5>Данные нового слушателя</h5>
-    <div>
-        Администрация с пониманием относится к человеческим факторам, поэтому какие-то поля <b>могут быть не указаны</b>.<br>
-        Заполнение недостающих полей лежит на сотрудниках организации. Без них вы <b>не сможете сформировать договоры!</b><br>
-        Внести данные можно будет в профиле конкрентого слушателя.<br>
-        Для этого используйте подраздел <b><i>"Найти слушателя"</i></b>.<br><br>
-    </div>
+    <#if type == 'add'>
+        <h5>Данные нового слушателя</h5>
+        <div>
+            Администрация с пониманием относится к человеческим факторам, поэтому какие-то поля <b>могут быть не указаны</b>.<br>
+            Заполнение недостающих полей лежит на сотрудниках организации. Без них вы <b>не сможете сформировать договоры!</b><br>
+            Внести данные можно будет в профиле конкрентого слушателя.<br>
+            Для этого используйте подраздел <b><i>"Найти слушателя"</i></b>.<br><br>
+        </div>
 
-    <div>
-        P.s. Поля <b><i>"ФИО"</i></b> и <b><i>"Дата рождения"</i></b> заполняются в <b>ОБЯЗАТЕЛЬНОМ ПОРЯДКЕ</b>, иначе система не сможет найти этих людей!
-    </div>
+        <div>
+            P.s. Поля <b><i>"ФИО"</i></b> и <b><i>"Дата рождения"</i></b> заполняются в <b>ОБЯЗАТЕЛЬНОМ ПОРЯДКЕ</b>, иначе система не сможет найти этих людей!
+        </div>
 
-    <div class="text mb-3">
-        <i>Спасибо за понимание:)</i>
-    </div>
+        <div class="text mb-3">
+            <i>Спасибо за понимание:)</i>
+        </div>
+        <#elseif type == 'edit'>
+            <h5>Изменение данных слушателя</h5>
+            <div>
+                Форма данных аналогична форме добавления новых слушателей. При изменении полей <b>ФИО и даты рождения</b> учитывайте,<br>
+                что их <b>отсутсвтие не позволит вам сохранить пользователя</b> в системе!<br><br>
+            </div>
+    </#if>
+
 
     <form id="addListenerForm">
         <div class="form-row">
@@ -158,7 +167,8 @@
             e.target.value =  !x[2] ? x[1] : '(' + x[1] + ')-' + x[2] + (x[3] ? '-' + x[3] : '') + (x[4] ? '-' + x[4] : '');
         });
 
-        form.onsubmit = function (event){
+        <#if type == 'add'>
+        form.onsubmit = function (event) {
             const xhr = new XMLHttpRequest();
             const formData = new FormData(form);
 
@@ -167,13 +177,13 @@
 
             xhr.send(JSON.stringify(Object.fromEntries(formData)));
 
-            xhr.onreadystatechange = function (){
-                if(xhr.readyState === XMLHttpRequest.DONE){
-                    if(xhr.status === 200){
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
                         form.reset();
                         resultMessage.style.visibility = 'visible';
                         resultMessage.textContent = "Слушатель успешно добавлен в систему";
-                    }else {
+                    } else {
                         resultMessage.className = "alert alert-danger";
                         resultMessage.style.visibility = 'visible';
                         resultMessage.textContent = JSON.parse(xhr.responseText)["message"];
@@ -183,6 +193,8 @@
 
             return false;
         }
+        </#if>
+
 
     </script>
 </@c.page>
