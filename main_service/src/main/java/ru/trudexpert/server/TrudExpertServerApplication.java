@@ -4,6 +4,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
+//http://localhost:8080/trudexpert/main - (nginx)
+
 @EnableWebMvc
 @SpringBootApplication
 public class TrudExpertServerApplication {
