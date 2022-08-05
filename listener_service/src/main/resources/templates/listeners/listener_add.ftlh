@@ -17,7 +17,7 @@
         <i>Спасибо за понимание:)</i>
     </div>
 
-    <form method="post" action="/trudexpert/listener/add" id="addListenerForm">
+    <form id="addListenerForm">
         <div class="form-row">
             <div class="form-group col">
                 <label for="inputSurname">Фамилия</label>
@@ -142,10 +142,16 @@
             <button type="submit" class="btn btn-primary">Добавить слушателя</button>
         </div>
 
+        <div class="alert alert-success" role="alert" style="visibility: hidden" id="resultMessage">
+        </div>
+
     </form>
 
     <script>
         const form = document.getElementById('addListenerForm');
+
+        const resultMessage = document.getElementById('resultMessage');
+
 
         document.getElementById('typePhone').addEventListener('input', function (e) {
             const x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,2})(\d{0,2})/);
@@ -163,11 +169,20 @@
 
             xhr.onreadystatechange = function (){
                 if(xhr.readyState === XMLHttpRequest.DONE){
-                    form.reset();
+                    if(xhr.status === 200){
+                        form.reset();
+                        resultMessage.style.visibility = 'visible';
+                        resultMessage.textContent = "Слушатель успешно добавлен в систему";
+                    }else {
+                        resultMessage.className = "alert alert-danger";
+                        resultMessage.style.visibility = 'visible';
+                        resultMessage.textContent = JSON.parse(xhr.responseText)["message"];
+                    }
                 }
             }
 
             return false;
         }
+
     </script>
 </@c.page>
