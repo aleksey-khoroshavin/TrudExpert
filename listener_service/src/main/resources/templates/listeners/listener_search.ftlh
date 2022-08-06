@@ -17,33 +17,33 @@
     </div>
 
     <div>
-        <table class="table table-bordered mt-5">
-            <thead>
-            <tr>
-                <th scope="col">Фамилия</th>
-                <th scope="col">Имя</th>
-                <th scope="col">Отчество</th>
-                <th scope="col">Дата рождения</th>
-                <th scope="col">Действие</th>
-            </tr>
-            </thead>
-            <#list listeners as listener>
+        <#if listeners??>
+            <table class="table table-bordered mt-5">
+                <thead>
                 <tr>
-                    <td>${listener.surname}</td>
-                    <td>${listener.name}</td>
-                    <td>${listener.patronymic}</td>
-                    <td>${listener.dateOfBirth}</td>
-                    <td>
-                        <a href="/trudexpert/listener/edit?id=${listener.id}">Редактировать</a>
-                    </td>
+                    <th scope="col">Фамилия</th>
+                    <th scope="col">Имя</th>
+                    <th scope="col">Отчество</th>
+                    <th scope="col">Дата рождения</th>
+                    <th scope="col">Действие</th>
                 </tr>
+                </thead>
+                <#list listeners as listener>
+                    <tr>
+                        <td>${listener.surname}</td>
+                        <td>${listener.name}</td>
+                        <td>${listener.patronymic}</td>
+                        <td>${listener.dateOfBirth}</td>
+                        <td>
+                            <a href="/trudexpert/listener/edit?id=${listener.id}">Редактировать</a>
+                        </td>
+                    </tr>
+                </#list>
+            </table>
             <#else>
-                <td>Не найдено</td>
-                <td>Не найдено</td>
-                <td>Не найдено</td>
-                <td>Не найдено</td>
-            </#list>
-        </table>
+            <div><br>Не найдено слушателей в системе</div>
+        </#if>
+
     </div>
 
 </@c.page>
