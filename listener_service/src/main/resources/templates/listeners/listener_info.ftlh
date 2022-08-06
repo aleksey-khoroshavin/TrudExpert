@@ -314,7 +314,6 @@
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === XMLHttpRequest.DONE) {
                     if (xhr.status === 200) {
-                        form.reset();
                         resultMessage.style.visibility = 'visible';
                         resultMessage.textContent = "Данные слушателя успешно обновлены";
                     } else {
