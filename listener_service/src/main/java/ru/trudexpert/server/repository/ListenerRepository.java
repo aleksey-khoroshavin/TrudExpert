@@ -8,7 +8,6 @@ import ru.trudexpert.server.entity.Listener;
 
 import java.time.Instant;
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface ListenerRepository extends JpaRepository<Listener, Long> {

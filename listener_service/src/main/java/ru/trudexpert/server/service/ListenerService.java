@@ -15,7 +15,6 @@ import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -72,10 +71,11 @@ public class ListenerService {
     }
 
     private void checkSnilsFree(ListenerDTO listenerDTO) throws SnilsAlreadyRegisteredException {
-        if(listenerDTO.getSnils()!= null && !listenerDTO.getSnils().isEmpty()){
-            if(listenerRepository.existsBySnils(listenerDTO.getSnils())){
-                throw new SnilsAlreadyRegisteredException();
-            }
+        if (
+                listenerDTO.getSnils() != null
+                        && !listenerDTO.getSnils().isEmpty()
+                        && listenerRepository.existsBySnils(listenerDTO.getSnils())) {
+            throw new SnilsAlreadyRegisteredException();
         }
     }
 
@@ -110,14 +110,14 @@ public class ListenerService {
         return listenerRepository.findAllBySurname(surname)
                 .stream()
                 .map(ListenerShortInfoDTO::getFromEntity)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public List<ListenerShortInfoDTO> getListeners(){
         return listenerRepository.findAll()
                 .stream()
                 .map(ListenerShortInfoDTO::getFromEntity)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public ListenerDTO getListenerById(Long id) throws ListenerNotFoundException {

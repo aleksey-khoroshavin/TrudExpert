@@ -1,6 +1,5 @@
 package ru.trudexpert.server.dto;
 
-import com.sun.istack.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,29 +16,22 @@ import java.time.format.DateTimeFormatter;
 public class ListenerDTO {
     private static final String PATTERN_FORMAT = "yyyy-MM-dd";
 
-    @NotNull
     private Long id;
 
-    @NotNull
     private String surname;
 
-    @NotNull
     private String name;
 
-    @NotNull
     private String patronymic;
 
-    @NotNull
     private String dateOfBirth;
 
     private String snils;
 
-    @NotNull
     private String gender;
 
     private String phoneNumber;
 
-    @NotNull
     private Long citizenshipCode;
 
     private String driverLicense;
