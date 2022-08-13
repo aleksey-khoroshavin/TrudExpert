@@ -43,7 +43,7 @@ public class Organization {
     private String checkingAccount;
 
     @Column(name = "correspondent_account", columnDefinition = "TEXT")
-    private String correspondent_account;
+    private String correspondentAccount;
 
     @Column(name = "email", precision = 50)
     private String email;
