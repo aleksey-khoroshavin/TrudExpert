@@ -49,7 +49,10 @@ public class ListenerController {
             listeners = listenerService.getListeners();
         }
 
-        model.addAttribute("listeners", listeners);
+        if(!listeners.isEmpty()){
+            model.addAttribute("listeners", listeners);
+        }
+
         model.addAttribute("surname", surname);
 
         return "/listeners/listener_search";
