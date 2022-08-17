@@ -12,6 +12,9 @@
             <li class="nav-item" >
                 <a class="nav-link" href="/trudexpert/organization/add"><i>Добавить организацию</i></a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/trudexpert/listener/search"><i>Список организаций</i></a>
+            </li>
 
         </ul>
     </div>
