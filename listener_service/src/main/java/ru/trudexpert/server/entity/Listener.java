@@ -26,40 +26,40 @@ public class Listener {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "surname", precision = 100)
+    @Column(name = "surname", columnDefinition = "varchar(100)")
     private String surname;
 
-    @Column(name = "name", precision = 80)
+    @Column(name = "name", columnDefinition = "varchar(80)")
     private String name;
 
-    @Column(name = "patronymic", precision = 150)
+    @Column(name = "patronymic", columnDefinition = "varchar(100)")
     private String patronymic;
 
     @Column(name = "date_of_birth", columnDefinition = "date")
     private Instant dateOfBirth;
 
-    @Column(name = "snils", precision = 50)
+    @Column(name = "snils", columnDefinition = "varchar(50)")
     private String snils;
 
-    @Column(name = "gender", precision = 50)
+    @Column(name = "gender", columnDefinition = "varchar(50)")
     private String gender;
 
-    @Column(name = "phone_number", precision = 100)
+    @Column(name = "phone_number", columnDefinition = "varchar(100)")
     private String phoneNumber;
 
     @Column(name = "citizenship_code")
     private Long citizenshipCode;
 
-    @Column(name = "driver_license", precision = 50)
+    @Column(name = "driver_license", columnDefinition = "varchar(50)")
     private String driverLicense;
 
     @Column(name = "address", columnDefinition = "TEXT")
     private String address;
 
-    @Column(name = "passport_series", precision = 50)
+    @Column(name = "passport_series", columnDefinition = "varchar(50)")
     private String passportSeries;
 
-    @Column(name = "passport_number", precision = 70)
+    @Column(name = "passport_number", columnDefinition = "varchar(70)")
     private String passportNumber;
 
     @Column(name = "passport_issued_by", columnDefinition = "TEXT")
