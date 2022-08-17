@@ -18,13 +18,13 @@ public class OrganizationAgent {
     @Column(name = "organization_id")
     private Long id;
 
-    @Column(name = "surname", precision = 100)
+    @Column(name = "surname", columnDefinition = "varchar(100)")
     private String surname;
 
-    @Column(name = "name", precision = 80)
+    @Column(name = "name", columnDefinition = "varchar(80)")
     private String name;
 
-    @Column(name = "patronymic", precision = 100)
+    @Column(name = "patronymic", columnDefinition = "varchar(100)")
     private String patronymic;
 
     @Column(name = "document", columnDefinition = "TEXT")

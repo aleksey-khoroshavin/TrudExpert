@@ -27,16 +27,16 @@ public class Organization {
     @Column(name = "fact_address", columnDefinition = "TEXT")
     private String factAddress;
 
-    @Column(name = "phone", precision = 50)
+    @Column(name = "phone", columnDefinition = "varchar(50)")
     private String phone;
 
-    @Column(name = "INN", precision = 50)
+    @Column(name = "INN", columnDefinition = "varchar(50)")
     private String inn;
 
-    @Column(name = "KPP", precision = 50)
+    @Column(name = "KPP", columnDefinition = "varchar(50)")
     private String kpp;
 
-    @Column(name = "ORGN", precision = 50)
+    @Column(name = "ORGN", columnDefinition = "varchar(50)")
     private String orgn;
 
     @Column(name = "checking_account", columnDefinition = "TEXT")
@@ -45,13 +45,17 @@ public class Organization {
     @Column(name = "correspondent_account", columnDefinition = "TEXT")
     private String correspondentAccount;
 
-    @Column(name = "email", precision = 50)
+    @Column(name = "email", columnDefinition = "varchar(50)")
     private String email;
 
-    @Column(name = "BIK", precision = 50)
+    @Column(name = "BIK", columnDefinition = "varchar(50)")
     private String bik;
+
+    @Column(name = "OKPO", columnDefinition = "varchar(50)")
+    private String okpo;
 
     @OneToOne(mappedBy = "organization", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
     private OrganizationAgent organizationAgent;
+
 }
