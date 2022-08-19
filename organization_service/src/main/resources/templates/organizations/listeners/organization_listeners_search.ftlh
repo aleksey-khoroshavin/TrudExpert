@@ -1,4 +1,4 @@
-<#import "../parts/commons/common_listener.ftlh" as c>
+<#import "../../parts/commons/common_listener.ftlh" as c>
 
 <@c.page>
     <h5>Поиск слушателей</h5>

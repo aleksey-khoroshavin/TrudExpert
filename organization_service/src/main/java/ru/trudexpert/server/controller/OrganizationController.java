@@ -1,10 +1,16 @@
 package ru.trudexpert.server.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import ru.trudexpert.server.dto.OrganizationDTO;
+import ru.trudexpert.server.exception.NoOrganizationNameException;
+import ru.trudexpert.server.exception.OrganizationAlreadyRegisteredException;
 import ru.trudexpert.server.service.OrganizationService;
 
 @Controller
@@ -25,17 +31,12 @@ public class OrganizationController {
         return "organizations/organization_info";
     }
 
-//    @GetMapping("/add/agent")
-//    public String openOrganizationAgentForm(){
-//        //TODO:create html page for this form
-//    }
-//
-//    @GetMapping("/add/listeners")
-//    public String openOrganizationListenersPage(){
-//        //TODO:create html page for this table
-//    }
-
-
+    @PostMapping("/add")
+    public ResponseEntity<String> registerOrganization(
+            @RequestBody OrganizationDTO dto) throws OrganizationAlreadyRegisteredException, NoOrganizationNameException {
+        organizationService.createOrganization(dto);
+        return ResponseEntity.ok("Created");
+    }
 
 
 

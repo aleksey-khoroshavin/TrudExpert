@@ -1,6 +1,5 @@
 package ru.trudexpert.server.dto;
 
-import com.sun.istack.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,16 +16,14 @@ import java.time.format.DateTimeFormatter;
 public class ListenerShortInfoDTO {
     private static final String PATTERN_FORMAT = "dd.MM.yyyy";
 
-    @NotNull
+    private Long id;
+
     private String surname;
 
-    @NotNull
     private String name;
 
-    @NotNull
     private String patronymic;
 
-    @NotNull
     private String dateOfBirth;
 
     public static ListenerShortInfoDTO getFromEntity(Listener listener){
@@ -38,6 +35,7 @@ public class ListenerShortInfoDTO {
                 .withZone(ZoneId.systemDefault());
 
         return new ListenerShortInfoDTO()
+                .setId(listener.getId())
                 .setSurname(listener.getSurname())
                 .setName(listener.getName())
                 .setPatronymic(listener.getPatronymic())

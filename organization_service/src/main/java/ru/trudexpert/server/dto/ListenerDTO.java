@@ -1,6 +1,5 @@
 package ru.trudexpert.server.dto;
 
-import com.sun.istack.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,57 +14,42 @@ import java.time.format.DateTimeFormatter;
 @Accessors(chain = true)
 @NoArgsConstructor
 public class ListenerDTO {
-    private static final String PATTERN_FORMAT = "dd.MM.yyyy";
+    private static final String PATTERN_FORMAT = "yyyy-MM-dd";
 
-    @NotNull
+    private Long id;
+
     private String surname;
 
-    @NotNull
     private String name;
 
-    @NotNull
     private String patronymic;
 
-    @NotNull
     private String dateOfBirth;
 
-    @NotNull
     private String snils;
 
-    @NotNull
     private String gender;
 
-    @NotNull
     private String phoneNumber;
 
-    @NotNull
     private Long citizenshipCode;
 
-    @NotNull
     private String driverLicense;
 
-    @NotNull
     private String address;
 
-    @NotNull
     private String passportSeries;
 
-    @NotNull
     private String passportNumber;
 
-    @NotNull
     private String passportIssuedBy;
 
-    @NotNull
     private String passportIssuedAt;
 
-    @NotNull
     private String educationType;
 
-    @NotNull
     private String educationDocument;
 
-    @NotNull
     private String educationDocumentIssuedAt;
 
     public static ListenerDTO getFromEntity(Listener listener){
@@ -77,22 +61,25 @@ public class ListenerDTO {
                 .withZone(ZoneId.systemDefault());
 
         return new ListenerDTO()
+                .setId(listener.getId())
                 .setSurname(listener.getSurname())
                 .setName(listener.getName())
                 .setPatronymic(listener.getPatronymic())
                 .setDateOfBirth(formatter.format(listener.getDateOfBirth()))
                 .setSnils(listener.getSnils())
                 .setGender(listener.getGender())
-                .setPhoneNumber(listener.getPhoneNumber())
+                .setPhoneNumber(listener.getPhoneNumber().substring(3))
                 .setCitizenshipCode(listener.getCitizenshipCode())
                 .setDriverLicense(listener.getDriverLicense())
                 .setAddress(listener.getAddress())
                 .setPassportSeries(listener.getPassportSeries())
                 .setPassportNumber(listener.getPassportNumber())
                 .setPassportIssuedBy(listener.getPassportIssuedBy())
-                .setPassportIssuedAt(formatter.format(listener.getPassportIssuedAt()))
+                .setPassportIssuedAt(listener.getPassportIssuedAt() != null ?
+                        formatter.format(listener.getPassportIssuedAt()) : null)
                 .setEducationType(listener.getEducationType())
                 .setEducationDocument(listener.getEducationDocument())
-                .setEducationDocumentIssuedAt(formatter.format(listener.getEducationDocumentIssuedAt()));
+                .setEducationDocumentIssuedAt(listener.getEducationDocumentIssuedAt() != null ?
+                        formatter.format(listener.getEducationDocumentIssuedAt()) : null);
     }
 }

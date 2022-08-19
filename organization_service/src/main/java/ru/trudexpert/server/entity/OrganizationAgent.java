@@ -37,4 +37,6 @@ public class OrganizationAgent {
     @MapsId
     @JoinColumn(name = "organization_id")
     private Organization organization;
+
+
 }

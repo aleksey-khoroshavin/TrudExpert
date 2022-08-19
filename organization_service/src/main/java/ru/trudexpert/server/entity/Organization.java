@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import ru.trudexpert.server.dto.OrganizationDTO;
 
 import javax.persistence.*;
 
@@ -58,4 +59,23 @@ public class Organization {
     @PrimaryKeyJoinColumn
     private OrganizationAgent organizationAgent;
 
+    public static Organization getFromDTO(OrganizationDTO dto){
+        if(dto == null){
+            return null;
+        }
+
+        return new Organization()
+                .setName(dto.getOrganizationName())
+                .setLawAddress(dto.getLawAddress())
+                .setFactAddress(dto.getFactAddress())
+                .setPhone(dto.getPhone())
+                .setInn(dto.getInn())
+                .setKpp(dto.getKpp())
+                .setOrgn(dto.getOrgn())
+                .setCheckingAccount(dto.getCheckingAccount())
+                .setCorrespondentAccount(dto.getCorrespondentAccount())
+                .setEmail(dto.getEmail())
+                .setBik(dto.getBik())
+                .setOkpo(dto.getOkpo());
+    }
 }
