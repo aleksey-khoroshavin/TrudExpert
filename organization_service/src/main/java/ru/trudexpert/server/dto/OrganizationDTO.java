@@ -11,8 +11,6 @@ import lombok.experimental.Accessors;
 @NoArgsConstructor
 public class OrganizationDTO {
 
-    private Long id;
-
     private String organizationName;
 
     private String lawAddress;
@@ -36,4 +34,6 @@ public class OrganizationDTO {
     private String bik;
 
     private String okpo;
+
+
 }

@@ -189,7 +189,7 @@
 
         <div class="form-group">
             <label for="inputName">Документ</label>
-            <input type="text" name="name" class="form-control" id="inputName" placeholder="Документ"
+            <input type="text" name="document" class="form-control" id="inputName" placeholder="Документ"
                     <#if type == 'edit'>
                 value="${listener.snils}"
                     </#if>>
@@ -197,7 +197,7 @@
 
         <div class="form-group">
             <label for="inputLawAddress">Должность</label>
-            <input type="text" name="lawAddress" class="form-control" id="inputLawAddress" placeholder="Должность"
+            <input type="text" name="post" class="form-control" id="inputLawAddress" placeholder="Должность"
                     <#if type == 'edit'>
                 value="${listener.snils}"
                     </#if>>
@@ -240,19 +240,21 @@
         <#if type == 'add'>
         submitBtn.onclick = function (event) {
             const xhr = new XMLHttpRequest();
-            const formData = new FormData(organizationForm);
+            const organizationFormData = new FormData(organizationForm);
+            const organizationAgentData = new FormData(organizationAgentForm);
 
             xhr.open('POST', '/trudexpert/organization/add');
             xhr.setRequestHeader("Content-Type", "application/json");
 
-            xhr.send(JSON.stringify(Object.fromEntries(formData)));
+            xhr.send(JSON.stringify({organizationDTO : Object.fromEntries(organizationFormData),
+            organizationAgentDTO : Object.fromEntries(organizationAgentData)}));
 
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === XMLHttpRequest.DONE) {
                     if (xhr.status === 200) {
                         resultMessageOrganization.className = "alert alert-success";
                         resultMessageOrganization.style.visibility = 'visible';
-                        resultMessageOrganization.textContent = "Организация успешно добавлена в систему";
+                        resultMessageOrganization.textContent = "Организация успешно добавлена в систему.";
 
                         organizationForm.style.display = 'none';
                         organizationAgentForm.style.display = 'none';
@@ -273,7 +275,7 @@
         </#if>
 
         <#if type == 'edit'>
-        organizationForm.onsubmit = function (event) {
+        submitBtn.onclick = function (event) {
             const xhr = new XMLHttpRequest();
             const formData = new FormData(organizationForm);
 

@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import ru.trudexpert.server.dto.OrganizationAgentDTO;
 
 import javax.persistence.*;
 
@@ -38,5 +39,20 @@ public class OrganizationAgent {
     @JoinColumn(name = "organization_id")
     private Organization organization;
 
+    public OrganizationAgent(Long organizationId){
+        this.id = organizationId;
+    }
 
+    public static OrganizationAgent getFromDTO(OrganizationAgentDTO dto){
+        if(dto == null){
+            return null;
+        }
+
+        return new OrganizationAgent()
+                .setSurname(dto.getSurname())
+                .setName(dto.getName())
+                .setPatronymic(dto.getPatronymic())
+                .setDocument(dto.getDocument())
+                .setPost(dto.getPost());
+    }
 }

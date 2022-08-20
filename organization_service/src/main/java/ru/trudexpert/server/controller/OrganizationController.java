@@ -4,11 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import ru.trudexpert.server.dto.OrganizationDTO;
+import org.springframework.web.bind.annotation.*;
+import ru.trudexpert.server.dto.OrganizationFullDTO;
 import ru.trudexpert.server.exception.NoOrganizationNameException;
 import ru.trudexpert.server.exception.OrganizationAlreadyRegisteredException;
 import ru.trudexpert.server.service.OrganizationService;
@@ -33,11 +30,9 @@ public class OrganizationController {
 
     @PostMapping("/add")
     public ResponseEntity<String> registerOrganization(
-            @RequestBody OrganizationDTO dto) throws OrganizationAlreadyRegisteredException, NoOrganizationNameException {
-        organizationService.createOrganization(dto);
+            @RequestBody OrganizationFullDTO organizationFullDTO) throws OrganizationAlreadyRegisteredException, NoOrganizationNameException {
+        organizationService.saveOrganization(organizationFullDTO);
         return ResponseEntity.ok("Created");
     }
-
-
 
 }
