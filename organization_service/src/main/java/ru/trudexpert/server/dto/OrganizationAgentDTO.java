@@ -13,6 +13,8 @@ import ru.trudexpert.server.entity.OrganizationAgent;
 @NoArgsConstructor
 public class OrganizationAgentDTO {
 
+    private Long id;
+
     private String surname;
 
     private String name;
@@ -29,6 +31,7 @@ public class OrganizationAgentDTO {
         }
 
         return new OrganizationAgentDTO()
+                .setId(entity.getId())
                 .setSurname(entity.getSurname())
                 .setName(entity.getName())
                 .setPatronymic(entity.getPatronymic())

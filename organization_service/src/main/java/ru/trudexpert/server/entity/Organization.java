@@ -55,6 +55,9 @@ public class Organization {
     @Column(name = "OKPO", columnDefinition = "varchar(50)")
     private String okpo;
 
+    @Column(name = "OKVED", columnDefinition = "varchar(50)")
+    private String okved;
+
     @OneToOne(mappedBy = "organization", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
     private OrganizationAgent organizationAgent;
@@ -76,6 +79,7 @@ public class Organization {
                 .setCorrespondentAccount(dto.getCorrespondentAccount())
                 .setEmail(dto.getEmail())
                 .setBik(dto.getBik())
-                .setOkpo(dto.getOkpo());
+                .setOkpo(dto.getOkpo())
+                .setOkved(dto.getOkved());
     }
 }

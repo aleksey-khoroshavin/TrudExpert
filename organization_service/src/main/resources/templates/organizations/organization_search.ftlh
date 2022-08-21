@@ -18,6 +18,7 @@
                 <tr>
                     <th scope="col">ID</th>
                     <th scope="col">Название организации</th>
+                    <th scope="col">Данные организации</th>
                     <th scope="col">Данные контрагента</th>
                     <th scope="col">Список слушателей</th>
                 </tr>
@@ -27,7 +28,10 @@
                         <td>${organization.id}</td>
                         <td>${organization.name}</td>
                         <td>
-                            <a href="/trudexpert/organization/agent/edit?id=${organization.id}">Редактировать</a>
+                            <a href="/trudexpert/organization/edit?id=${organization.id}">Редактировать</a>
+                        </td>
+                        <td>
+                            <a href="/trudexpert/organization/agent/edit?id=${organization.id}&companyName=${organization.name}">Редактировать</a>
                         </td>
                         <td>
                             <a href="">Редактировать</a>

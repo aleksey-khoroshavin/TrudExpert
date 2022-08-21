@@ -5,4 +5,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(value = HttpStatus.CREATED, reason = "Такая организация уже существует")
 public class OrganizationAlreadyRegisteredException extends Exception{
+    public OrganizationAlreadyRegisteredException(){
+        super("Такая организация уже существует");
+    }
 }

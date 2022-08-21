@@ -6,5 +6,4 @@ import ru.trudexpert.server.entity.OrganizationAgent;
 
 @Repository
 public interface OrganizationAgentRepository extends JpaRepository<OrganizationAgent, Long> {
-
 }

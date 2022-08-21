@@ -1,8 +1,8 @@
 <#import "../parts/commons/common_organization.ftlh" as c>
 
 <@c.page>
-<#if type == 'add'>
     <div id="formInfo">
+        <#if type == 'add'>
         <h5>Данные новой организации</h5>
         <div>
             Администрация с пониманием относится к человеческим факторам, поэтому какие-то поля <b>могут быть не
@@ -23,16 +23,19 @@
             <i>Спасибо за понимание:)</i>
         </div>
         <#elseif type == 'edit'>
-            <h5>Изменение данных организации: ${listener.surname} ${listener.name} ${listener.patronymic}</h5>
+            <h5>Изменение данных организации: ${organization.organizationDTO.organizationName}</h5>
             <div>
                 Форма данных аналогична форме добавления новых организаций. При изменении поля <b>"Название
                     организации"</b>
                 учитывайте,<br>
-                что их <b>отсутсвтие не позволит вам сохранить организацию</b> в системе!<br><br>
+                что его <b>отсутсвтие не позволит вам сохранить организацию</b> в системе!<br><br>
+            </div>
+        <#elseif type == 'error'>
+            <div class="alert alert-danger" role="alert">
+                ${error}
             </div>
         </#if>
     </div>
-
 
     <form id="organizationForm">
         <label for="organizationForm"><b>Данные организации</b></label>
@@ -41,7 +44,7 @@
             <input type="text" name="organizationName" class="form-control" id="inputName" placeholder="Название"
                    required
                     <#if type == 'edit'>
-                value="${listener.snils}"
+                        value="${organization.organizationDTO.organizationName}"
                     </#if>>
         </div>
 
@@ -49,7 +52,7 @@
             <label for="inputLawAddress">Юридический адрес органазации</label>
             <input type="text" name="lawAddress" class="form-control" id="inputLawAddress" placeholder="Юридич. адрес"
                     <#if type == 'edit'>
-                value="${listener.snils}"
+                        value="${organization.organizationDTO.lawAddress}"
                     </#if>>
         </div>
 
@@ -57,7 +60,7 @@
             <label for="inputFactAddress">Фактический адрес организации</label>
             <input type="text" name="factAddress" class="form-control" id="inputFactAddress" placeholder="Фактич. адрес"
                     <#if type == 'edit'>
-                value="${listener.snils}"
+                        value="${organization.organizationDTO.factAddress}"
                     </#if>>
         </div>
 
@@ -71,7 +74,7 @@
                     </div>
                     <input type="tel" name="phone" class="form-control" placeholder="(___)-___-__-__"
                             <#if type == 'edit'>
-                                value="${listener.phoneNumber}"
+                                value="${organization.organizationDTO.phone}"
                             </#if>
                     />
                 </div>
@@ -81,7 +84,7 @@
                 <label for="inputEmail">Email</label>
                 <input type="text" class="form-control" name="email" id="inputEmail" placeholder="example@.com"
                         <#if type == 'edit'>
-                    value="${listener.address}"
+                            value="${organization.organizationDTO.email}"
                         </#if>>
             </div>
 
@@ -93,7 +96,7 @@
                 <label for="inputINN">ИНН</label>
                 <input type="text" name="inn" class="form-control" id="inputINN" placeholder="ИНН"
                         <#if type == 'edit'>
-                    value="${listener.snils}"
+                            value="${organization.organizationDTO.inn}"
                         </#if>>
             </div>
 
@@ -101,7 +104,7 @@
                 <label for="inputKPP">КПП</label>
                 <input type="text" name="kpp" class="form-control" id="inputKPP" placeholder="КПП"
                         <#if type == 'edit'>
-                    value="${listener.driverLicense}"
+                            value="${organization.organizationDTO.kpp}"
                         </#if>>
             </div>
         </div>
@@ -110,7 +113,7 @@
             <label for="inputOGRN">ОГРН</label>
             <input type="text" class="form-control" name="orgn" id="inputOGRN" placeholder="ОГРН"
                     <#if type == 'edit'>
-                value="${listener.address}"
+                        value="${organization.organizationDTO.orgn}"
                     </#if>>
         </div>
 
@@ -119,7 +122,7 @@
                 <label for="inputOKVED">ОКВЕД</label>
                 <input type="text" class="form-control" name="okved" id="inputOKVED" placeholder="ОКВЕД"
                         <#if type == 'edit'>
-                    value="${listener.address}"
+                            value="${organization.organizationDTO.okved}"
                         </#if>>
             </div>
 
@@ -127,7 +130,7 @@
                 <label for="inputOKPO">ОКПО</label>
                 <input type="text" class="form-control" name="okpo" id="inputOKPO" placeholder="ОКВЕД"
                         <#if type == 'edit'>
-                    value="${listener.address}"
+                            value="${organization.organizationDTO.okpo}"
                         </#if>>
             </div>
         </div>
@@ -136,7 +139,7 @@
             <label for="inputCheckingAccount">Р/с</label>
             <input type="text" class="form-control" name="checkingAccount" id="inputCheckingAccount" placeholder="Р/с"
                     <#if type == 'edit'>
-                value="${listener.address}"
+                        value="${organization.organizationDTO.checkingAccount}"
                     </#if>>
         </div>
 
@@ -145,7 +148,7 @@
             <input type="text" class="form-control" name="correspondentAccount" id="inputCorrespondentAccount"
                    placeholder="К/с"
                     <#if type == 'edit'>
-                value="${listener.address}"
+                        value="${organization.organizationDTO.correspondentAccount}"
                     </#if>>
         </div>
 
@@ -154,7 +157,7 @@
             <label for="inputBIK">БИК</label>
             <input type="text" class="form-control" name="bik" id="inputBIK" placeholder="БИК"
                     <#if type == 'edit'>
-                value="${listener.address}"
+                        value="${organization.organizationDTO.bik}"
                     </#if>>
         </div>
     </form>
@@ -165,42 +168,27 @@
         <div class="form-row">
             <div class="form-group col">
                 <label for="inputSurname">Фамилия</label>
-                <input type="text" name="surname" class="form-control" id="inputSurname" placeholder="Фамилия"
-                        <#if type == 'edit'>
-                    value="${listener.surname}"
-                        </#if>>
+                <input type="text" name="surname" class="form-control" id="inputSurname" placeholder="Фамилия">
             </div>
             <div class="form-group col">
                 <label for="inputName">Имя</label>
-                <input type="text" name="name" class="form-control" id="inputName" placeholder="Имя"
-                        <#if type == 'edit'>
-                    value="${listener.name}"
-                        </#if>>
+                <input type="text" name="name" class="form-control" id="inputName" placeholder="Имя">
             </div>
             <div class="form-group col">
                 <label for="inputPatronymic">Отчество</label>
                 <input type="text" name="patronymic" class="form-control" id="inputPatronymic"
-                       placeholder="Отчество (при наличии)"
-                        <#if type == 'edit'>
-                    value="${listener.patronymic}"
-                        </#if>>
+                       placeholder="Отчество (при наличии)">
             </div>
         </div>
 
         <div class="form-group">
             <label for="inputName">Документ</label>
-            <input type="text" name="document" class="form-control" id="inputName" placeholder="Документ"
-                    <#if type == 'edit'>
-                value="${listener.snils}"
-                    </#if>>
+            <input type="text" name="document" class="form-control" id="inputName" placeholder="Документ">
         </div>
 
         <div class="form-group">
             <label for="inputLawAddress">Должность</label>
-            <input type="text" name="post" class="form-control" id="inputLawAddress" placeholder="Должность"
-                    <#if type == 'edit'>
-                value="${listener.snils}"
-                    </#if>>
+            <input type="text" name="post" class="form-control" id="inputLawAddress" placeholder="Должность">
         </div>
     </form>
 
@@ -230,12 +218,20 @@
         const submitBtn = document.getElementById('submitBtn');
         const backBtn = document.getElementById('backBtn');
 
-        const resultMessageOrganization = document.getElementById('resultMessageOrganization');
+        const resultMessage = document.getElementById('resultMessageOrganization');
 
         document.getElementById('typePhone').addEventListener('input', function (e) {
             const x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,2})(\d{0,2})/);
             e.target.value = !x[2] ? x[1] : '(' + x[1] + ')-' + x[2] + (x[3] ? '-' + x[3] : '') + (x[4] ? '-' + x[4] : '');
         });
+
+        <#if type == 'error'>
+            organizationForm.style.display = 'none';
+            organizationAgentForm.style.display = 'none';
+            submitBtn.style.display = 'none';
+
+            backBtn.style.display = 'inline';
+        </#if>
 
         <#if type == 'add'>
         submitBtn.onclick = function (event) {
@@ -252,9 +248,9 @@
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === XMLHttpRequest.DONE) {
                     if (xhr.status === 200) {
-                        resultMessageOrganization.className = "alert alert-success";
-                        resultMessageOrganization.style.visibility = 'visible';
-                        resultMessageOrganization.textContent = "Организация успешно добавлена в систему.";
+                        resultMessage.className = "alert alert-success";
+                        resultMessage.style.visibility = 'visible';
+                        resultMessage.textContent = "Организация успешно добавлена в систему.";
 
                         organizationForm.style.display = 'none';
                         organizationAgentForm.style.display = 'none';
@@ -263,9 +259,9 @@
                         backBtn.style.display = 'inline';
 
                     } else {
-                        resultMessageOrganization.className = "alert alert-danger";
-                        resultMessageOrganization.style.visibility = 'visible';
-                        resultMessageOrganization.textContent = JSON.parse(xhr.responseText)["message"];
+                        resultMessage.className = "alert alert-danger";
+                        resultMessage.style.visibility = 'visible';
+                        resultMessage.textContent = JSON.parse(xhr.responseText)["message"];
                     }
                 }
             }
@@ -275,11 +271,12 @@
         </#if>
 
         <#if type == 'edit'>
+        organizationAgentForm.style.display = 'none';
         submitBtn.onclick = function (event) {
             const xhr = new XMLHttpRequest();
             const formData = new FormData(organizationForm);
 
-            xhr.open('POST', '/trudexpert/organization/update?listener_id=${listener.id}');
+            xhr.open('POST', '/trudexpert/organization/update?id=${organization.organizationDTO.id}');
             xhr.setRequestHeader("Content-Type", "application/json");
 
             xhr.send(JSON.stringify(Object.fromEntries(formData)));
@@ -287,12 +284,13 @@
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === XMLHttpRequest.DONE) {
                     if (xhr.status === 200) {
-                        resultMessageOrganization.style.visibility = 'visible';
-                        resultMessageOrganization.textContent = "Данные организации успешно обновлены";
+                        resultMessage.className = "alert alert-success";
+                        resultMessage.style.visibility = 'visible';
+                        resultMessage.textContent = "Данные организации успешно обновлены";
                     } else {
-                        resultMessageOrganization.className = "alert alert-danger";
-                        resultMessageOrganization.style.visibility = 'visible';
-                        resultMessageOrganization.textContent = JSON.parse(xhr.responseText)["message"];
+                        resultMessage.className = "alert alert-danger";
+                        resultMessage.style.visibility = 'visible';
+                        resultMessage.textContent = JSON.parse(xhr.responseText)["message"];
                     }
                 }
             }

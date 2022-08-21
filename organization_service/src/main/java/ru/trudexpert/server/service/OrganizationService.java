@@ -3,6 +3,7 @@ package ru.trudexpert.server.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.trudexpert.server.dto.OrganizationAgentDTO;
+import ru.trudexpert.server.dto.OrganizationDTO;
 import ru.trudexpert.server.dto.OrganizationFullDTO;
 import ru.trudexpert.server.dto.OrganizationShortInfoDTO;
 import ru.trudexpert.server.entity.Organization;
@@ -21,6 +22,7 @@ import java.util.List;
 public class OrganizationService {
 
     private final OrganizationRepository organizationRepository;
+
     private final OrganizationAgentRepository agentRepository;
 
     private void checkCompanyName(String name) throws OrganizationAlreadyRegisteredException, NoOrganizationNameException {
@@ -39,10 +41,8 @@ public class OrganizationService {
 
         Organization organization = Organization.getFromDTO(dto.getOrganizationDTO());
 
-        if(existAgentFullNameAnyField(dto.getOrganizationAgentDTO())){
-            OrganizationAgent agent = OrganizationAgent.getFromDTO(dto.getOrganizationAgentDTO());
-            attachAgentToOrganization(agent, organization);
-        }
+        OrganizationAgent agent = OrganizationAgent.getFromDTO(dto.getOrganizationAgentDTO());
+        attachAgentToOrganization(agent, organization);
 
         organizationRepository.save(organization);
     }
@@ -73,11 +73,19 @@ public class OrganizationService {
                 .toList();
     }
 
-    @Transactional
-    public OrganizationAgentDTO getAgentById(Long id){
-        OrganizationAgent agent = agentRepository.findById(id).orElse(null);
 
-        return OrganizationAgentDTO.getFromEntity(agent);
+    @Transactional
+    public OrganizationFullDTO getOrganizationById(Long id) throws OrganizationNotExistException {
+        Organization organization = organizationRepository.findById(id).orElse(null);
+
+        if(organization == null){
+            throw new OrganizationNotExistException();
+        }
+
+        OrganizationDTO organizationDTO = OrganizationDTO.getFromEntity(organization);
+        OrganizationAgentDTO agentDTO = OrganizationAgentDTO.getFromEntity(agentRepository.findById(id).orElse(null));
+
+        return new OrganizationFullDTO().setOrganizationDTO(organizationDTO).setOrganizationAgentDTO(agentDTO);
     }
 
     private void attachAgentToOrganization(OrganizationAgent agent, Organization organization){
@@ -86,8 +94,29 @@ public class OrganizationService {
         organization.setOrganizationAgent(agent);
     }
 
-    private boolean existAgentFullNameAnyField(OrganizationAgentDTO dto){
-        return !dto.getSurname().isEmpty() || !dto.getName().isEmpty();
-    }
+    @Transactional
+    public void updateOrganizationInfo(OrganizationDTO dto) throws OrganizationNotExistException {
 
+        Organization organization = organizationRepository.findById(dto.getId()).orElse(null);
+        if(organization == null){
+            throw new OrganizationNotExistException();
+        }
+
+        organization.setId(dto.getId())
+                .setName(dto.getOrganizationName())
+                .setLawAddress(dto.getLawAddress())
+                .setFactAddress(dto.getFactAddress())
+                .setPhone(dto.getPhone())
+                .setInn(dto.getInn())
+                .setKpp(dto.getKpp())
+                .setOrgn(dto.getOrgn())
+                .setCheckingAccount(dto.getCheckingAccount())
+                .setCorrespondentAccount(dto.getCorrespondentAccount())
+                .setEmail(dto.getEmail())
+                .setBik(dto.getBik())
+                .setOkpo(dto.getOkpo())
+                .setOkved(dto.getOkved());
+
+        organizationRepository.save(organization);
+    }
 }
