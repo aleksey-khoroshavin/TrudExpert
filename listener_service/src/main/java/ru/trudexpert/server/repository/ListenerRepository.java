@@ -13,6 +13,7 @@ import java.util.List;
 public interface ListenerRepository extends JpaRepository<Listener, Long> {
     boolean existsBySnils(String snils);
 
+    @Query(value = "select * from listeners l where LOWER(l.surname) like LOWER(?1)", nativeQuery = true)
     List<Listener> findAllBySurname(String surname);
 
     @Query("select case when count(l) > 0 then true else false end from Listener l where lower(l.surname) like lower(:surname) " +

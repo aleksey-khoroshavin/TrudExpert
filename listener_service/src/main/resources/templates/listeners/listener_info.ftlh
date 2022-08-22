@@ -1,30 +1,31 @@
 <#import "../parts/commons/common_listener.ftlh" as c>
 
 <@c.page>
-    <#if type == 'add'>
-        <h5>Данные нового слушателя</h5>
-        <div>
-            Администрация с пониманием относится к человеческим факторам, поэтому какие-то поля <b>могут быть не указаны</b>.<br>
-            Заполнение недостающих полей лежит на сотрудниках организации. Без них вы <b>не сможете сформировать договоры!</b><br>
-            Внести данные можно будет в профиле конкрентого слушателя.<br>
-            Для этого используйте подраздел <b><i>"Найти слушателя"</i></b>.<br><br>
-        </div>
+    <div id="formInfo">
+        <#if type == 'add'>
+            <h5>Данные нового слушателя</h5>
+            <div>
+                Администрация с пониманием относится к человеческим факторам, поэтому какие-то поля <b>могут быть не указаны</b>.<br>
+                Заполнение недостающих полей лежит на сотрудниках организации. Без них вы <b>не сможете сформировать договоры!</b><br>
+                Внести данные можно будет в профиле конкрентого слушателя.<br>
+                Для этого используйте подраздел <b><i>"Найти слушателя"</i></b>.<br><br>
+            </div>
 
-        <div>
-            P.s. Поля <b><i>"ФИО"</i></b> и <b><i>"Дата рождения"</i></b> заполняются в <b>ОБЯЗАТЕЛЬНОМ ПОРЯДКЕ</b>, иначе система не сможет найти этих людей!
-        </div>
+            <div>
+                P.s. Поля <b><i>"ФИО"</i></b> и <b><i>"Дата рождения"</i></b> заполняются в <b>ОБЯЗАТЕЛЬНОМ ПОРЯДКЕ</b>, иначе система не сможет найти этих людей!
+            </div>
 
-        <div class="text mb-3">
-            <i>Спасибо за понимание:)</i>
-        </div>
+            <div class="text mb-3">
+                <i>Спасибо за понимание:)</i>
+            </div>
         <#elseif type == 'edit'>
             <h5>Изменение данных слушателя: ${listener.surname} ${listener.name} ${listener.patronymic}</h5>
             <div>
                 Форма данных аналогична форме добавления новых слушателей. При изменении полей <b>ФИО и даты рождения</b> учитывайте,<br>
                 что их <b>отсутсвтие не позволит вам сохранить пользователя</b> в системе!<br><br>
             </div>
-    </#if>
-
+        </#if>
+    </div>
 
     <form id="addListenerForm">
         <div class="form-row">
@@ -150,8 +151,7 @@
             <input type="text" class="form-control" name="address" id="inputAddress" placeholder="Почтовый индекс, Город, Улица, Дом, Квартира"
                     <#if type == 'edit'>
                         value="${listener.address}"
-                    </#if>
-            >
+                    </#if>>
         </div>
 
         <label for="passportForm"><b>Паспортные данные</b></label>
@@ -257,16 +257,25 @@
             </button>
         </div>
 
-        <div class="alert alert-success" role="alert" style="visibility: hidden" id="resultMessage">
-        </div>
-
     </form>
+
+    <div class="alert alert-success" role="alert" style="visibility: hidden" id="resultMessage">
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary" id="backBtn"
+                onclick="window.location.href='/trudexpert/listener'" style="display: none">
+            На главную раздела
+        </button>
+    </div>
+
 
     <script>
         const form = document.getElementById('addListenerForm');
 
         const resultMessage = document.getElementById('resultMessage');
 
+        const backBtn = document.getElementById('backBtn');
 
         document.getElementById('typePhone').addEventListener('input', function (e) {
             const x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,2})(\d{0,2})/);
@@ -286,9 +295,13 @@
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === XMLHttpRequest.DONE) {
                     if (xhr.status === 200) {
-                        form.reset();
-                        resultMessage.style.visibility = 'visible';
+                        form.style.display = 'none';
+                        document.getElementById('formInfo').style.display = 'none';
+
+                        resultMessage.className = "alert alert-success";
                         resultMessage.textContent = "Слушатель успешно добавлен в систему";
+                        resultMessage.style.visibility = 'visible';
+                        backBtn.style.display = 'inline';
                     } else {
                         resultMessage.className = "alert alert-danger";
                         resultMessage.style.visibility = 'visible';

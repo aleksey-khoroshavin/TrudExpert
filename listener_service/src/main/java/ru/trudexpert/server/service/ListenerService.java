@@ -107,7 +107,7 @@ public class ListenerService {
     }
 
     public List<ListenerShortInfoDTO> getListenersBySurname(String surname){
-        return listenerRepository.findAllBySurname(surname)
+        return listenerRepository.findAllBySurname('%' + surname + '%')
                 .stream()
                 .map(ListenerShortInfoDTO::getFromEntity)
                 .toList();
