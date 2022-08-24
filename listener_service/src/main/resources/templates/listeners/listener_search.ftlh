@@ -25,6 +25,7 @@
                     <th scope="col">Имя</th>
                     <th scope="col">Отчество</th>
                     <th scope="col">Дата рождения</th>
+                    <th scope="col">СНИЛС</th>
                     <th scope="col">Действие</th>
                 </tr>
                 </thead>
@@ -34,6 +35,7 @@
                         <td>${listener.name}</td>
                         <td>${listener.patronymic}</td>
                         <td>${listener.dateOfBirth}</td>
+                        <td>${listener.snils}</td>
                         <td>
                             <a href="/trudexpert/listener/edit?id=${listener.id}">Редактировать</a>
                         </td>

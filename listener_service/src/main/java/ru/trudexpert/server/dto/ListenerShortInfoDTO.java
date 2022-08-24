@@ -26,6 +26,8 @@ public class ListenerShortInfoDTO {
 
     private String dateOfBirth;
 
+    private String snils;
+
     public static ListenerShortInfoDTO getFromEntity(Listener listener){
         if(listener == null){
             return null;
@@ -39,6 +41,7 @@ public class ListenerShortInfoDTO {
                 .setSurname(listener.getSurname())
                 .setName(listener.getName())
                 .setPatronymic(listener.getPatronymic())
-                .setDateOfBirth(formatter.format(listener.getDateOfBirth()));
+                .setDateOfBirth(formatter.format(listener.getDateOfBirth()))
+                .setSnils(listener.getSnils());
     }
 }
