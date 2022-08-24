@@ -226,13 +226,22 @@
             </select>
             </div>
 
-            <div class="form-group col-md-8">
+            <div class="form-group col-md-5">
             <label for="inputEducation">Документ об образовании</label>
             <input type="text" name="educationDocument" class="form-control" id="inputEducation" placeholder="Серия, номер документа"
                     <#if type == 'edit'>
                         value="${listener.educationDocument}"
                     </#if>
             >
+            </div>
+
+            <div class="form-group col-md-5">
+                <label for="inputEducationSurname">Фамилия в дипломе (при смене)</label>
+                <input type="text" name="educationSurname" class="form-control" id="inputEducationSurname" placeholder="Фамилия в дипломе"
+                        <#if type == 'edit'>
+                            value="${listener.educationSurname}"
+                        </#if>
+                >
             </div>
 
             <div class="form-group col-md-2">

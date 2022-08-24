@@ -13,7 +13,7 @@
                 <a class="nav-link" href="/trudexpert/listener/add"><i>Добавить слушателя</i></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/trudexpert/listener/search"><i>Найти слушателя</i></a>
+                <a class="nav-link" href="/trudexpert/listener/search"><i>Список слушателей</i></a>
             </li>
 
         </ul>

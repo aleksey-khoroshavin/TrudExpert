@@ -52,6 +52,8 @@ public class ListenerDTO {
 
     private String educationDocumentIssuedAt;
 
+    private String educationSurname;
+
     public static ListenerDTO getFromEntity(Listener listener){
         if(listener == null){
             return null;
@@ -80,6 +82,7 @@ public class ListenerDTO {
                 .setEducationType(listener.getEducationType())
                 .setEducationDocument(listener.getEducationDocument())
                 .setEducationDocumentIssuedAt(listener.getEducationDocumentIssuedAt() != null ?
-                        formatter.format(listener.getEducationDocumentIssuedAt()) : null);
+                        formatter.format(listener.getEducationDocumentIssuedAt()) : null)
+                .setEducationSurname(listener.getEducationSurname());
     }
 }

@@ -80,29 +80,33 @@ public class ListenerService {
     }
 
     private void checkUserMainDataFree(ListenerDTO listenerDTO) throws ListenerAlreadyRegisteredException {
-        if(listenerDTO.getPatronymic()!= null && !listenerDTO.getPatronymic().isEmpty()){
-            if(listenerRepository.existsByFullName(
-                    listenerDTO.getSurname(),
-                    listenerDTO.getName(),
-                    listenerDTO.getPatronymic())){
-                throw new ListenerAlreadyRegisteredException();
+
+        try{
+            if(listenerDTO.getPatronymic()!= null && !listenerDTO.getPatronymic().isEmpty()){
+                if(listenerRepository.existsByFullName(
+                        listenerDTO.getSurname(),
+                        listenerDTO.getName(),
+                        listenerDTO.getPatronymic())){
+                    throw new ListenerAlreadyRegisteredException();
+                }
+            }else{
+                if(listenerRepository.existsBySurnameAndName(
+                        listenerDTO.getSurname(),
+                        listenerDTO.getName()
+                )){
+                    throw new ListenerAlreadyRegisteredException();
+                }
             }
-        }else{
-            if(listenerRepository.existsBySurnameAndName(
-                    listenerDTO.getSurname(),
-                    listenerDTO.getName()
+        }
+        catch (ListenerAlreadyRegisteredException exception){
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd").withZone(ZoneId.systemDefault());
+
+
+            if(listenerRepository.existsByDateOfBirth(
+                    LocalDate.parse(listenerDTO.getDateOfBirth(), formatter).atStartOfDay().toInstant(ZoneOffset.UTC)
             )){
                 throw new ListenerAlreadyRegisteredException();
             }
-        }
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd").withZone(ZoneId.systemDefault());
-
-
-        if(listenerRepository.existsByDateOfBirth(
-                LocalDate.parse(listenerDTO.getDateOfBirth(), formatter).atStartOfDay().toInstant(ZoneOffset.UTC)
-        )){
-            throw new ListenerAlreadyRegisteredException();
         }
     }
 

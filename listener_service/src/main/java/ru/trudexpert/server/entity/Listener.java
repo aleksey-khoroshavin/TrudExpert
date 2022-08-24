@@ -77,6 +77,9 @@ public class Listener {
     @Column(name = "education_document_issued_at", columnDefinition = "date")
     private Instant educationDocumentIssuedAt;
 
+    @Column(name = "education_surname", columnDefinition = "varchar(100)")
+    private String educationSurname;
+
     public static Listener getFromDTO(ListenerDTO dto){
         if(dto == null){
             return null;
@@ -106,6 +109,7 @@ public class Listener {
                 .setEducationDocument(dto.getEducationDocument())
                 .setEducationDocumentIssuedAt(dto.getEducationDocumentIssuedAt() != null && !dto.getEducationDocumentIssuedAt().isEmpty()?
                         LocalDate.parse(dto.getEducationDocumentIssuedAt(), formatter).atStartOfDay().toInstant(ZoneOffset.UTC) :
-                        null);
+                        null)
+                .setEducationSurname(dto.getEducationSurname());
     }
 }
