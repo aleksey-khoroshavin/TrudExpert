@@ -1,11 +1,7 @@
 <#import "../../parts/commons/common_organization.ftlh" as c>
 
 <@c.page>
-    <h5>Поиск слушателей</h5>
-    <div>
-        Для поиска слушателей необходимо заполнить поле <i>"Фамилия"</i>.<br>
-        Для нахождения конкретного лица будут дополнительно отображены <i>"Имя"</i>, <i>"Отчество"(при наличии)</i> и <i>"Дата рождения".</i><br>
-    </div>
+    <h5>Слушатели организации: ${organizationName}</h5>
 
     <div class="form-row mt-3">
         <form method="get" action="/trudexpert/listener/search" id="searchBySurname" class="form-inline">
@@ -17,33 +13,30 @@
     </div>
 
     <div>
-        <table class="table table-bordered mt-5">
-            <thead>
-            <tr>
-                <th scope="col">Фамилия</th>
-                <th scope="col">Имя</th>
-                <th scope="col">Отчество</th>
-                <th scope="col">Дата рождения</th>
-                <th scope="col">Действие</th>
-            </tr>
-            </thead>
-            <#list listeners as listener>
+        <#if listeners??>
+            <table class="table table-bordered mt-5">
+                <thead>
                 <tr>
-                    <td>${listener.surname}</td>
-                    <td>${listener.name}</td>
-                    <td>${listener.patronymic}</td>
-                    <td>${listener.dateOfBirth}</td>
-                    <td>
-                        <a href="/edit">Редактировать</a>
-                    </td>
+                    <th scope="col">Фамилия</th>
+                    <th scope="col">Имя</th>
+                    <th scope="col">Отчество</th>
+                    <th scope="col">Дата рождения</th>
+                    <th scope="col">СНИЛС</th>
                 </tr>
-            <#else>
-                <td>Не найдено</td>
-                <td>Не найдено</td>
-                <td>Не найдено</td>
-                <td>Не найдено</td>
-            </#list>
-        </table>
+                </thead>
+                <#list listeners as listener>
+                    <tr>
+                        <td>${listener.surname}</td>
+                        <td>${listener.name}</td>
+                        <td>${listener.patronymic}</td>
+                        <td>${listener.dateOfBirth}</td>
+                        <td>${listener.snils}</td>
+                    </tr>
+                </#list>
+            </table>
+        <#else>
+            <div><br>Не найдено слушателей от данной организации</div>
+        </#if>
     </div>
 
 </@c.page>

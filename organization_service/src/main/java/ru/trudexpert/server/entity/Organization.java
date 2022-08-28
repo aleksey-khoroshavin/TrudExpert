@@ -7,6 +7,7 @@ import lombok.experimental.Accessors;
 import ru.trudexpert.server.dto.OrganizationDTO;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "organizations")
@@ -62,6 +63,9 @@ public class Organization {
     @PrimaryKeyJoinColumn
     private OrganizationAgent organizationAgent;
 
+    @OneToMany(mappedBy = "organization", cascade = CascadeType.ALL)
+    Set<OrganizationListener> listeners;
+
     public static Organization getFromDTO(OrganizationDTO dto){
         if(dto == null){
             return null;
@@ -81,5 +85,31 @@ public class Organization {
                 .setBik(dto.getBik())
                 .setOkpo(dto.getOkpo())
                 .setOkved(dto.getOkved());
+    }
+
+    public void addListener(Listener listener, String post){
+        OrganizationListener organizationListener = new OrganizationListener();
+
+        organizationListener.setId(new OrganizationListenerKey()
+                .setOrganizationId(this.id)
+                .setListenerId(listener.getId()));
+
+        organizationListener.setOrganization(this);
+        organizationListener.setListener(listener);
+        organizationListener.setPost(post);
+
+        listener.organizations.add(organizationListener);
+        this.listeners.add(organizationListener);
+    }
+
+    public void removeListener(Listener listener){
+        OrganizationListener organizationListener = new OrganizationListener();
+
+        organizationListener.setId(new OrganizationListenerKey()
+                .setOrganizationId(this.id)
+                .setListenerId(listener.getId()));
+
+        listener.organizations.remove(organizationListener);
+        this.listeners.remove(organizationListener);
     }
 }

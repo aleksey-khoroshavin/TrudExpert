@@ -34,7 +34,7 @@
                             <a href="/trudexpert/organization/agent/edit?id=${organization.id}&companyName=${organization.name}">Редактировать</a>
                         </td>
                         <td>
-                            <a href="">Редактировать</a>
+                            <a href="/trudexpert/organization/listeners?organizationId=${organization.id}&organizationName=${organization.name}">Редактировать</a>
                         </td>
                     </tr>
                 </#list>

@@ -48,18 +48,8 @@ public class OrganizationService {
     }
 
     @Transactional
-    public void saveOrganizationAgent(OrganizationAgentDTO dto, String organizationName) throws OrganizationNotExistException {
-        Organization organization = organizationRepository.findByName(organizationName).orElse(null);
-        if(organization == null){
-            throw new OrganizationNotExistException();
-        }
-        OrganizationAgent agent = OrganizationAgent.getFromDTO(dto);
-        attachAgentToOrganization(agent, organization);
-    }
-
-    @Transactional
     public List<OrganizationShortInfoDTO> getOrganizationsByName(String companyName){
-        return organizationRepository.findAllByName(companyName)
+        return organizationRepository.findAllByName('%' + companyName + '%')
                 .stream()
                 .map(OrganizationShortInfoDTO::getFromEntity)
                 .toList();
@@ -67,12 +57,11 @@ public class OrganizationService {
 
     @Transactional
     public List<OrganizationShortInfoDTO> getAllOrganizations(){
-        return organizationRepository.findAll()
+        return organizationRepository.findAllOrganizations()
                 .stream()
                 .map(OrganizationShortInfoDTO::getFromEntity)
                 .toList();
     }
-
 
     @Transactional
     public OrganizationFullDTO getOrganizationById(Long id) throws OrganizationNotExistException {

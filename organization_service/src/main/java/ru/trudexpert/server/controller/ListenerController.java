@@ -1,57 +1,64 @@
 package ru.trudexpert.server.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import ru.trudexpert.server.dto.ListenerDTO;
 import ru.trudexpert.server.dto.ListenerShortInfoDTO;
-import ru.trudexpert.server.entity.Listener;
-import ru.trudexpert.server.exception.ListenerAlreadyRegisteredException;
-import ru.trudexpert.server.exception.SnilsAlreadyRegisteredException;
+import ru.trudexpert.server.exception.ListenerNotFoundException;
+import ru.trudexpert.server.exception.OrganizationNotExistException;
 import ru.trudexpert.server.service.ListenerService;
 
 import java.util.List;
 
 @Controller
-@RequestMapping("/trudexpert/listener")
+@RequestMapping("/trudexpert/organization/listeners")
 @RequiredArgsConstructor
 public class ListenerController {
     private final ListenerService listenerService;
 
-    @GetMapping
-    public String openListenerPage(){
-        return "listeners";
-    }
+    @GetMapping()
+    public String openOrganizationListenersPage(
+            @RequestParam(required = false, defaultValue = "") String surname,
+            @RequestParam Long organizationId,
+            @RequestParam String organizationName,
+            Model model){
 
-    @GetMapping("/add")
-    public String openListenerForm(){
-        return "/listeners/listener_add";
-    }
-
-    @PostMapping("/add")
-    public ResponseEntity<String> registerListener(
-            @RequestBody ListenerDTO listenerDTO
-    ) throws SnilsAlreadyRegisteredException, ListenerAlreadyRegisteredException {
-        listenerService.createListener(listenerDTO);
-        return ResponseEntity.ok("Created");
-    }
-
-    @GetMapping("/search")
-    public String openSearchForm(@RequestParam(required = false, defaultValue = "") String surname, Model model){
         List<ListenerShortInfoDTO> listeners;
 
         if(surname != null && !surname.isEmpty()){
-            listeners = listenerService.getListenersBySurname(surname);
+            listeners = listenerService.getListenersOfOrganizationBySurname(surname, organizationId);
         }else{
-            listeners = listenerService.getListeners();
+            listeners = listenerService.getListenersOfOrganization(organizationId);
         }
 
-        model.addAttribute("listeners", listeners);
+        if(!listeners.isEmpty()){
+            model.addAttribute("listeners", listeners);
+        }
+
+        model.addAttribute("organizationName", organizationName);
         model.addAttribute("surname", surname);
 
-        return "/listeners/listener_search";
+        return "/organizations/organization_listeners/organization_listeners_search";
+    }
+
+    @PostMapping("/organizations/{organizationId}/listeners/{listenerId}")
+    public ResponseEntity<String> addListenerToOrganization(
+            @PathVariable(value = "organizationId") Long organizationId,
+            @PathVariable(value = "listenerId") Long listenerId,
+            @RequestParam String post
+    ) throws ListenerNotFoundException, OrganizationNotExistException {
+        listenerService.addToOrganization(organizationId, listenerId, post);
+        return ResponseEntity.ok("Added");
+    }
+
+    @DeleteMapping("/organizations/{organizationId}/listeners/{listenerId}")
+    public ResponseEntity<String> removeListenerFromOrganization(
+            @PathVariable(value = "organizationId") Long organizationId,
+            @PathVariable(value = "listenerId") Long listenerId
+    ) throws ListenerNotFoundException, OrganizationNotExistException {
+        listenerService.deleteFromOrganization(organizationId, listenerId);
+        return ResponseEntity.ok("Deleted");
     }
 }

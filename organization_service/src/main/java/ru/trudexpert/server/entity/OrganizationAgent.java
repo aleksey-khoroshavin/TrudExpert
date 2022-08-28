@@ -39,10 +39,6 @@ public class OrganizationAgent {
     @JoinColumn(name = "organization_id")
     private Organization organization;
 
-    public OrganizationAgent(Long organizationId){
-        this.id = organizationId;
-    }
-
     public static OrganizationAgent getFromDTO(OrganizationAgentDTO dto){
         if(dto == null){
             return null;
