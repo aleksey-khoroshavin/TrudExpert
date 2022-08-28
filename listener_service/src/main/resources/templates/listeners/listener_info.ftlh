@@ -5,14 +5,17 @@
         <#if type == 'add'>
             <h5>Данные нового слушателя</h5>
             <div>
-                Администрация с пониманием относится к человеческим факторам, поэтому какие-то поля <b>могут быть не указаны</b>.<br>
-                Заполнение недостающих полей лежит на сотрудниках организации. Без них вы <b>не сможете сформировать договоры!</b><br>
+                Администрация с пониманием относится к человеческим факторам, поэтому какие-то поля <b>могут быть не
+                    указаны</b>.<br>
+                Заполнение недостающих полей лежит на сотрудниках организации. Без них вы <b>не сможете сформировать
+                    договоры!</b><br>
                 Внести данные можно будет в профиле конкрентого слушателя.<br>
                 Для этого используйте подраздел <b><i>"Найти слушателя"</i></b>.<br><br>
             </div>
 
             <div>
-                P.s. Поля <b><i>"ФИО"</i></b> и <b><i>"Дата рождения"</i></b> заполняются в <b>ОБЯЗАТЕЛЬНОМ ПОРЯДКЕ</b>, иначе система не сможет найти этих людей!
+                P.s. Поля <b><i>"ФИО"</i></b> и <b><i>"Дата рождения"</i></b> заполняются в <b>ОБЯЗАТЕЛЬНОМ ПОРЯДКЕ</b>,
+                иначе система не сможет найти этих людей!
             </div>
 
             <div class="text mb-3">
@@ -21,7 +24,8 @@
         <#elseif type == 'edit'>
             <h5>Изменение данных слушателя: ${listener.surname} ${listener.name} ${listener.patronymic}</h5>
             <div>
-                Форма данных аналогична форме добавления новых слушателей. При изменении полей <b>ФИО и даты рождения</b> учитывайте,<br>
+                Форма данных аналогична форме добавления новых слушателей. При изменении полей <b>ФИО и даты
+                    рождения</b> учитывайте,<br>
                 что их <b>отсутсвтие не позволит вам сохранить пользователя</b> в системе!<br><br>
             </div>
         </#if>
@@ -33,23 +37,22 @@
                 <label for="inputSurname">Фамилия</label>
                 <input type="text" name="surname" class="form-control" id="inputSurname" placeholder="Фамилия" required
                         <#if type == 'edit'>
-                            value="${listener.surname}"
-                        </#if>
-                >
+                    value="${listener.surname}"
+                        </#if>>
             </div>
             <div class="form-group col">
                 <label for="inputName">Имя</label>
                 <input type="text" name="name" class="form-control" id="inputName" placeholder="Имя" required
                         <#if type == 'edit'>
-                            value="${listener.name}"
-                        </#if>
-                >
+                    value="${listener.name}"
+                        </#if>>
             </div>
             <div class="form-group col">
                 <label for="inputPatronymic">Отчество</label>
-                <input type="text" name="patronymic" class="form-control" id="inputPatronymic" placeholder="Отчество (при наличии)"
+                <input type="text" name="patronymic" class="form-control" id="inputPatronymic"
+                       placeholder="Отчество (при наличии)"
                         <#if type == 'edit'>
-                            value="${listener.patronymic}"
+                    value="${listener.patronymic}"
                         </#if>>
             </div>
 
@@ -70,7 +73,7 @@
             <label for="inputSnils">СНИЛС</label>
             <input type="text" name="snils" class="form-control" id="inputSnils" placeholder="СНИЛС"
                     <#if type == 'edit'>
-                        value="${listener.snils}"
+                value="${listener.snils}"
                     </#if>>
         </div>
 
@@ -116,30 +119,33 @@
                 <div class="input-group-prepend">
                     <div class="input-group-text">+7</div>
                 </div>
-                    <input type="tel" name="phoneNumber"  class="form-control" placeholder="(___)-___-__-__"
-                            <#if type == 'edit'>
-                                value="${listener.phoneNumber}"
-                            </#if>
-                    />
+                <input type="tel" name="phoneNumber" class="form-control" placeholder="(___)-___-__-__"
+                        <#if type == 'edit'>
+                            value="${listener.phoneNumber}"
+                        </#if>
+                />
             </div>
 
         </div>
 
         <div class="form-group">
-            <label for="inputCitizenshipCode">Гражданство получателя (код страны по ОКСМ). По умолчанию №643 (Россия)</label>
-            <input type="text" name="citizenshipCode" class="form-control" id="inputCitizenshipCode" placeholder="Код страны по ОКСМ"
+            <label for="inputCitizenshipCode">Гражданство получателя (код страны по ОКСМ). По умолчанию №643
+                (Россия)</label>
+            <input type="text" name="citizenshipCode" class="form-control" id="inputCitizenshipCode"
+                   placeholder="Код страны по ОКСМ"
                     <#if type == 'edit'>
                         value="${listener.citizenshipCode}"
                     </#if>
                     <#if type == 'add'>
                         value="643"
                     </#if>
-                   >
+            >
         </div>
 
         <div class="form-group">
             <label for="inputDriverLicense">Водительское удостоверение. (При наличии)</label>
-            <input type="text" name="driverLicense" class="form-control" id="inputDriverLicense" placeholder="Номер, кем выдано, дата выдачи, категория(-и), стаж(при необходимости)"
+            <input type="text" name="driverLicense" class="form-control" id="inputDriverLicense"
+                   placeholder="Номер, кем выдано, дата выдачи, категория(-и), стаж(при необходимости)"
                     <#if type == 'edit'>
                         value="${listener.driverLicense}"
                     </#if>
@@ -148,9 +154,10 @@
 
         <div class="form-group">
             <label for="inputAddress">Адрес регистрации</label>
-            <input type="text" class="form-control" name="address" id="inputAddress" placeholder="Почтовый индекс, Город, Улица, Дом, Квартира"
+            <input type="text" class="form-control" name="address" id="inputAddress"
+                   placeholder="Почтовый индекс, Город, Улица, Дом, Квартира"
                     <#if type == 'edit'>
-                        value="${listener.address}"
+                value="${listener.address}"
                     </#if>>
         </div>
 
@@ -158,7 +165,8 @@
         <div class="form-row" id="passportForm">
             <div class="form-group col-md-2">
                 <label for="inputPassportSeries">Серия</label>
-                <input type="text" name="passportSeries" class="form-control" id="inputPassportSeries" placeholder="Серия"
+                <input type="text" name="passportSeries" class="form-control" id="inputPassportSeries"
+                       placeholder="Серия"
                         <#if type == 'edit'>
                             value="${listener.passportSeries}"
                         </#if>
@@ -166,7 +174,8 @@
             </div>
             <div class="form-group col-md-2">
                 <label for="inputPassportNumber">Номер</label>
-                <input type="text" name="passportNumber" class="form-control" id="inputPassportNumber" placeholder="Номер"
+                <input type="text" name="passportNumber" class="form-control" id="inputPassportNumber"
+                       placeholder="Номер"
                         <#if type == 'edit'>
                             value="${listener.passportNumber}"
                         </#if>
@@ -174,7 +183,8 @@
             </div>
             <div class="form-group col-md-8">
                 <label for="inputPassportIssuedBy">Кем выдан</label>
-                <input type="text" name="passportIssuedBy" class="form-control" id="inputPassportIssuedBy" placeholder="Кем выдан"
+                <input type="text" name="passportIssuedBy" class="form-control" id="inputPassportIssuedBy"
+                       placeholder="Кем выдан"
                         <#if type == 'edit'>
                             value="${listener.passportIssuedBy}"
                         </#if>
@@ -194,50 +204,56 @@
         <label for="educationForm"><b>Образование</b></label>
         <div class="form-row" id="educationForm">
             <div class="form-group col-md-8">
-            <label for="educationTypeSelect">Тип образования</label>
-            <select class="form-control" id="educationTypeSelect" name="educationType">
-                <option <#if type == 'edit'>
-                            <#if "${listener.educationType}" == 'Высшее'>
-                                selected
-                            </#if>
+                <label for="educationTypeSelect">Тип образования</label>
+                <select class="form-control" id="educationTypeSelect" name="educationType">
+                    <option <#if type == 'edit'>
+                        <#if "${listener.educationType}" == 'Высшее'>
+                            selected
                         </#if>
-                >Высшеее</option>
-                <option
-                        <#if type == 'edit'>
-                            <#if "${listener.educationType}" == 'Средне профессиональное'>
-                                selected
+                    </#if>
+                    >Высшеее
+                    </option>
+                    <option
+                            <#if type == 'edit'>
+                                <#if "${listener.educationType}" == 'Средне профессиональное'>
+                                    selected
+                                </#if>
                             </#if>
-                        </#if>
-                >Средне профессиональное</option>
-                <option
-                        <#if type == 'edit'>
-                            <#if "${listener.educationType}" == 'Среднее общее'>
-                                selected
+                    >Средне профессиональное
+                    </option>
+                    <option
+                            <#if type == 'edit'>
+                                <#if "${listener.educationType}" == 'Среднее общее'>
+                                    selected
+                                </#if>
                             </#if>
-                        </#if>
-                >Среднее общее</option>
-                <option
-                        <#if type == 'edit'>
-                            <#if "${listener.educationType}" == 'Основное общее'>
-                                selected
+                    >Среднее общее
+                    </option>
+                    <option
+                            <#if type == 'edit'>
+                                <#if "${listener.educationType}" == 'Основное общее'>
+                                    selected
+                                </#if>
                             </#if>
-                        </#if>
-                >Основное общее</option>
-            </select>
+                    >Основное общее
+                    </option>
+                </select>
             </div>
 
             <div class="form-group col-md-5">
-            <label for="inputEducation">Документ об образовании</label>
-            <input type="text" name="educationDocument" class="form-control" id="inputEducation" placeholder="Серия, номер документа"
-                    <#if type == 'edit'>
-                        value="${listener.educationDocument}"
-                    </#if>
-            >
+                <label for="inputEducation">Документ об образовании</label>
+                <input type="text" name="educationDocument" class="form-control" id="inputEducation"
+                       placeholder="Серия, номер документа"
+                        <#if type == 'edit'>
+                            value="${listener.educationDocument}"
+                        </#if>
+                >
             </div>
 
             <div class="form-group col-md-5">
                 <label for="inputEducationSurname">Фамилия в дипломе (при смене)</label>
-                <input type="text" name="educationSurname" class="form-control" id="inputEducationSurname" placeholder="Фамилия в дипломе"
+                <input type="text" name="educationSurname" class="form-control" id="inputEducationSurname"
+                       placeholder="Фамилия в дипломе"
                         <#if type == 'edit'>
                             value="${listener.educationSurname}"
                         </#if>
@@ -245,51 +261,37 @@
             </div>
 
             <div class="form-group col-md-2">
-            <label for="inputIssuedEducationDate">Дата выдачи</label>
-            <input id="inputIssuedEducationDate" class="form-control" type="date" name="educationDocumentIssuedAt"
-                    <#if type == 'edit'>
-                        value="${listener.educationDocumentIssuedAt!""}"
-                    </#if>
-            />
-            <i class="fas fa-calendar input-prefix"></i>
+                <label for="inputIssuedEducationDate">Дата выдачи</label>
+                <input id="inputIssuedEducationDate" class="form-control" type="date" name="educationDocumentIssuedAt"
+                        <#if type == 'edit'>
+                            value="${listener.educationDocumentIssuedAt!""}"
+                        </#if>
+                />
+                <i class="fas fa-calendar input-prefix"></i>
             </div>
 
         </div>
+    </form>
 
-        <label for="organizationForm"><b>Организация (при наличии)</b></label>
-        <div class="form-group"  id="organizationForm">
-
-            <div class="form-group">
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="enableOrganization">
-                    <label class="form-check-label" for="enableOrganization">
-                        Прикрепить к организации
-                    </label>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <select id="organizationSelect" class="form-control" disabled>
-                    <option>Выбрать орагнизацию...</option>
-                    <#list organizations as organization>
-                        <option>${organization.name}</option>
-                    </#list>
-                </select>
-            </div>
-
-        </div>
-
-        <div class="form-group mt-5">
-            <button type="submit" class="btn btn-primary">
-                <#if type == 'add'>
-                    Добавить слушателя
-                    <#elseif type == 'edit'>
-                    Сохранить изменения
-                </#if>
+    <#if type == 'edit'>
+        <label for="organizationsBtn"><b>Организации слушателя (заполняется при необходимости)</b></label>
+        <div class="form-group" id="organizationsBtn">
+            <button type="submit" class="btn btn-primary"
+                    onclick="window.location.href='/trudexpert/listener/organizations?id=${listener.id}&name=${listener.surname + ' ' + listener.name + ' ' + listener.patronymic}'">
+                Список организаций
             </button>
         </div>
+    </#if>
 
-    </form>
+    <div class="form-group mt-5" style="text-align: right">
+        <button type="submit" class="btn btn-primary" id="submitBtn">
+            <#if type == 'add'>
+                Добавить слушателя
+            <#elseif type == 'edit'>
+                Сохранить изменения
+            </#if>
+        </button>
+    </div>
 
     <div class="alert alert-success" role="alert" style="visibility: hidden" id="resultMessage">
     </div>
@@ -304,6 +306,7 @@
 
     <script>
         const form = document.getElementById('addListenerForm');
+        const submitBtn = document.getElementById('submitBtn');
 
         const resultMessage = document.getElementById('resultMessage');
 
@@ -311,19 +314,11 @@
 
         document.getElementById('typePhone').addEventListener('input', function (e) {
             const x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,2})(\d{0,2})/);
-            e.target.value =  !x[2] ? x[1] : '(' + x[1] + ')-' + x[2] + (x[3] ? '-' + x[3] : '') + (x[4] ? '-' + x[4] : '');
+            e.target.value = !x[2] ? x[1] : '(' + x[1] + ')-' + x[2] + (x[3] ? '-' + x[3] : '') + (x[4] ? '-' + x[4] : '');
         });
-
-        const organizationCheckBox = document.getElementById('enableOrganization');
-        const organizationSelect = document.getElementById('organizationSelect');
-
-        organizationCheckBox.addEventListener('change', (event) => {
-            organizationSelect.disabled = !event.currentTarget.checked;
-        });
-
 
         <#if type == 'add'>
-        form.onsubmit = function (event) {
+        submitBtn.onclick = function (event) {
             const xhr = new XMLHttpRequest();
             const formData = new FormData(form);
 
@@ -355,7 +350,7 @@
         </#if>
 
         <#if type == 'edit'>
-        form.onsubmit = function (event) {
+        submitBtn.onclick = function (event) {
             const xhr = new XMLHttpRequest();
             const formData = new FormData(form);
 
@@ -367,6 +362,7 @@
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === XMLHttpRequest.DONE) {
                     if (xhr.status === 200) {
+                        resultMessage.className = "alert alert-success";
                         resultMessage.style.visibility = 'visible';
                         resultMessage.textContent = "Данные слушателя успешно обновлены";
                     } else {

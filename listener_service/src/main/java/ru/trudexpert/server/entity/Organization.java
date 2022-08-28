@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import ru.trudexpert.server.dto.OrganizationDTO;
+import ru.trudexpert.server.dto.entity.OrganizationDTO;
 
 import javax.persistence.*;
 import java.util.Set;

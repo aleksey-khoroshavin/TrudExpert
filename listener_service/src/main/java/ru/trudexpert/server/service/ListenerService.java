@@ -1,9 +1,10 @@
 package ru.trudexpert.server.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import ru.trudexpert.server.dto.ListenerDTO;
-import ru.trudexpert.server.dto.ListenerShortInfoDTO;
+import ru.trudexpert.server.dto.entity.ListenerDTO;
+import ru.trudexpert.server.dto.shortinfo.ListenerShortInfoDTO;
 import ru.trudexpert.server.entity.Listener;
 import ru.trudexpert.server.exception.ListenerAlreadyRegisteredException;
 import ru.trudexpert.server.exception.ListenerNotFoundException;
@@ -15,6 +16,7 @@ import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -33,12 +35,20 @@ public class ListenerService {
 
     @Transactional
     public void updateListener(ListenerDTO dto) throws ListenerNotFoundException, SnilsAlreadyRegisteredException {
-        checkSnilsFree(dto);
+
 
         Listener listener = listenerRepository.findById(dto.getId()).orElse(null);
 
         if(listener == null){
             throw new ListenerNotFoundException();
+        }
+
+        if(!Objects.equals(dto.getSnils(), listener.getSnils())){
+            checkSnilsFree(dto);
+        }
+
+        if(listener.getSnils().isEmpty()){
+            checkSnilsFree(dto);
         }
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd").withZone(ZoneId.systemDefault());
@@ -118,7 +128,7 @@ public class ListenerService {
     }
 
     public List<ListenerShortInfoDTO> getListeners(){
-        return listenerRepository.findAll()
+        return listenerRepository.findAllListeners()
                 .stream()
                 .map(ListenerShortInfoDTO::getFromEntity)
                 .toList();

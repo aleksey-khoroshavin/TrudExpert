@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import ru.trudexpert.server.dto.ListenerDTO;
+import ru.trudexpert.server.dto.entity.ListenerDTO;
 
 import javax.persistence.*;
 import java.time.Instant;

@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import ru.trudexpert.server.dto.OrganizationAgentDTO;
+import ru.trudexpert.server.dto.entity.OrganizationAgentDTO;
 import ru.trudexpert.server.exception.AgentNotFoundException;
 import ru.trudexpert.server.service.OrganizationAgentService;
 

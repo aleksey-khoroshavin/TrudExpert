@@ -2,7 +2,7 @@ package ru.trudexpert.server.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.trudexpert.server.dto.ListenerShortInfoDTO;
+import ru.trudexpert.server.dto.entity.ListenerOrganizationDTO;
 import ru.trudexpert.server.entity.Listener;
 import ru.trudexpert.server.entity.Organization;
 import ru.trudexpert.server.exception.ListenerNotFoundException;
@@ -14,23 +14,13 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class OrganizationListenerService {
+public class ListenerOrganizationService {
     private final ListenerRepository listenerRepository;
 
     private final OrganizationRepository organizationRepository;
 
-    public List<ListenerShortInfoDTO> getListenersOfOrganizationBySurname(String surname, Long organizationId){
-        return listenerRepository.findAllBySurnameFromOrganization(surname, organizationId)
-                .stream()
-                .map(ListenerShortInfoDTO::getFromEntity)
-                .toList();
-    }
-
-    public List<ListenerShortInfoDTO> getListenersOfOrganization(Long organizationId){
-        return listenerRepository.findAllFromOrganization(organizationId)
-                .stream()
-                .map(ListenerShortInfoDTO::getFromEntity)
-                .toList();
+    public List<ListenerOrganizationDTO> getOrganizationsOfListener(Long listenerId){
+        return organizationRepository.getListenerOrganizations(listenerId);
     }
 
     public void addToOrganization(Long organizationId, Long listenerId, String post)

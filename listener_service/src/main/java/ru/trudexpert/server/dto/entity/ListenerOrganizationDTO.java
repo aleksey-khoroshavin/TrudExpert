@@ -1,4 +1,4 @@
-package ru.trudexpert.server.dto;
+package ru.trudexpert.server.dto.entity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,7 +9,8 @@ import lombok.experimental.Accessors;
 @Setter
 @Accessors(chain = true)
 @NoArgsConstructor
-public class OrganizationFullDTO {
-    private OrganizationDTO organizationDTO;
-    private OrganizationAgentDTO organizationAgentDTO;
+public class ListenerOrganizationDTO {
+    private Long organizationId;
+    private String organizationName;
+    private String post;
 }

@@ -195,7 +195,7 @@
     <div class="alert alert-success" role="alert" style="visibility: hidden" id="resultMessageOrganization">
     </div>
 
-    <div class="form-group">
+    <div class="form-group" style="text-align: right">
         <button type="submit" class="btn btn-primary" id="submitBtn">
             <#if type == 'add'>
                 Добавить организацию

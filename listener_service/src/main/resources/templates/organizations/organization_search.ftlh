@@ -20,7 +20,6 @@
                     <th scope="col">Название организации</th>
                     <th scope="col">Данные организации</th>
                     <th scope="col">Данные контрагента</th>
-                    <th scope="col">Список слушателей</th>
                 </tr>
                 </thead>
                 <#list organizations as organization>
@@ -32,9 +31,6 @@
                         </td>
                         <td>
                             <a href="/trudexpert/organization/agent/edit?id=${organization.id}&companyName=${organization.name}">Редактировать</a>
-                        </td>
-                        <td>
-                            <a href="/trudexpert/organization/listeners?organizationId=${organization.id}&organizationName=${organization.name}">Редактировать</a>
                         </td>
                     </tr>
                 </#list>

@@ -1,4 +1,4 @@
-package ru.trudexpert.server.dto;
+package ru.trudexpert.server.dto.entity;
 
 
 import lombok.Getter;

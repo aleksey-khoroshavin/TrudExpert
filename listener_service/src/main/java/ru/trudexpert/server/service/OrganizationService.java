@@ -2,10 +2,10 @@ package ru.trudexpert.server.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.trudexpert.server.dto.OrganizationAgentDTO;
-import ru.trudexpert.server.dto.OrganizationDTO;
-import ru.trudexpert.server.dto.OrganizationFullDTO;
-import ru.trudexpert.server.dto.OrganizationShortInfoDTO;
+import ru.trudexpert.server.dto.entity.OrganizationAgentDTO;
+import ru.trudexpert.server.dto.entity.OrganizationDTO;
+import ru.trudexpert.server.dto.complex.OrganizationFullDTO;
+import ru.trudexpert.server.dto.shortinfo.OrganizationShortInfoDTO;
 import ru.trudexpert.server.entity.Organization;
 import ru.trudexpert.server.entity.OrganizationAgent;
 import ru.trudexpert.server.exception.NoOrganizationNameException;

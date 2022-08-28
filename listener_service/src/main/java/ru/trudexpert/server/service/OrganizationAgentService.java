@@ -2,7 +2,7 @@ package ru.trudexpert.server.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.trudexpert.server.dto.OrganizationAgentDTO;
+import ru.trudexpert.server.dto.entity.OrganizationAgentDTO;
 import ru.trudexpert.server.entity.OrganizationAgent;
 import ru.trudexpert.server.exception.AgentNotFoundException;
 import ru.trudexpert.server.repository.OrganizationAgentRepository;
