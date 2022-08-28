@@ -256,7 +256,31 @@
 
         </div>
 
-        <div class="form-group">
+        <label for="organizationForm"><b>Организация (при наличии)</b></label>
+        <div class="form-group"  id="organizationForm">
+
+            <div class="form-group">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="enableOrganization">
+                    <label class="form-check-label" for="enableOrganization">
+                        Прикрепить к организации
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <select id="organizationSelect" class="form-control" disabled>
+                    <option>Выбрать орагнизацию...</option>
+
+                    <?php
+                        $servername =
+                    ?>
+                </select>
+            </div>
+
+        </div>
+
+        <div class="form-group mt-5">
             <button type="submit" class="btn btn-primary">
                 <#if type == 'add'>
                     Добавить слушателя
@@ -271,7 +295,7 @@
     <div class="alert alert-success" role="alert" style="visibility: hidden" id="resultMessage">
     </div>
 
-    <div class="form-group">
+    <div class="form-group mt-5">
         <button type="submit" class="btn btn-primary" id="backBtn"
                 onclick="window.location.href='/trudexpert/listener'" style="display: none">
             На главную раздела
@@ -290,6 +314,14 @@
             const x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,2})(\d{0,2})/);
             e.target.value =  !x[2] ? x[1] : '(' + x[1] + ')-' + x[2] + (x[3] ? '-' + x[3] : '') + (x[4] ? '-' + x[4] : '');
         });
+
+        const organizationCheckBox = document.getElementById('enableOrganization');
+        const organizationSelect = document.getElementById('organizationSelect');
+
+        organizationCheckBox.addEventListener('change', (event) => {
+            organizationSelect.disabled = !event.currentTarget.checked;
+        });
+
 
         <#if type == 'add'>
         form.onsubmit = function (event) {
@@ -349,7 +381,6 @@
             return false;
         }
         </#if>
-
 
     </script>
 </@c.page>
