@@ -20,7 +20,7 @@ public class Organization {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name", columnDefinition = "TEXT")
+    @Column(name = "name", columnDefinition = "TEXT", unique = true)
     private String name;
 
     @Column(name = "law_address", columnDefinition = "TEXT")
