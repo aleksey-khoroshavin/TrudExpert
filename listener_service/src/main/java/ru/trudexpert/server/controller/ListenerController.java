@@ -7,10 +7,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.trudexpert.server.dto.ListenerDTO;
 import ru.trudexpert.server.dto.ListenerShortInfoDTO;
+import ru.trudexpert.server.dto.OrganizationShortInfoDTO;
 import ru.trudexpert.server.exception.ListenerAlreadyRegisteredException;
 import ru.trudexpert.server.exception.ListenerNotFoundException;
 import ru.trudexpert.server.exception.SnilsAlreadyRegisteredException;
 import ru.trudexpert.server.service.ListenerService;
+import ru.trudexpert.server.service.OrganizationService;
 
 import java.util.List;
 
@@ -19,6 +21,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ListenerController {
     private final ListenerService listenerService;
+    private final OrganizationService organizationService;
 
     @GetMapping
     public String openListenerPage(){
@@ -28,6 +31,8 @@ public class ListenerController {
     @GetMapping("/add")
     public String openListenerAddForm(Model model){
         model.addAttribute("type", "add");
+        model.addAttribute("organizations", getOrganizationsForSelect());
+
         return "/listeners/listener_info";
     }
 
@@ -65,6 +70,8 @@ public class ListenerController {
         ListenerDTO listenerDTO = listenerService.getListenerById(id);
         model.addAttribute("listener", listenerDTO);
 
+        model.addAttribute("organizations", getOrganizationsForSelect());
+
         return "/listeners/listener_info";
     }
 
@@ -76,5 +83,9 @@ public class ListenerController {
         listenerDTO.setId(listenerId);
         listenerService.updateListener(listenerDTO);
         return ResponseEntity.ok("Updated");
+    }
+
+    private List<OrganizationShortInfoDTO> getOrganizationsForSelect(){
+        return organizationService.getAllOrganizations();
     }
 }

@@ -271,10 +271,9 @@
             <div class="form-group">
                 <select id="organizationSelect" class="form-control" disabled>
                     <option>Выбрать орагнизацию...</option>
-
-                    <?php
-                        $servername =
-                    ?>
+                    <#list organizations as organization>
+                        <option>${organization.name}</option>
+                    </#list>
                 </select>
             </div>
 
