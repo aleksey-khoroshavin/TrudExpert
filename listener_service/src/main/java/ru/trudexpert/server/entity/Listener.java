@@ -12,6 +12,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
+import java.util.Set;
 
 @Entity
 @Table(name = "listeners")
@@ -79,6 +80,9 @@ public class Listener {
 
     @Column(name = "education_surname", columnDefinition = "varchar(100)")
     private String educationSurname;
+
+    @OneToMany(mappedBy = "listener")
+    Set<OrganizationListener> organizations;
 
     public static Listener getFromDTO(ListenerDTO dto){
         if(dto == null){

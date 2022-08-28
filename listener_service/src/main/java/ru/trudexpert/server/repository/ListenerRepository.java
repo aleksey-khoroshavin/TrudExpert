@@ -27,5 +27,13 @@ public interface ListenerRepository extends JpaRepository<Listener, Long> {
 
     boolean existsByDateOfBirth(Instant date);
 
+    @Query(value = "select * from " +
+            "listeners inner join organization_listener ol on listeners.id = ol.listener_id " +
+            "where ol.organization_id = ?2 and listeners.surname like ?1", nativeQuery = true)
+    List<Listener> findAllBySurnameFromOrganization(String surname, Long organizationId);
 
+    @Query(value = "select * from " +
+            "listeners inner join organization_listener ol on listeners.id = ol.listener_id " +
+            "where ol.organization_id = ?1", nativeQuery = true)
+    List<Listener> findAllFromOrganization(Long organizationId);
 }
