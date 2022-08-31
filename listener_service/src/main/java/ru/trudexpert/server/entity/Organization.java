@@ -64,7 +64,7 @@ public class Organization {
     private OrganizationAgent organizationAgent;
 
     @OneToMany(mappedBy = "organization", cascade = CascadeType.ALL)
-    Set<OrganizationListener> listeners;
+    private Set<ListenerOrganization> listeners;
 
     public static Organization getFromDTO(OrganizationDTO dto){
         if(dto == null){
@@ -88,28 +88,35 @@ public class Organization {
     }
 
     public void addListener(Listener listener, String post){
-        OrganizationListener organizationListener = new OrganizationListener();
+        ListenerOrganization listenerOrganization = new ListenerOrganization();
 
-        organizationListener.setId(new OrganizationListenerKey()
+        listenerOrganization.setId(new OrganizationListenerKey()
                 .setOrganizationId(this.id)
                 .setListenerId(listener.getId()));
 
-        organizationListener.setOrganization(this);
-        organizationListener.setListener(listener);
-        organizationListener.setPost(post);
+        listenerOrganization.setOrganization(this);
+        listenerOrganization.setListener(listener);
+        listenerOrganization.setPost(post);
 
-        listener.organizations.add(organizationListener);
-        this.listeners.add(organizationListener);
+        listener.getOrganizations().add(listenerOrganization);
+        this.listeners.add(listenerOrganization);
     }
 
     public void removeListener(Listener listener){
-        OrganizationListener organizationListener = new OrganizationListener();
+        ListenerOrganization listenerOrganization = new ListenerOrganization();
 
-        organizationListener.setId(new OrganizationListenerKey()
+        listenerOrganization.setId(new OrganizationListenerKey()
                 .setOrganizationId(this.id)
                 .setListenerId(listener.getId()));
 
-        listener.organizations.remove(organizationListener);
-        this.listeners.remove(organizationListener);
+        listenerOrganization.setOrganization(this);
+        listenerOrganization.setListener(listener);
+
+        listener.getOrganizations().remove(listenerOrganization);
+        for(ListenerOrganization listenerOrganization1 : listener.getOrganizations()){
+            System.out.println(listenerOrganization1.getOrganization().getName());
+        }
+
+        this.listeners.remove(listenerOrganization);
     }
 }

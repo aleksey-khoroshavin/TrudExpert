@@ -14,7 +14,7 @@ import java.util.Objects;
 @Setter
 @Accessors(chain = true)
 @NoArgsConstructor
-public class OrganizationListener {
+public class ListenerOrganization {
 
     @EmbeddedId
     OrganizationListenerKey id;
@@ -38,12 +38,12 @@ public class OrganizationListener {
             return false;
         }
 
-        if(!(obj instanceof OrganizationListener organizationListener)){
+        if(!(obj instanceof ListenerOrganization listenerOrganization)){
             return false;
         }
 
-        return Objects.equals(this.listener.getId(), organizationListener.getListener().getId()) &&
-                Objects.equals(this.organization.getId(), organizationListener.getOrganization().getId());
+        return Objects.equals(this.listener.getId(), listenerOrganization.getListener().getId()) &&
+                Objects.equals(this.organization.getId(), listenerOrganization.getOrganization().getId());
     }
 
     @Override

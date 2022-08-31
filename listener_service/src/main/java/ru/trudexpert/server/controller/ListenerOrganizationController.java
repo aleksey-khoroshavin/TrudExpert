@@ -6,9 +6,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.trudexpert.server.dto.entity.ListenerOrganizationDTO;
+import ru.trudexpert.server.dto.shortinfo.OrganizationShortInfoDTO;
 import ru.trudexpert.server.exception.ListenerNotFoundException;
 import ru.trudexpert.server.exception.OrganizationNotExistException;
 import ru.trudexpert.server.service.ListenerOrganizationService;
+import ru.trudexpert.server.service.OrganizationService;
 
 import java.util.List;
 
@@ -17,6 +19,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ListenerOrganizationController {
     private final ListenerOrganizationService listenerOrganizationService;
+    private final OrganizationService organizationService;
+
+    private static final String ORGANIZATIONS = "organizations";
+    private static final String LISTENER_NAME = "listenerName";
+    private static final String LISTENER_ID = "listenerId";
 
     @GetMapping()
     public String openListenerOrganizationsPage(
@@ -29,29 +36,59 @@ public class ListenerOrganizationController {
         organizations = listenerOrganizationService.getOrganizationsOfListener(listenerId);
 
         if(!organizations.isEmpty()){
-            model.addAttribute("organizations", organizations);
+            model.addAttribute(ORGANIZATIONS, organizations);
         }
 
-        model.addAttribute("listenerName", listenerName);
-        model.addAttribute("listenerId", listenerId);
+        model.addAttribute(LISTENER_NAME, listenerName);
+        model.addAttribute(LISTENER_ID, listenerId);
 
-        return "/organization_listeners/organization_listeners_search";
+        return "/listener_organizations/listener_organizations_search";
     }
 
-    @PostMapping("/listeners/{listenerId}/organizations/{organizationId}")
+    @GetMapping("/add")
+    public String openOrganizationAddPage(
+            @RequestParam(name = "id") Long listenerId,
+            @RequestParam(name = "name") String listenerName,
+            Model model){
+
+        List<OrganizationShortInfoDTO> organizations = organizationService.getAllOrganizations();
+
+        model.addAttribute(ORGANIZATIONS, organizations);
+        model.addAttribute(LISTENER_ID, listenerId);
+        model.addAttribute(LISTENER_NAME, listenerName);
+
+        return "/listener_organizations/listener_organizations_add";
+    }
+
+    @GetMapping("/delete")
+    public String openOrganizationDeletePage(
+            @RequestParam(name = "id") Long listenerId,
+            @RequestParam(name = "name") String listenerName,
+            Model model){
+
+        List<OrganizationShortInfoDTO> organizations = organizationService.getListenerOrganizations(listenerId);
+
+        model.addAttribute(ORGANIZATIONS, organizations);
+        model.addAttribute(LISTENER_ID, listenerId);
+        model.addAttribute(LISTENER_NAME, listenerName);
+
+        return "/listener_organizations/listener_organizations_delete";
+    }
+
+    @PostMapping("/add")
     public ResponseEntity<String> addListenerToOrganization(
-            @PathVariable(value = "organizationId") Long organizationId,
-            @PathVariable(value = "listenerId") Long listenerId,
+            @RequestParam(value = "organizationId") Long organizationId,
+            @RequestParam(value = "listenerId") Long listenerId,
             @RequestParam String post
     ) throws ListenerNotFoundException, OrganizationNotExistException {
         listenerOrganizationService.addToOrganization(organizationId, listenerId, post);
         return ResponseEntity.ok("Added");
     }
 
-    @DeleteMapping("/listeners/{listenerId}/organizations/{organizationId}")
+    @PostMapping("/delete")
     public ResponseEntity<String> removeListenerFromOrganization(
-            @PathVariable(value = "organizationId") Long organizationId,
-            @PathVariable(value = "listenerId") Long listenerId
+            @RequestParam(value = "organizationId") Long organizationId,
+            @RequestParam(value = "listenerId") Long listenerId
     ) throws ListenerNotFoundException, OrganizationNotExistException {
         listenerOrganizationService.deleteFromOrganization(organizationId, listenerId);
         return ResponseEntity.ok("Deleted");

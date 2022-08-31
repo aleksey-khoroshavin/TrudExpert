@@ -81,8 +81,8 @@ public class Listener {
     @Column(name = "education_surname", columnDefinition = "varchar(100)")
     private String educationSurname;
 
-    @OneToMany(mappedBy = "listener")
-    Set<OrganizationListener> organizations;
+    @OneToMany(mappedBy = "listener", cascade = CascadeType.ALL)
+    private Set<ListenerOrganization> organizations;
 
     public static Listener getFromDTO(ListenerDTO dto){
         if(dto == null){

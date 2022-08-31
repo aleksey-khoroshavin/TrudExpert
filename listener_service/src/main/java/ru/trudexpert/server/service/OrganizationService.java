@@ -64,6 +64,14 @@ public class OrganizationService {
     }
 
     @Transactional
+    public List<OrganizationShortInfoDTO> getListenerOrganizations(Long listenerId){
+        return organizationRepository.findAllListenerOrganizations(listenerId)
+                .stream()
+                .map(OrganizationShortInfoDTO::getFromEntity)
+                .toList();
+    }
+
+    @Transactional
     public OrganizationFullDTO getOrganizationById(Long id) throws OrganizationNotExistException {
         Organization organization = organizationRepository.findById(id).orElse(null);
 

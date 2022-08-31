@@ -332,6 +332,7 @@
                     if (xhr.status === 200) {
                         form.style.display = 'none';
                         document.getElementById('formInfo').style.display = 'none';
+                        submitBtn.style.display = 'none';
 
                         resultMessage.className = "alert alert-success";
                         resultMessage.textContent = "Слушатель успешно добавлен в систему";
@@ -362,6 +363,7 @@
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === XMLHttpRequest.DONE) {
                     if (xhr.status === 200) {
+                        submitBtn.style.display = 'none';
                         resultMessage.className = "alert alert-success";
                         resultMessage.style.visibility = 'visible';
                         resultMessage.textContent = "Данные слушателя успешно обновлены";
