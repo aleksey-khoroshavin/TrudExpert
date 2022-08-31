@@ -113,9 +113,6 @@ public class Organization {
         listenerOrganization.setListener(listener);
 
         listener.getOrganizations().remove(listenerOrganization);
-        for(ListenerOrganization listenerOrganization1 : listener.getOrganizations()){
-            System.out.println(listenerOrganization1.getOrganization().getName());
-        }
 
         this.listeners.remove(listenerOrganization);
     }
