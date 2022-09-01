@@ -7,7 +7,7 @@ import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 
-//http://localhost:9090/swagger-ui/
+//http://localhost:9092/swagger-ui/
 @Configuration
 public class SwaggerConfig {
     @Bean
