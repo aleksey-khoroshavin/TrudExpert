@@ -25,7 +25,7 @@ public class Course {
     @Column(name = "studying_time", nullable = false)
     private Long studyingTime;
 
-    @Column(name = "cost", nullable = false, precision = 10, scale = 2)
+    @Column(name = "cost", nullable = false, columnDefinition = "numeric(5,2)")
     private BigDecimal cost;
 
 }

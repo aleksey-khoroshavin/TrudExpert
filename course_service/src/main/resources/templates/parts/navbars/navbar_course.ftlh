@@ -12,6 +12,9 @@
             <li class="nav-item" >
                 <a class="nav-link" href="/trudexpert/course/add"><i>Добавить курс</i></a>
             </li>
+            <li class="nav-item" >
+                <a class="nav-link" href="/trudexpert/course/search"><i>Список курсов</i></a>
+            </li>
 
         </ul>
     </div>
