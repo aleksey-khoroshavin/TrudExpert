@@ -142,4 +142,13 @@ public class ListenerService {
         return ListenerDTO.getFromEntity(listener);
     }
 
+    public String getListenerName(Long id){
+        Listener listener = listenerRepository.findById(id).orElse(null);
+        if(listener == null){
+            return null;
+        }
+
+        return listener.getSurname() + " " + listener.getName() + " " + listener.getPatronymic();
+    }
+
 }
