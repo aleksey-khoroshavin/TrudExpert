@@ -16,7 +16,6 @@
             <table class="table table-bordered mt-5">
                 <thead>
                 <tr>
-                    <th scope="col">ID</th>
                     <th scope="col">Название организации</th>
                     <th scope="col">Данные организации</th>
                     <th scope="col">Данные контрагента</th>
@@ -24,7 +23,6 @@
                 </thead>
                 <#list organizations as organization>
                     <tr>
-                        <td>${organization.id}</td>
                         <td>${organization.name}</td>
                         <td>
                             <a href="/trudexpert/organization/edit?id=${organization.id}">Редактировать</a>
