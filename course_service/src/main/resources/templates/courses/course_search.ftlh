@@ -19,6 +19,7 @@
                     <th scope="col">Описание курса</th>
                     <th scope="col">Срок обучения (дн.)</th>
                     <th scope="col">Цена курса (руб.\чел.)</th>
+                    <th scope="col">Данные курса</th>
                 </tr>
                 </thead>
                 <#list courses as course>
@@ -26,6 +27,9 @@
                         <td>${course.description}</td>
                         <td>${course.studyingTime}</td>
                         <td>${course.cost}</td>
+                        <td>
+                            <a href="/trudexpert/course/edit?id=${course.id}">Редактировать</a>
+                        </td>
                     </tr>
                 </#list>
             </table>

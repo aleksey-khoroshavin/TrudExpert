@@ -12,10 +12,8 @@
     <form id="addCourseForm">
         <div class="form-group col-md-8">
             <label for="inputDesc">Описание курса</label>
-            <textarea type="text" name="description" class="form-control" id="inputDesc" rows="6" required
-                    <#if type == 'edit'>
-                        value="${course.description}"
-                    </#if>></textarea>
+            <textarea type="text" name="description" class="form-control" id="inputDesc" rows="6"
+                      required><#if type == 'edit'>${course.description}</#if></textarea>
         </div>
 
 
@@ -23,7 +21,7 @@
             <label for="inputStudyDays">Срок обучения</label>
             <input type="text" name="studyingTime" class="form-control" id="inputStudyDays" placeholder="Кол-во дней"
                     <#if type == 'edit'>
-                        value="${course.studyingTime}"
+                value="${course.studyingTime}"
                     </#if>>
         </div>
 
@@ -32,7 +30,7 @@
             <label for="inputCost">Цена курса</label>
             <input type="text" name="cost" class="form-control" id="inputCost" placeholder="Цена в руб."
                     <#if type == 'edit'>
-                        value="${course.cost}"
+                value="${course.cost}"
                     </#if>>
         </div>
     </form>
@@ -65,7 +63,7 @@
         const backBtn = document.getElementById('backBtn');
 
         <#if type == 'add'>
-        submitBtn.onclick = function (event){
+        submitBtn.onclick = function (event) {
             const xhr = new XMLHttpRequest();
             const formData = new FormData(form);
 
@@ -85,6 +83,36 @@
                         resultMessage.textContent = "Курс успешно добавлен в систему";
                         resultMessage.style.visibility = 'visible';
                         backBtn.style.display = 'inline';
+                    } else {
+                        resultMessage.className = "alert alert-danger";
+                        resultMessage.style.visibility = 'visible';
+                        resultMessage.textContent = JSON.parse(xhr.responseText)["message"];
+                    }
+                }
+            }
+
+            return false;
+        }
+        </#if>
+
+        <#if type == 'edit'>
+        submitBtn.onclick = function (event) {
+            resultMessage.style.visibility = 'hidden';
+            const xhr = new XMLHttpRequest();
+            const formData = new FormData(form);
+
+            xhr.open('POST', '/trudexpert/course/update?id=${course.id}');
+            xhr.setRequestHeader("Content-Type", "application/json");
+
+            xhr.send(JSON.stringify(Object.fromEntries(formData)));
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        resultMessage.className = "alert alert-success";
+                        resultMessage.style.visibility = 'visible';
+                        resultMessage.textContent = "Данные курса успешно обновлены";
+
                     } else {
                         resultMessage.className = "alert alert-danger";
                         resultMessage.style.visibility = 'visible';

@@ -19,7 +19,7 @@ public class CourseDTO {
 
     private Long studyingTime;
 
-    private BigDecimal cost;
+    private String cost;
 
     public static CourseDTO getFromEntity(Course course){
         if(course == null){
@@ -30,6 +30,6 @@ public class CourseDTO {
                 .setId(course.getId())
                 .setDescription(course.getDescription())
                 .setStudyingTime(course.getStudyingTime())
-                .setCost(course.getCost());
+                .setCost(course.getCost().toString());
     }
 }

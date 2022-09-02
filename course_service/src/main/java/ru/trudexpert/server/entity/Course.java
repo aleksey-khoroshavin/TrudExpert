@@ -36,7 +36,7 @@ public class Course {
 
         return new Course()
                 .setDescription(dto.getDescription())
-                .setCost(dto.getCost())
+                .setCost(BigDecimal.valueOf(Double.parseDouble(dto.getCost())))
                 .setStudyingTime(dto.getStudyingTime());
     }
 

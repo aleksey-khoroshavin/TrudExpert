@@ -28,7 +28,7 @@ public class CourseController {
 
     @GetMapping("/search")
     public String openCourseSearchPage(@RequestParam(required = false, defaultValue = "") String desc, Model model){
-        List<Course> courses;
+        List<CourseDTO> courses;
 
         if(desc != null && !desc.isEmpty()){
             courses = courseService.getAllCoursesByDescription(desc);
@@ -57,7 +57,7 @@ public class CourseController {
         model.addAttribute("type", "edit");
 
         Course course = courseService.getCourseById(id);
-        model.addAttribute("course", course);
+        model.addAttribute("course", CourseDTO.getFromEntity(course));
 
         return "/courses/course_info";
     }
@@ -68,5 +68,14 @@ public class CourseController {
     ) throws CourseAlreadyRegisteredException {
         courseService.saveCourse(courseDTO);
         return ResponseEntity.ok("Created");
+    }
+
+    @PostMapping("/update")
+    public ResponseEntity<String> updateCourse(
+            @RequestParam(name = "id") Long id,
+            @RequestBody CourseDTO courseDTO
+    ) throws CourseAlreadyRegisteredException, CourseNotFoundException {
+        courseService.updateCourse(courseDTO.setId(id));
+        return ResponseEntity.ok("Updated");
     }
 }

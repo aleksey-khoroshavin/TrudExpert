@@ -9,6 +9,7 @@ import ru.trudexpert.server.exception.CourseNotFoundException;
 import ru.trudexpert.server.repository.CourseRepository;
 
 import javax.transaction.Transactional;
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -17,12 +18,18 @@ public class CourseService {
 
     private final CourseRepository courseRepository;
 
-    public List<Course> getAllCourses(){
-        return courseRepository.findAllCourses();
+    public List<CourseDTO> getAllCourses(){
+        return courseRepository.findAllCourses()
+                .stream()
+                .map(CourseDTO::getFromEntity)
+                .toList();
     }
 
-    public List<Course> getAllCoursesByDescription(String description){
-        return courseRepository.findAllByDescription('%' + description + '%');
+    public List<CourseDTO> getAllCoursesByDescription(String description){
+        return courseRepository.findAllByDescription('%' + description + '%')
+                .stream()
+                .map(CourseDTO::getFromEntity)
+                .toList();
     }
 
     public Course getCourseById(Long id) throws CourseNotFoundException {
@@ -38,6 +45,26 @@ public class CourseService {
     public void saveCourse(CourseDTO courseDTO) throws CourseAlreadyRegisteredException {
         checkIsCourseAlreadyRegistered(courseDTO.getDescription());
         Course course = Course.getFromDTO(courseDTO);
+        courseRepository.save(course);
+    }
+
+    @Transactional
+    public void updateCourse(CourseDTO courseDTO) throws CourseAlreadyRegisteredException, CourseNotFoundException {
+
+        Course course = courseRepository.findById(courseDTO.getId()).orElse(null);
+        if(course == null){
+            throw new CourseNotFoundException();
+        }
+
+        if(!courseDTO.getDescription().equals(course.getDescription())){
+            checkIsCourseAlreadyRegistered(courseDTO.getDescription());
+        }
+
+        course.setId(courseDTO.getId())
+                .setCost(BigDecimal.valueOf(Double.parseDouble(courseDTO.getCost())))
+                .setStudyingTime(course.getStudyingTime())
+                .setDescription(courseDTO.getDescription());
+
         courseRepository.save(course);
     }
 
