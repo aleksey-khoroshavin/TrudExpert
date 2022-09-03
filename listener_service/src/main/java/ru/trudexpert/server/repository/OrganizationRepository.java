@@ -18,6 +18,9 @@ public interface OrganizationRepository extends JpaRepository<Organization, Long
     @Query(value = "select * from organizations o order by o.id", nativeQuery = true)
     List<Organization> findAllOrganizations();
 
+    @Query(value = "select * from organizations o where o.id not in (select ol.listener_id from organization_listener ol where ol.listener_id = :listener_id)", nativeQuery = true)
+    List<Organization> findAllOrganizationsNotAttachedToListener(@Param("listener_id") Long listenerId);
+
     @Query(value = "select * from organizations o where o.id in (select ol.organization_id from organization_listener ol where ol.listener_id = :listener_id)", nativeQuery = true)
     List<Organization> findAllListenerOrganizations(@Param("listener_id") Long listenerId);
 }

@@ -284,7 +284,8 @@
 
         <label for="coursesBtn"><b>Назначенные курсы для данного слушателя (заполняется, чтобы добавить слушателя в группу)</b></label>
         <div class="form-group" id="coursesBtn">
-            <button type="submit" class="btn btn-primary">
+            <button type="submit" class="btn btn-primary"
+            onclick="window.location.href='/trudexpert/course/listener/search?listener_id=${listener.id}'">
                 Список назначенных курсов
             </button>
         </div>

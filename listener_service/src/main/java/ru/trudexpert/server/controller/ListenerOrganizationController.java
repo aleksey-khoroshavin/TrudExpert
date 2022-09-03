@@ -53,7 +53,7 @@ public class ListenerOrganizationController {
             @RequestParam(name = "name") String listenerName,
             Model model){
 
-        List<OrganizationShortInfoDTO> organizations = organizationService.getAllOrganizations();
+        List<OrganizationShortInfoDTO> organizations = organizationService.getAllOrganizationsNotAttachedToListener(listenerId);
 
         model.addAttribute(ORGANIZATIONS, organizations);
         model.addAttribute(LISTENER_ID, listenerId);

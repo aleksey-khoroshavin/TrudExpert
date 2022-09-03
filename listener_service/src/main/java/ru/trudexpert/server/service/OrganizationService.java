@@ -64,6 +64,14 @@ public class OrganizationService {
     }
 
     @Transactional
+    public List<OrganizationShortInfoDTO> getAllOrganizationsNotAttachedToListener(Long listenerId){
+        return organizationRepository.findAllOrganizationsNotAttachedToListener(listenerId)
+                .stream()
+                .map(OrganizationShortInfoDTO::getFromEntity)
+                .toList();
+    }
+
+    @Transactional
     public List<OrganizationShortInfoDTO> getListenerOrganizations(Long listenerId){
         return organizationRepository.findAllListenerOrganizations(listenerId)
                 .stream()
