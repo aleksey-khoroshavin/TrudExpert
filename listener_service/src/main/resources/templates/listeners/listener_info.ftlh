@@ -281,6 +281,14 @@
                 Список организаций
             </button>
         </div>
+
+        <label for="coursesBtn"><b>Назначенные курсы для данного слушателя (заполняется, чтобы добавить слушателя в группу)</b></label>
+        <div class="form-group" id="coursesBtn">
+            <button type="submit" class="btn btn-primary">
+                Список назначенных курсов
+            </button>
+        </div>
+
     </#if>
 
     <div class="form-group mt-5" style="text-align: right">
@@ -357,6 +365,7 @@
 
         <#if type == 'edit'>
         submitBtn.onclick = function (event) {
+            resultMessage.style.visibility = 'hidden';
             const xhr = new XMLHttpRequest();
             const formData = new FormData(form);
 
@@ -368,7 +377,6 @@
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === XMLHttpRequest.DONE) {
                     if (xhr.status === 200) {
-                        submitBtn.style.display = 'none';
                         resultMessage.className = "alert alert-success";
                         resultMessage.style.visibility = 'visible';
                         resultMessage.textContent = "Данные слушателя успешно обновлены";
