@@ -1,5 +1,5 @@
 server:
-  port: 9094
+  port: 9093
 spring:
   datasource:
     url: ${POSTGRES_URL:jdbc:postgresql://localhost:5432/trud_expert}
@@ -8,9 +8,9 @@ spring:
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     database-platform: org.hibernate.dialect.PostgreSQL9Dialect
-    show-sql: true
+    show-sql: false
   freemarker:
     expose-request-attributes: true
 
