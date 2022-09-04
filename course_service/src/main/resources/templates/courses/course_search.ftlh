@@ -4,8 +4,8 @@
     <h5>Список курсов</h5>
 
     <div class="form-group mt-3">
-        <form method="get" action="/trudexpert/organization/search" id="searchByName" class="form-inline">
-            <input type="text" name="companyName" id="courseDesc" class="form-control" value="${desc!""}"
+        <form method="get" action="/trudexpert/course/search" id="searchByName" class="form-inline">
+            <input type="text" name="desc" id="courseDesc" class="form-control" value="${desc!""}"
                    placeholder="Введите название курса или его описание" size="20">
             <button type="submit" class="btn btn-primary ml-2">Найти</button>
         </form>
