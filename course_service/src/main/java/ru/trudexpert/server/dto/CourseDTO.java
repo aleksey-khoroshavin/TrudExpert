@@ -6,8 +6,6 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 import ru.trudexpert.server.entity.Course;
 
-import java.math.BigDecimal;
-
 @Getter
 @Setter
 @Accessors(chain = true)
