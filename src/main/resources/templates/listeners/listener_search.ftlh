@@ -4,13 +4,15 @@
     <h5>Список слушателей</h5>
     <div>
         Для поиска слушателей необходимо заполнить поле <i>"Фамилия"</i>.<br>
-        Для нахождения конкретного лица будут дополнительно отображены <i>"Имя"</i>, <i>"Отчество"(при наличии)</i> и <i>"Дата рождения".</i><br>
+        Для нахождения конкретного лица будут дополнительно отображены <i>"Имя"</i>, <i>"Отчество"(при наличии)</i> и
+        <i>"Дата рождения".</i><br>
     </div>
 
     <div class="form-row mt-3">
         <form method="get" action="/trudexpert/listener/search" id="searchBySurname" class="form-inline">
             <label>
-                <input type="text" name="surname" class="form-control" value="${surname!""}" placeholder="Введите фамилию">
+                <input type="text" name="surname" class="form-control" value="${surname!""}"
+                       placeholder="Введите фамилию">
             </label>
             <button type="submit" class="btn btn-primary ml-2">Найти</button>
         </form>
@@ -42,7 +44,7 @@
                     </tr>
                 </#list>
             </table>
-            <#else>
+        <#else>
             <div><br>Не найдено слушателей в системе</div>
         </#if>
 

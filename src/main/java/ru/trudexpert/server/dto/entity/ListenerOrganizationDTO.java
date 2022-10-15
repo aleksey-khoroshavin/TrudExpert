@@ -15,8 +15,8 @@ public class ListenerOrganizationDTO {
     private String organizationName;
     private String post;
 
-    public static ListenerOrganizationDTO getFromEntity(ListenerOrganization listenerOrganization){
-        if(listenerOrganization == null){
+    public static ListenerOrganizationDTO getFromEntity(ListenerOrganization listenerOrganization) {
+        if (listenerOrganization == null) {
             return null;
         }
 

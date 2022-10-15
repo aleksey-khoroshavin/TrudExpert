@@ -40,8 +40,8 @@ public class OrganizationDTO {
 
     private String okved;
 
-    public static OrganizationDTO getFromEntity(Organization entity){
-        if(entity == null){
+    public static OrganizationDTO getFromEntity(Organization entity) {
+        if (entity == null) {
             return null;
         }
 

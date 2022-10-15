@@ -32,7 +32,7 @@
         const submitBtn = document.getElementById('submitBtn');
 
         submitBtn.onclick = function (event) {
-            const courseId =select.value;
+            const courseId = select.value;
 
             const xhr = new XMLHttpRequest();
 
@@ -44,7 +44,7 @@
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === XMLHttpRequest.DONE) {
                     if (xhr.status === 200) {
-                        window.location.href="/trudexpert/course/listener/search?listener_id=${listenerId}";
+                        window.location.href = "/trudexpert/course/listener/search?listener_id=${listenerId}";
                     }
                 }
             }

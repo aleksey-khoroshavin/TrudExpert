@@ -6,7 +6,13 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 import ru.trudexpert.server.dto.CourseDTO;
 
-import javax.persistence.*;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.math.BigDecimal;
 
 @Entity
@@ -29,8 +35,8 @@ public class Course {
     @Column(name = "cost", nullable = false, columnDefinition = "numeric(7,2)")
     private BigDecimal cost;
 
-    public static Course getFromDTO(CourseDTO dto){
-        if(dto == null){
+    public static Course getFromDTO(CourseDTO dto) {
+        if (dto == null) {
             return null;
         }
 

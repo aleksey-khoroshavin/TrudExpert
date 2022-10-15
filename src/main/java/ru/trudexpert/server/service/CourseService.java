@@ -18,14 +18,14 @@ public class CourseService {
 
     private final CourseRepository courseRepository;
 
-    public List<CourseDTO> getAllCourses(){
+    public List<CourseDTO> getAllCourses() {
         return courseRepository.findAllCourses()
                 .stream()
                 .map(CourseDTO::getFromEntity)
                 .toList();
     }
 
-    public List<CourseDTO> getAllCoursesByDescription(String description){
+    public List<CourseDTO> getAllCoursesByDescription(String description) {
         return courseRepository.findAllByDescription('%' + description + '%')
                 .stream()
                 .map(CourseDTO::getFromEntity)
@@ -33,10 +33,10 @@ public class CourseService {
     }
 
     public Course getCourseById(Long id) throws CourseNotFoundException {
-        Course course = courseRepository.findById(id).orElse(null);
-        if(course == null){
+        var course = courseRepository.findById(id).orElse(null);
+        if (course == null) {
             throw new CourseNotFoundException();
-        }else {
+        } else {
             return course;
         }
     }
@@ -44,19 +44,19 @@ public class CourseService {
     @Transactional
     public void saveCourse(CourseDTO courseDTO) throws CourseAlreadyRegisteredException {
         checkIsCourseAlreadyRegistered(courseDTO.getDescription());
-        Course course = Course.getFromDTO(courseDTO);
+        var course = Course.getFromDTO(courseDTO);
         courseRepository.save(course);
     }
 
     @Transactional
     public void updateCourse(CourseDTO courseDTO) throws CourseAlreadyRegisteredException, CourseNotFoundException {
 
-        Course course = courseRepository.findById(courseDTO.getId()).orElse(null);
-        if(course == null){
+        var course = courseRepository.findById(courseDTO.getId()).orElse(null);
+        if (course == null) {
             throw new CourseNotFoundException();
         }
 
-        if(!courseDTO.getDescription().equals(course.getDescription())){
+        if (!courseDTO.getDescription().equals(course.getDescription())) {
             checkIsCourseAlreadyRegistered(courseDTO.getDescription());
         }
 
@@ -69,7 +69,7 @@ public class CourseService {
     }
 
     private void checkIsCourseAlreadyRegistered(String desc) throws CourseAlreadyRegisteredException {
-        if(courseRepository.existsByDescription(desc)){
+        if (courseRepository.existsByDescription(desc)) {
             throw new CourseAlreadyRegisteredException();
         }
     }

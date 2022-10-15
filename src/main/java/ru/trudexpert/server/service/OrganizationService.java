@@ -26,11 +26,11 @@ public class OrganizationService {
     private final OrganizationAgentRepository agentRepository;
 
     private void checkCompanyName(String name) throws OrganizationAlreadyRegisteredException, NoOrganizationNameException {
-        if(name.isEmpty()){
+        if (name.isEmpty()) {
             throw new NoOrganizationNameException();
         }
 
-        if(organizationRepository.existsByName(name)){
+        if (organizationRepository.existsByName(name)) {
             throw new OrganizationAlreadyRegisteredException();
         }
     }
@@ -39,16 +39,16 @@ public class OrganizationService {
     public void saveOrganization(OrganizationFullDTO dto) throws OrganizationAlreadyRegisteredException, NoOrganizationNameException {
         checkCompanyName(dto.getOrganizationDTO().getOrganizationName());
 
-        Organization organization = Organization.getFromDTO(dto.getOrganizationDTO());
+        var organization = Organization.getFromDTO(dto.getOrganizationDTO());
 
-        OrganizationAgent agent = OrganizationAgent.getFromDTO(dto.getOrganizationAgentDTO());
+        var agent = OrganizationAgent.getFromDTO(dto.getOrganizationAgentDTO());
         attachAgentToOrganization(agent, organization);
 
         organizationRepository.save(organization);
     }
 
     @Transactional
-    public List<OrganizationShortInfoDTO> getOrganizationsByName(String companyName){
+    public List<OrganizationShortInfoDTO> getOrganizationsByName(String companyName) {
         return organizationRepository.findAllByName('%' + companyName + '%')
                 .stream()
                 .map(OrganizationShortInfoDTO::getFromEntity)
@@ -56,7 +56,7 @@ public class OrganizationService {
     }
 
     @Transactional
-    public List<OrganizationShortInfoDTO> getAllOrganizations(){
+    public List<OrganizationShortInfoDTO> getAllOrganizations() {
         return organizationRepository.findAllOrganizations()
                 .stream()
                 .map(OrganizationShortInfoDTO::getFromEntity)
@@ -64,7 +64,7 @@ public class OrganizationService {
     }
 
     @Transactional
-    public List<OrganizationShortInfoDTO> getAllOrganizationsNotAttachedToListener(Long listenerId){
+    public List<OrganizationShortInfoDTO> getAllOrganizationsNotAttachedToListener(Long listenerId) {
         return organizationRepository.findAllOrganizationsNotAttachedToListener(listenerId)
                 .stream()
                 .map(OrganizationShortInfoDTO::getFromEntity)
@@ -72,7 +72,7 @@ public class OrganizationService {
     }
 
     @Transactional
-    public List<OrganizationShortInfoDTO> getListenerOrganizations(Long listenerId){
+    public List<OrganizationShortInfoDTO> getListenerOrganizations(Long listenerId) {
         return organizationRepository.findAllListenerOrganizations(listenerId)
                 .stream()
                 .map(OrganizationShortInfoDTO::getFromEntity)
@@ -81,19 +81,19 @@ public class OrganizationService {
 
     @Transactional
     public OrganizationFullDTO getOrganizationById(Long id) throws OrganizationNotExistException {
-        Organization organization = organizationRepository.findById(id).orElse(null);
+        var organization = organizationRepository.findById(id).orElse(null);
 
-        if(organization == null){
+        if (organization == null) {
             throw new OrganizationNotExistException();
         }
 
-        OrganizationDTO organizationDTO = OrganizationDTO.getFromEntity(organization);
-        OrganizationAgentDTO agentDTO = OrganizationAgentDTO.getFromEntity(agentRepository.findById(id).orElse(null));
+        var organizationDTO = OrganizationDTO.getFromEntity(organization);
+        var agentDTO = OrganizationAgentDTO.getFromEntity(agentRepository.findById(id).orElse(null));
 
         return new OrganizationFullDTO().setOrganizationDTO(organizationDTO).setOrganizationAgentDTO(agentDTO);
     }
 
-    private void attachAgentToOrganization(OrganizationAgent agent, Organization organization){
+    private void attachAgentToOrganization(OrganizationAgent agent, Organization organization) {
         agent.setId(organization.getId());
         agent.setOrganization(organization);
         organization.setOrganizationAgent(agent);
@@ -102,8 +102,8 @@ public class OrganizationService {
     @Transactional
     public void updateOrganizationInfo(OrganizationDTO dto) throws OrganizationNotExistException {
 
-        Organization organization = organizationRepository.findById(dto.getId()).orElse(null);
-        if(organization == null){
+        var organization = organizationRepository.findById(dto.getId()).orElse(null);
+        if (organization == null) {
             throw new OrganizationNotExistException();
         }
 

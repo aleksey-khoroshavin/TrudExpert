@@ -16,7 +16,7 @@ public class OrganizationAgentService {
     private final OrganizationAgentRepository agentRepository;
 
     @Transactional
-    public OrganizationAgentDTO getAgentById(Long id){
+    public OrganizationAgentDTO getAgentById(Long id) {
         OrganizationAgent agent = agentRepository.findById(id).orElse(null);
         return OrganizationAgentDTO.getFromEntity(agent);
     }
@@ -26,7 +26,7 @@ public class OrganizationAgentService {
 
         OrganizationAgent agent = agentRepository.findById(dto.getId()).orElse(null);
 
-        if(agent == null){
+        if (agent == null) {
             throw new AgentNotFoundException();
         }
 
@@ -40,7 +40,6 @@ public class OrganizationAgentService {
         agentRepository.save(agent);
 
     }
-
 
 
 }
