@@ -14,13 +14,12 @@ public class GroupController {
     private final GroupService groupService;
 
     @GetMapping
-    public String openGroupPage(){
+    public String openGroupPage() {
         return "groups";
     }
 
     @GetMapping("/search")
-    public String openGroupListPage(){
-
+    public String openGroupListPage() {
 
 
         return "/groups/group_search";

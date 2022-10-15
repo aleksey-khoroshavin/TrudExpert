@@ -55,7 +55,7 @@
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === XMLHttpRequest.DONE) {
                     if (xhr.status === 200) {
-                        window.location.href="/trudexpert/listener/organizations?id=${listenerId}&name=${listenerName}";
+                        window.location.href = "/trudexpert/listener/organizations?id=${listenerId}&name=${listenerName}";
                     }
                 }
             }

@@ -282,10 +282,11 @@
             </button>
         </div>
 
-        <label for="coursesBtn"><b>Назначенные курсы для данного слушателя (заполняется, чтобы добавить слушателя в группу)</b></label>
+        <label for="coursesBtn"><b>Назначенные курсы для данного слушателя (заполняется, чтобы добавить слушателя в
+                группу)</b></label>
         <div class="form-group" id="coursesBtn">
             <button type="submit" class="btn btn-primary"
-            onclick="window.location.href='/trudexpert/course/listener/search?listener_id=${listener.id}'">
+                    onclick="window.location.href='/trudexpert/course/listener/search?listener_id=${listener.id}'">
                 Список назначенных курсов
             </button>
         </div>
@@ -327,8 +328,8 @@
         });
 
         document.getElementById('inputSnils').addEventListener('input', function (e) {
-           const x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,3})(\d{0,2})/);
-           e.target.value = !x[2] ? x[1] : x[1] + '-' + x[2] + (x[3] ? '-' + x[3] : '') + (x[4] ? ' ' + x[4] : '');
+            const x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,3})(\d{0,2})/);
+            e.target.value = !x[2] ? x[1] : x[1] + '-' + x[2] + (x[3] ? '-' + x[3] : '') + (x[4] ? ' ' + x[4] : '');
         });
 
         <#if type == 'add'>

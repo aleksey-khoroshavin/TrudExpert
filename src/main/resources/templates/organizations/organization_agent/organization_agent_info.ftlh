@@ -56,7 +56,7 @@
 
     <div class="form-group">
         <button type="submit" class="btn btn-primary" id="submitBtn">
-                Сохранить изменения
+            Сохранить изменения
         </button>
     </div>
 

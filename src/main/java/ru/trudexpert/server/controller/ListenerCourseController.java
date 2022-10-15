@@ -26,12 +26,12 @@ public class ListenerCourseController {
     public String openListenerCoursesPage(
             @RequestParam(name = "listener_id") Long listenerId,
             Model model
-    ){
+    ) {
         List<CourseDTO> courses;
 
         courses = listenerCourseService.getListenerCourses(listenerId);
 
-        if(!courses.isEmpty()){
+        if (!courses.isEmpty()) {
             model.addAttribute("courses", courses);
         }
 
@@ -45,7 +45,7 @@ public class ListenerCourseController {
     public String openListenerCourseAddPage(
             @RequestParam(name = "listener_id") Long listenerId,
             Model model
-    ){
+    ) {
         List<CourseDTO> courses = listenerCourseService.getCoursesNotAttachedToListener(listenerId);
 
         model.addAttribute("courses", courses);

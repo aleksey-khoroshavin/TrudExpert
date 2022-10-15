@@ -25,11 +25,11 @@ public class OrganizationListenerKey implements Serializable {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == null){
+        if (obj == null) {
             return false;
         }
 
-        if(!(obj instanceof OrganizationListenerKey organizationListenerKey)){
+        if (!(obj instanceof OrganizationListenerKey organizationListenerKey)) {
             return false;
         }
 

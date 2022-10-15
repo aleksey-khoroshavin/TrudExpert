@@ -20,28 +20,28 @@ public class ListenerCourseService {
     private final EntityManager entityManager;
 
     @Transactional
-    public List<CourseDTO> getListenerCourses(Long listenerId){
+    public List<CourseDTO> getListenerCourses(Long listenerId) {
         return courseRepository.findListenerCourses(listenerId).stream().map(CourseDTO::getFromEntity).toList();
     }
 
     @Transactional
-    public String getListenerFullName(Long listenerId){
+    public String getListenerFullName(Long listenerId) {
         return courseRepository.getListenerName(listenerId);
     }
 
     @Transactional
-    public List<CourseDTO> getCoursesNotAttachedToListener(Long listenerId){
+    public List<CourseDTO> getCoursesNotAttachedToListener(Long listenerId) {
         return courseRepository.findCoursesNotAttachedToListener(listenerId).stream().map(CourseDTO::getFromEntity).toList();
     }
 
     @Transactional
     public void addListenerToCourse(Long listenerId, Long courseId) throws CourseNotFoundException, ListenerNotFoundException {
 
-        if(!courseRepository.checkIsCourseExists(courseId)){
+        if (!courseRepository.checkIsCourseExists(courseId)) {
             throw new CourseNotFoundException();
         }
 
-        if(!courseRepository.checkIsListenerExists(listenerId)){
+        if (!courseRepository.checkIsListenerExists(listenerId)) {
             throw new ListenerNotFoundException();
         }
 

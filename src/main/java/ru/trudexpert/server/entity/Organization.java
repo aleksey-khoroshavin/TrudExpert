@@ -6,7 +6,16 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 import ru.trudexpert.server.dto.entity.OrganizationDTO;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
 import java.util.Set;
 
 @Entity
@@ -66,8 +75,8 @@ public class Organization {
     @OneToMany(mappedBy = "organization", cascade = CascadeType.ALL)
     private Set<ListenerOrganization> listeners;
 
-    public static Organization getFromDTO(OrganizationDTO dto){
-        if(dto == null){
+    public static Organization getFromDTO(OrganizationDTO dto) {
+        if (dto == null) {
             return null;
         }
 
@@ -87,8 +96,8 @@ public class Organization {
                 .setOkved(dto.getOkved());
     }
 
-    public void addListener(Listener listener, String post){
-        ListenerOrganization listenerOrganization = new ListenerOrganization();
+    public void addListener(Listener listener, String post) {
+        var listenerOrganization = new ListenerOrganization();
 
         listenerOrganization.setId(new OrganizationListenerKey()
                 .setOrganizationId(this.id)
@@ -102,8 +111,8 @@ public class Organization {
         this.listeners.add(listenerOrganization);
     }
 
-    public void removeListener(Listener listener){
-        ListenerOrganization listenerOrganization = new ListenerOrganization();
+    public void removeListener(Listener listener) {
+        var listenerOrganization = new ListenerOrganization();
 
         listenerOrganization.setId(new OrganizationListenerKey()
                 .setOrganizationId(this.id)

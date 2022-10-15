@@ -4,7 +4,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import ru.trudexpert.server.dto.entity.OrganizationDTO;
 import ru.trudexpert.server.dto.complex.OrganizationFullDTO;
 import ru.trudexpert.server.dto.shortinfo.OrganizationShortInfoDTO;
@@ -23,24 +27,24 @@ public class OrganizationController {
     private final OrganizationService organizationService;
 
     @GetMapping
-    public String openOrganizationPage(){
+    public String openOrganizationPage() {
         return "organizations";
     }
 
     @GetMapping("/add")
-    public String openOrganizationAddForm(Model model){
+    public String openOrganizationAddForm(Model model) {
         model.addAttribute("type", "add");
         return "organizations/organization_info";
     }
 
     @GetMapping("/edit")
-    public String openOrganizationEditForm(@RequestParam(name = "id") Long id, Model model){
+    public String openOrganizationEditForm(@RequestParam(name = "id") Long id, Model model) {
         model.addAttribute("type", "edit");
 
-        try{
-            OrganizationFullDTO organizationFullDTO = organizationService.getOrganizationById(id);
+        try {
+            var organizationFullDTO = organizationService.getOrganizationById(id);
             model.addAttribute("organization", organizationFullDTO);
-        }catch (OrganizationNotExistException exception){
+        } catch (OrganizationNotExistException exception) {
             model.addAttribute("type", "error");
             model.addAttribute("error", exception.getMessage());
         }
@@ -51,17 +55,17 @@ public class OrganizationController {
     @GetMapping("/search")
     public String openSearchOrganizationPage(
             @RequestParam(required = false, defaultValue = "") String companyName,
-            Model model){
+            Model model) {
 
         List<OrganizationShortInfoDTO> organizations;
 
-        if(companyName != null && !companyName.isEmpty()){
+        if (companyName != null && !companyName.isEmpty()) {
             organizations = organizationService.getOrganizationsByName(companyName);
-        }else{
+        } else {
             organizations = organizationService.getAllOrganizations();
         }
 
-        if(!organizations.isEmpty()){
+        if (!organizations.isEmpty()) {
             model.addAttribute("organizations", organizations);
         }
 

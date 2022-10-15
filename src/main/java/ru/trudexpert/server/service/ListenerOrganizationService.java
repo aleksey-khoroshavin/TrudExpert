@@ -3,8 +3,6 @@ package ru.trudexpert.server.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.trudexpert.server.dto.entity.ListenerOrganizationDTO;
-import ru.trudexpert.server.entity.Listener;
-import ru.trudexpert.server.entity.Organization;
 import ru.trudexpert.server.entity.OrganizationListenerKey;
 import ru.trudexpert.server.exception.ListenerNotFoundException;
 import ru.trudexpert.server.exception.OrganizationNotExistException;
@@ -27,9 +25,9 @@ public class ListenerOrganizationService {
     private final OrganizationRepository organizationRepository;
 
     @Transactional
-    public List<ListenerOrganizationDTO> getOrganizationsOfListener(Long listenerId){
-        Listener listener = listenerRepository.findById(listenerId).orElse(null);
-        if(listener == null){
+    public List<ListenerOrganizationDTO> getOrganizationsOfListener(Long listenerId) {
+        var listener = listenerRepository.findById(listenerId).orElse(null);
+        if (listener == null) {
             return Collections.emptyList();
         }
 
@@ -40,15 +38,15 @@ public class ListenerOrganizationService {
     public void addToOrganization(Long organizationId, Long listenerId, String post)
             throws ListenerNotFoundException, OrganizationNotExistException {
 
-        Organization organization = organizationRepository.findById(organizationId).orElse(null);
+        var organization = organizationRepository.findById(organizationId).orElse(null);
 
-        if(organization == null){
+        if (organization == null) {
             throw new OrganizationNotExistException();
         }
 
-        Listener listener = listenerRepository.findById(listenerId).orElse(null);
+        var listener = listenerRepository.findById(listenerId).orElse(null);
 
-        if(listener == null){
+        if (listener == null) {
             throw new ListenerNotFoundException();
         }
 
@@ -61,15 +59,15 @@ public class ListenerOrganizationService {
     @Transactional
     public void deleteFromOrganization(Long organizationId, Long listenerId)
             throws ListenerNotFoundException, OrganizationNotExistException {
-        Listener listener = listenerRepository.findById(listenerId).orElse(null);
+        var listener = listenerRepository.findById(listenerId).orElse(null);
 
-        if(listener == null){
+        if (listener == null) {
             throw new ListenerNotFoundException();
         }
 
-        Organization organization = organizationRepository.findById(organizationId).orElse(null);
+        var organization = organizationRepository.findById(organizationId).orElse(null);
 
-        if(organization == null){
+        if (organization == null) {
             throw new OrganizationNotExistException();
         }
 

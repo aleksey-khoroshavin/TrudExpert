@@ -8,8 +8,8 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @SpringBootApplication
 public class TrudExpertServerApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(TrudExpertServerApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(TrudExpertServerApplication.class, args);
+    }
 
 }

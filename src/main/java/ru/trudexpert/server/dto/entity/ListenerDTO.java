@@ -54,8 +54,8 @@ public class ListenerDTO {
 
     private String educationSurname;
 
-    public static ListenerDTO getFromEntity(Listener listener){
-        if(listener == null){
+    public static ListenerDTO getFromEntity(Listener listener) {
+        if (listener == null) {
             return null;
         }
 
