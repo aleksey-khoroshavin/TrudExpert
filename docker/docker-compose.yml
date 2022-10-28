@@ -1,7 +1,19 @@
 version: '3.7'
 
 services:
-  postgres:
+  app:
+    image: 'trud-expert:release'
+    build:
+      context: .
+    container_name: trud-expert-app
+    depends_on:
+      - db
+    ports:
+      - "8080:8080"
+    env_file:
+      - ../src/main/resources/properties.env
+
+  db:
     container_name: trud-expert-postgres
     image: postgres:12.1-alpine
     ports:
