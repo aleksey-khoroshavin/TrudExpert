@@ -106,7 +106,7 @@ public class Listener {
                 .setDateOfBirth(LocalDate.parse(dto.getDateOfBirth(), formatter).atStartOfDay().toInstant(ZoneOffset.UTC))
                 .setSnils(dto.getSnils())
                 .setGender(dto.getGender())
-                .setPhoneNumber("+7-" + dto.getPhoneNumber())
+                .setPhoneNumber(dto.getPhoneNumber() != null ? "+7-" + dto.getPhoneNumber() : null)
                 .setCitizenshipCode(dto.getCitizenshipCode())
                 .setDriverLicense(dto.getDriverLicense())
                 .setAddress(dto.getAddress())

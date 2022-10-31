@@ -24,7 +24,7 @@ public class OrganizationAgentController {
     public String openOrganizationAgentInfoPage(
             @RequestParam(name = "id") Long id,
             @RequestParam(name = "companyName") String companyName,
-            Model model) {
+            Model model) throws AgentNotFoundException {
 
         OrganizationAgentDTO agentDTO = organizationAgentService.getAgentById(id);
 

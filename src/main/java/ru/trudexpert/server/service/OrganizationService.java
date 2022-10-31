@@ -2,9 +2,9 @@ package ru.trudexpert.server.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import ru.trudexpert.server.dto.complex.OrganizationFullDTO;
 import ru.trudexpert.server.dto.entity.OrganizationAgentDTO;
 import ru.trudexpert.server.dto.entity.OrganizationDTO;
-import ru.trudexpert.server.dto.complex.OrganizationFullDTO;
 import ru.trudexpert.server.dto.shortinfo.OrganizationShortInfoDTO;
 import ru.trudexpert.server.entity.Organization;
 import ru.trudexpert.server.entity.OrganizationAgent;
@@ -66,14 +66,6 @@ public class OrganizationService {
     @Transactional
     public List<OrganizationShortInfoDTO> getAllOrganizationsNotAttachedToListener(Long listenerId) {
         return organizationRepository.findAllOrganizationsNotAttachedToListener(listenerId)
-                .stream()
-                .map(OrganizationShortInfoDTO::getFromEntity)
-                .toList();
-    }
-
-    @Transactional
-    public List<OrganizationShortInfoDTO> getListenerOrganizations(Long listenerId) {
-        return organizationRepository.findAllListenerOrganizations(listenerId)
                 .stream()
                 .map(OrganizationShortInfoDTO::getFromEntity)
                 .toList();

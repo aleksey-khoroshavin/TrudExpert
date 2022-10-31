@@ -1,122 +1,52 @@
 package ru.trudexpert.server.dto.entity;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import ru.trudexpert.server.entity.Organization;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.mockito.Mockito.when;
+
+@ExtendWith(MockitoExtension.class)
 class OrganizationDTOTest {
+    private static final String TEST_COMPANY_NAME = "ООО Бетон-НСК";
+    private static final String TEST_BIK = "044525225";
+    private static final String TEST_PHONE = "+7-123-456-78-90";
+    private static final String TEST_ADDRESS = "Новосибирск, ул. Кирова, д. 56, офис. 800";
+    private static final String TEST_EMAIL = "testCompany@gmail.com";
+    private static final String TEST_INN = "7727563778";
+
+    @Mock
+    private Organization entity;
 
     @Test
-    void getFromEntity() {
+    void getFromEntityTest() {
+        when(entity.getId()).thenReturn(1L);
+        when(entity.getName()).thenReturn(TEST_COMPANY_NAME);
+        when(entity.getBik()).thenReturn(TEST_BIK);
+        when(entity.getPhone()).thenReturn(TEST_PHONE);
+        when(entity.getFactAddress()).thenReturn(TEST_ADDRESS);
+        when(entity.getLawAddress()).thenReturn(TEST_ADDRESS);
+        when(entity.getEmail()).thenReturn(TEST_EMAIL);
+        when(entity.getInn()).thenReturn(TEST_INN);
+
+        var dto = OrganizationDTO.getFromEntity(entity);
+
+        assertEquals(1L, dto.getId());
+        assertEquals(TEST_COMPANY_NAME, dto.getOrganizationName());
+        assertEquals(TEST_BIK, dto.getBik());
+        assertEquals(TEST_PHONE, dto.getPhone());
+        assertEquals(TEST_ADDRESS, dto.getFactAddress());
+        assertEquals(TEST_ADDRESS, dto.getLawAddress());
+        assertEquals(TEST_EMAIL, dto.getEmail());
+        assertEquals(TEST_INN, dto.getInn());
     }
 
     @Test
-    void getId() {
-    }
-
-    @Test
-    void getOrganizationName() {
-    }
-
-    @Test
-    void getLawAddress() {
-    }
-
-    @Test
-    void getFactAddress() {
-    }
-
-    @Test
-    void getPhone() {
-    }
-
-    @Test
-    void getInn() {
-    }
-
-    @Test
-    void getKpp() {
-    }
-
-    @Test
-    void getOrgn() {
-    }
-
-    @Test
-    void getCheckingAccount() {
-    }
-
-    @Test
-    void getCorrespondentAccount() {
-    }
-
-    @Test
-    void getEmail() {
-    }
-
-    @Test
-    void getBik() {
-    }
-
-    @Test
-    void getOkpo() {
-    }
-
-    @Test
-    void getOkved() {
-    }
-
-    @Test
-    void setId() {
-    }
-
-    @Test
-    void setOrganizationName() {
-    }
-
-    @Test
-    void setLawAddress() {
-    }
-
-    @Test
-    void setFactAddress() {
-    }
-
-    @Test
-    void setPhone() {
-    }
-
-    @Test
-    void setInn() {
-    }
-
-    @Test
-    void setKpp() {
-    }
-
-    @Test
-    void setOrgn() {
-    }
-
-    @Test
-    void setCheckingAccount() {
-    }
-
-    @Test
-    void setCorrespondentAccount() {
-    }
-
-    @Test
-    void setEmail() {
-    }
-
-    @Test
-    void setBik() {
-    }
-
-    @Test
-    void setOkpo() {
-    }
-
-    @Test
-    void setOkved() {
+    void getFromNullEntityTest() {
+        assertNull(OrganizationDTO.getFromEntity(null));
     }
 }
