@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import ru.trudexpert.server.dto.entity.ListenerOrganizationDTO;
 import ru.trudexpert.server.dto.shortinfo.OrganizationShortInfoDTO;
 import ru.trudexpert.server.exception.ListenerNotFoundException;
 import ru.trudexpert.server.exception.OrganizationNotExistException;
@@ -34,11 +33,9 @@ public class ListenerOrganizationController {
     @GetMapping()
     public String openListenerOrganizationsPage(
             @RequestParam(name = "id") Long listenerId,
-            Model model) {
+            Model model) throws ListenerNotFoundException {
 
-        List<ListenerOrganizationDTO> organizations;
-
-        organizations = listenerOrganizationService.getOrganizationsOfListener(listenerId);
+        var organizations = listenerOrganizationService.getOrganizationsOfListener(listenerId);
 
         if (!organizations.isEmpty()) {
             model.addAttribute(ORGANIZATIONS, organizations);

@@ -4,8 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import ru.trudexpert.server.dto.CourseDTO;
-
+import ru.trudexpert.server.dto.entity.CourseDTO;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -45,5 +44,4 @@ public class Course {
                 .setCost(BigDecimal.valueOf(Double.parseDouble(dto.getCost())))
                 .setStudyingTime(dto.getStudyingTime());
     }
-
 }

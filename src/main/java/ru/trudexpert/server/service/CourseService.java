@@ -2,7 +2,7 @@ package ru.trudexpert.server.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.trudexpert.server.dto.CourseDTO;
+import ru.trudexpert.server.dto.entity.CourseDTO;
 import ru.trudexpert.server.entity.Course;
 import ru.trudexpert.server.exception.CourseAlreadyRegisteredException;
 import ru.trudexpert.server.exception.CourseNotFoundException;
@@ -33,11 +33,11 @@ public class CourseService {
     }
 
     public Course getCourseById(Long id) throws CourseNotFoundException {
-        var course = courseRepository.findById(id).orElse(null);
-        if (course == null) {
+        var course = courseRepository.findById(id);
+        if (course.isEmpty()) {
             throw new CourseNotFoundException();
         } else {
-            return course;
+            return course.get();
         }
     }
 

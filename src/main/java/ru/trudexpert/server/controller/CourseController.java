@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import ru.trudexpert.server.dto.CourseDTO;
+import ru.trudexpert.server.dto.entity.CourseDTO;
 import ru.trudexpert.server.exception.CourseAlreadyRegisteredException;
 import ru.trudexpert.server.exception.CourseNotFoundException;
 import ru.trudexpert.server.service.CourseService;
