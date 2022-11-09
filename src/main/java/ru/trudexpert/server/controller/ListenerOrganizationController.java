@@ -26,9 +26,9 @@ public class ListenerOrganizationController {
 
     private final ListenerService listenerService;
 
-    private static final String ORGANIZATIONS = "organizations";
-    private static final String LISTENER_NAME = "listenerName";
-    private static final String LISTENER_ID = "listenerId";
+    private static final String ORGANIZATIONS_ATTR_STR = "organizations";
+    private static final String LISTENER_NAME_ATTR_STR = "listenerName";
+    private static final String LISTENER_ID_ATTR_STR = "listenerId";
 
     @GetMapping()
     public String openListenerOrganizationsPage(
@@ -38,11 +38,11 @@ public class ListenerOrganizationController {
         var organizations = listenerOrganizationService.getOrganizationsOfListener(listenerId);
 
         if (!organizations.isEmpty()) {
-            model.addAttribute(ORGANIZATIONS, organizations);
+            model.addAttribute(ORGANIZATIONS_ATTR_STR, organizations);
         }
 
-        model.addAttribute(LISTENER_NAME, listenerService.getListenerName(listenerId));
-        model.addAttribute(LISTENER_ID, listenerId);
+        model.addAttribute(LISTENER_NAME_ATTR_STR, listenerService.getListenerName(listenerId));
+        model.addAttribute(LISTENER_ID_ATTR_STR, listenerId);
 
         return "/listener_organizations/listener_organizations_search";
     }
@@ -53,11 +53,12 @@ public class ListenerOrganizationController {
             @RequestParam(name = "name") String listenerName,
             Model model) {
 
-        List<OrganizationShortInfoDTO> organizations = organizationService.getAllOrganizationsNotAttachedToListener(listenerId);
+        List<OrganizationShortInfoDTO> organizations = organizationService
+                .getAllOrganizationsNotAttachedToListener(listenerId);
 
-        model.addAttribute(ORGANIZATIONS, organizations);
-        model.addAttribute(LISTENER_ID, listenerId);
-        model.addAttribute(LISTENER_NAME, listenerName);
+        model.addAttribute(ORGANIZATIONS_ATTR_STR, organizations);
+        model.addAttribute(LISTENER_ID_ATTR_STR, listenerId);
+        model.addAttribute(LISTENER_NAME_ATTR_STR, listenerName);
 
         return "/listener_organizations/listener_organizations_add";
     }
