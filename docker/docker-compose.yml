@@ -22,8 +22,3 @@ services:
       POSTGRES_DB: trud_expert
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-
-networks:
-  default:
-    name: test-network
-    driver: bridge

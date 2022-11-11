@@ -1,7 +1,7 @@
 <#import "parts/commons/common_group.ftlh" as c>
 
 <@c.page>
-    <h5>Раздел <b>Документы</b></h5>
+    <h5>Раздел <b>Группы</b></h5>
     <div>Для перехода к подразделам используйте панель навигации</div>
 
     <div class="text" style="margin-top: 30px">
