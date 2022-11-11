@@ -20,8 +20,6 @@ public class GroupController {
 
     @GetMapping("/search")
     public String openGroupListPage() {
-
-
         return "/groups/group_search";
     }
 
