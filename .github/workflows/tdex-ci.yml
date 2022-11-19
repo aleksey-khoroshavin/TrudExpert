@@ -6,7 +6,7 @@ on:
     types: [opend, reopened]
     
 jobs:
-  build:
+  build-maven:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v3
@@ -17,8 +17,8 @@ jobs:
           distribution: 'adopt-hotspot'
       - name: Build with Maven
         run: mvn --batch-mode --update-snapshots package -DskipTests
-  test:
-    needs: build
+  test-maven:
+    needs: build-maven
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v3
