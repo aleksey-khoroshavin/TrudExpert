@@ -5,7 +5,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
+import javax.persistence.Table;
 import java.util.Objects;
 
 @Entity
@@ -34,11 +40,11 @@ public class ListenerOrganization {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == null){
+        if (obj == null) {
             return false;
         }
 
-        if(!(obj instanceof ListenerOrganization listenerOrganization)){
+        if (!(obj instanceof ListenerOrganization listenerOrganization)) {
             return false;
         }
 

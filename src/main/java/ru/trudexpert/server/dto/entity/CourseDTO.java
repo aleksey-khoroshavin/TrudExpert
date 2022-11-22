@@ -1,4 +1,4 @@
-package ru.trudexpert.server.dto;
+package ru.trudexpert.server.dto.entity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,8 +19,8 @@ public class CourseDTO {
 
     private String cost;
 
-    public static CourseDTO getFromEntity(Course course){
-        if(course == null){
+    public static CourseDTO getFromEntity(Course course) {
+        if (course == null) {
             return null;
         }
 

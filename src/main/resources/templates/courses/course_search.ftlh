@@ -40,7 +40,7 @@
 
     <script>
         const input = document.getElementById('courseDesc');
-        input.setAttribute('size',input.getAttribute('placeholder').length.toString());
+        input.setAttribute('size', input.getAttribute('placeholder').length.toString());
     </script>
 
 </@c.page>

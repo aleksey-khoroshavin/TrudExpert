@@ -6,7 +6,13 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 import ru.trudexpert.server.dto.entity.OrganizationAgentDTO;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.MapsId;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "organization_agent")
@@ -39,8 +45,8 @@ public class OrganizationAgent {
     @JoinColumn(name = "organization_id")
     private Organization organization;
 
-    public static OrganizationAgent getFromDTO(OrganizationAgentDTO dto){
-        if(dto == null){
+    public static OrganizationAgent getFromDTO(OrganizationAgentDTO dto) {
+        if (dto == null) {
             return null;
         }
 

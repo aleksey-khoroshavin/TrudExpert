@@ -28,8 +28,8 @@ public class ListenerShortInfoDTO {
 
     private String snils;
 
-    public static ListenerShortInfoDTO getFromEntity(Listener listener){
-        if(listener == null){
+    public static ListenerShortInfoDTO getFromEntity(Listener listener) {
+        if (listener == null) {
             return null;
         }
 

@@ -54,8 +54,8 @@ public class ListenerDTO {
 
     private String educationSurname;
 
-    public static ListenerDTO getFromEntity(Listener listener){
-        if(listener == null){
+    public static ListenerDTO getFromEntity(Listener listener) {
+        if (listener == null) {
             return null;
         }
 
@@ -70,7 +70,8 @@ public class ListenerDTO {
                 .setDateOfBirth(formatter.format(listener.getDateOfBirth()))
                 .setSnils(listener.getSnils())
                 .setGender(listener.getGender())
-                .setPhoneNumber(listener.getPhoneNumber().substring(3))
+                .setPhoneNumber(listener.getPhoneNumber() != null ?
+                        listener.getPhoneNumber().substring(3) : null)
                 .setCitizenshipCode(listener.getCitizenshipCode())
                 .setDriverLicense(listener.getDriverLicense())
                 .setAddress(listener.getAddress())

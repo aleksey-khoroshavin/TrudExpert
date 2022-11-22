@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import ru.trudexpert.server.dto.CourseDTO;
+import ru.trudexpert.server.dto.entity.CourseDTO;
 import ru.trudexpert.server.exception.CourseNotFoundException;
 import ru.trudexpert.server.exception.ListenerNotFoundException;
 import ru.trudexpert.server.service.ListenerCourseService;
@@ -26,12 +26,12 @@ public class ListenerCourseController {
     public String openListenerCoursesPage(
             @RequestParam(name = "listener_id") Long listenerId,
             Model model
-    ){
+    ) {
         List<CourseDTO> courses;
 
         courses = listenerCourseService.getListenerCourses(listenerId);
 
-        if(!courses.isEmpty()){
+        if (!courses.isEmpty()) {
             model.addAttribute("courses", courses);
         }
 
@@ -45,7 +45,7 @@ public class ListenerCourseController {
     public String openListenerCourseAddPage(
             @RequestParam(name = "listener_id") Long listenerId,
             Model model
-    ){
+    ) {
         List<CourseDTO> courses = listenerCourseService.getCoursesNotAttachedToListener(listenerId);
 
         model.addAttribute("courses", courses);

@@ -1,7 +1,6 @@
 package ru.trudexpert.server.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import ru.trudexpert.server.dto.entity.ListenerDTO;
 import ru.trudexpert.server.dto.shortinfo.ListenerShortInfoDTO;
@@ -10,6 +9,7 @@ import ru.trudexpert.server.exception.ListenerAlreadyRegisteredException;
 import ru.trudexpert.server.exception.ListenerNotFoundException;
 import ru.trudexpert.server.exception.SnilsAlreadyRegisteredException;
 import ru.trudexpert.server.repository.ListenerRepository;
+
 import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -25,29 +25,23 @@ public class ListenerService {
 
     @Transactional
     public void saveListener(ListenerDTO listenerDTO) throws SnilsAlreadyRegisteredException, ListenerAlreadyRegisteredException {
-
         checkSnilsFree(listenerDTO);
         checkUserMainDataFree(listenerDTO);
 
-        Listener listener = Listener.getFromDTO(listenerDTO);
+        var listener = Listener.getFromDTO(listenerDTO);
         listenerRepository.save(listener);
     }
 
     @Transactional
     public void updateListener(ListenerDTO dto) throws ListenerNotFoundException, SnilsAlreadyRegisteredException {
+        var listener = listenerRepository.findById(dto.getId()).orElse(null);
 
-
-        Listener listener = listenerRepository.findById(dto.getId()).orElse(null);
-
-        if(listener == null){
+        if (listener == null) {
             throw new ListenerNotFoundException();
         }
 
-        if(!Objects.equals(dto.getSnils(), listener.getSnils())){
-            checkSnilsFree(dto);
-        }
-
-        if(listener.getSnils().isEmpty()){
+        if (!Objects.equals(dto.getSnils(), listener.getSnils()) ||
+                (listener.getSnils() != null && listener.getSnils().isBlank())) {
             checkSnilsFree(dto);
         }
 
@@ -60,7 +54,7 @@ public class ListenerService {
                 .setDateOfBirth(LocalDate.parse(dto.getDateOfBirth(), formatter).atStartOfDay().toInstant(ZoneOffset.UTC))
                 .setSnils(dto.getSnils())
                 .setGender(dto.getGender())
-                .setPhoneNumber("+7-" + dto.getPhoneNumber())
+                .setPhoneNumber(dto.getPhoneNumber() != null ? "+7-" + dto.getPhoneNumber() : null)
                 .setCitizenshipCode(dto.getCitizenshipCode())
                 .setDriverLicense(dto.getDriverLicense())
                 .setAddress(dto.getAddress())
@@ -72,7 +66,7 @@ public class ListenerService {
                         null)
                 .setEducationType(dto.getEducationType())
                 .setEducationDocument(dto.getEducationDocument())
-                .setEducationDocumentIssuedAt(dto.getEducationDocumentIssuedAt() != null && !dto.getEducationDocumentIssuedAt().isEmpty()?
+                .setEducationDocumentIssuedAt(dto.getEducationDocumentIssuedAt() != null && !dto.getEducationDocumentIssuedAt().isEmpty() ?
                         LocalDate.parse(dto.getEducationDocumentIssuedAt(), formatter).atStartOfDay().toInstant(ZoneOffset.UTC) :
                         null);
 
@@ -81,53 +75,48 @@ public class ListenerService {
     }
 
     private void checkSnilsFree(ListenerDTO listenerDTO) throws SnilsAlreadyRegisteredException {
-        if (
-                listenerDTO.getSnils() != null
-                        && !listenerDTO.getSnils().isEmpty()
-                        && listenerRepository.existsBySnils(listenerDTO.getSnils())) {
+        if (listenerDTO.getSnils() != null
+                && !listenerDTO.getSnils().isEmpty()
+                && listenerRepository.existsBySnils(listenerDTO.getSnils())) {
             throw new SnilsAlreadyRegisteredException();
         }
     }
 
     private void checkUserMainDataFree(ListenerDTO listenerDTO) throws ListenerAlreadyRegisteredException {
-
-        try{
-            if(listenerDTO.getPatronymic()!= null && !listenerDTO.getPatronymic().isEmpty()){
-                if(listenerRepository.existsByFullName(
+        try {
+            if (listenerDTO.getPatronymic() != null && !listenerDTO.getPatronymic().isEmpty()) {
+                if (listenerRepository.existsByFullName(
                         listenerDTO.getSurname(),
                         listenerDTO.getName(),
-                        listenerDTO.getPatronymic())){
+                        listenerDTO.getPatronymic())) {
                     throw new ListenerAlreadyRegisteredException();
                 }
-            }else{
-                if(listenerRepository.existsBySurnameAndName(
+            } else {
+                if (listenerRepository.existsBySurnameAndName(
                         listenerDTO.getSurname(),
                         listenerDTO.getName()
-                )){
+                )) {
                     throw new ListenerAlreadyRegisteredException();
                 }
             }
-        }
-        catch (ListenerAlreadyRegisteredException exception){
+        } catch (ListenerAlreadyRegisteredException exception) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd").withZone(ZoneId.systemDefault());
-
-
-            if(listenerRepository.existsByDateOfBirth(
+            if (listenerRepository.existsByDateOfBirth(
                     LocalDate.parse(listenerDTO.getDateOfBirth(), formatter).atStartOfDay().toInstant(ZoneOffset.UTC)
-            )){
+            )) {
                 throw new ListenerAlreadyRegisteredException();
             }
         }
     }
 
-    public List<ListenerShortInfoDTO> getListenersBySurname(String surname){
+    public List<ListenerShortInfoDTO> getListenersBySurname(String surname) {
         return listenerRepository.findAllBySurname('%' + surname + '%')
                 .stream()
                 .map(ListenerShortInfoDTO::getFromEntity)
                 .toList();
     }
 
-    public List<ListenerShortInfoDTO> getListeners(){
+    public List<ListenerShortInfoDTO> getListeners() {
         return listenerRepository.findAllListeners()
                 .stream()
                 .map(ListenerShortInfoDTO::getFromEntity)
@@ -135,20 +124,18 @@ public class ListenerService {
     }
 
     public ListenerDTO getListenerById(Long id) throws ListenerNotFoundException {
-        Listener listener = listenerRepository.findById(id).orElse(null);
-        if(listener == null){
+        var listener = listenerRepository.findById(id).orElse(null);
+        if (listener == null) {
             throw new ListenerNotFoundException();
         }
         return ListenerDTO.getFromEntity(listener);
     }
 
-    public String getListenerName(Long id){
-        Listener listener = listenerRepository.findById(id).orElse(null);
-        if(listener == null){
-            return null;
+    public String getListenerName(Long id) throws ListenerNotFoundException {
+        var listener = listenerRepository.findById(id).orElse(null);
+        if (listener == null) {
+            throw new ListenerNotFoundException();
         }
-
         return listener.getSurname() + " " + listener.getName() + " " + listener.getPatronymic();
     }
-
 }

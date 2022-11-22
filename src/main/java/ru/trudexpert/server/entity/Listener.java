@@ -6,7 +6,14 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 import ru.trudexpert.server.dto.entity.ListenerDTO;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -84,8 +91,8 @@ public class Listener {
     @OneToMany(mappedBy = "listener", cascade = CascadeType.ALL)
     private Set<ListenerOrganization> organizations;
 
-    public static Listener getFromDTO(ListenerDTO dto){
-        if(dto == null){
+    public static Listener getFromDTO(ListenerDTO dto) {
+        if (dto == null) {
             return null;
         }
 
@@ -99,7 +106,7 @@ public class Listener {
                 .setDateOfBirth(LocalDate.parse(dto.getDateOfBirth(), formatter).atStartOfDay().toInstant(ZoneOffset.UTC))
                 .setSnils(dto.getSnils())
                 .setGender(dto.getGender())
-                .setPhoneNumber("+7-" + dto.getPhoneNumber())
+                .setPhoneNumber(dto.getPhoneNumber() != null ? "+7-" + dto.getPhoneNumber() : null)
                 .setCitizenshipCode(dto.getCitizenshipCode())
                 .setDriverLicense(dto.getDriverLicense())
                 .setAddress(dto.getAddress())
@@ -111,7 +118,7 @@ public class Listener {
                         null)
                 .setEducationType(dto.getEducationType())
                 .setEducationDocument(dto.getEducationDocument())
-                .setEducationDocumentIssuedAt(dto.getEducationDocumentIssuedAt() != null && !dto.getEducationDocumentIssuedAt().isEmpty()?
+                .setEducationDocumentIssuedAt(dto.getEducationDocumentIssuedAt() != null && !dto.getEducationDocumentIssuedAt().isEmpty() ?
                         LocalDate.parse(dto.getEducationDocumentIssuedAt(), formatter).atStartOfDay().toInstant(ZoneOffset.UTC) :
                         null)
                 .setEducationSurname(dto.getEducationSurname());

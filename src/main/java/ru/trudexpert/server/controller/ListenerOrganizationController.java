@@ -4,8 +4,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import ru.trudexpert.server.dto.entity.ListenerOrganizationDTO;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import ru.trudexpert.server.dto.shortinfo.OrganizationShortInfoDTO;
 import ru.trudexpert.server.exception.ListenerNotFoundException;
 import ru.trudexpert.server.exception.OrganizationNotExistException;
@@ -24,25 +26,23 @@ public class ListenerOrganizationController {
 
     private final ListenerService listenerService;
 
-    private static final String ORGANIZATIONS = "organizations";
-    private static final String LISTENER_NAME = "listenerName";
-    private static final String LISTENER_ID = "listenerId";
+    private static final String ORGANIZATIONS_ATTR_STR = "organizations";
+    private static final String LISTENER_NAME_ATTR_STR = "listenerName";
+    private static final String LISTENER_ID_ATTR_STR = "listenerId";
 
     @GetMapping()
     public String openListenerOrganizationsPage(
             @RequestParam(name = "id") Long listenerId,
-            Model model){
+            Model model) throws ListenerNotFoundException {
 
-        List<ListenerOrganizationDTO> organizations;
+        var organizations = listenerOrganizationService.getOrganizationsOfListener(listenerId);
 
-        organizations = listenerOrganizationService.getOrganizationsOfListener(listenerId);
-
-        if(!organizations.isEmpty()){
-            model.addAttribute(ORGANIZATIONS, organizations);
+        if (!organizations.isEmpty()) {
+            model.addAttribute(ORGANIZATIONS_ATTR_STR, organizations);
         }
 
-        model.addAttribute(LISTENER_NAME, listenerService.getListenerName(listenerId));
-        model.addAttribute(LISTENER_ID, listenerId);
+        model.addAttribute(LISTENER_NAME_ATTR_STR, listenerService.getListenerName(listenerId));
+        model.addAttribute(LISTENER_ID_ATTR_STR, listenerId);
 
         return "/listener_organizations/listener_organizations_search";
     }
@@ -51,13 +51,14 @@ public class ListenerOrganizationController {
     public String openOrganizationAddPage(
             @RequestParam(name = "id") Long listenerId,
             @RequestParam(name = "name") String listenerName,
-            Model model){
+            Model model) {
 
-        List<OrganizationShortInfoDTO> organizations = organizationService.getAllOrganizationsNotAttachedToListener(listenerId);
+        List<OrganizationShortInfoDTO> organizations = organizationService
+                .getAllOrganizationsNotAttachedToListener(listenerId);
 
-        model.addAttribute(ORGANIZATIONS, organizations);
-        model.addAttribute(LISTENER_ID, listenerId);
-        model.addAttribute(LISTENER_NAME, listenerName);
+        model.addAttribute(ORGANIZATIONS_ATTR_STR, organizations);
+        model.addAttribute(LISTENER_ID_ATTR_STR, listenerId);
+        model.addAttribute(LISTENER_NAME_ATTR_STR, listenerName);
 
         return "/listener_organizations/listener_organizations_add";
     }

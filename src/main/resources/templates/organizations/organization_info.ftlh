@@ -3,25 +3,26 @@
 <@c.page>
     <div id="formInfo">
         <#if type == 'add'>
-        <h5>Данные новой организации</h5>
-        <div>
-            Администрация с пониманием относится к человеческим факторам, поэтому какие-то поля <b>могут быть не
-                указаны</b>.<br>
-            Заполнение недостающих полей лежит на сотрудниках организации. Без них вы <b>не сможете сформировать
-                договоры!</b><br>
-            Внести данные можно будет в профиле конкретной организации.<br>
-            Для этого используйте подраздел <b><i>"Список организаций"</i></b>.
-            <br><br>
-        </div>
+            <h5>Данные новой организации</h5>
+            <div>
+                Администрация с пониманием относится к человеческим факторам, поэтому какие-то поля <b>могут быть не
+                    указаны</b>.<br>
+                Заполнение недостающих полей лежит на сотрудниках организации. Без них вы <b>не сможете сформировать
+                    договоры!</b><br>
+                Внести данные можно будет в профиле конкретной организации.<br>
+                Для этого используйте подраздел <b><i>"Список организаций"</i></b>.
+                <br><br>
+            </div>
 
-        <div>
-            P.s. Поле <b><i>"Название организации"</i></b> заполняется в <b>ОБЯЗАТЕЛЬНОМ ПОРЯДКЕ</b>, иначе система не
-            сможет найти эту организацию в списке!
-        </div>
+            <div>
+                P.s. Поле <b><i>"Название организации"</i></b> заполняется в <b>ОБЯЗАТЕЛЬНОМ ПОРЯДКЕ</b>, иначе система
+                не
+                сможет найти эту организацию в списке!
+            </div>
 
-        <div class="text mb-3">
-            <i>Спасибо за понимание:)</i>
-        </div>
+            <div class="text mb-3">
+                <i>Спасибо за понимание:)</i>
+            </div>
         <#elseif type == 'edit'>
             <h5>Изменение данных организации: ${organization.organizationDTO.organizationName}</h5>
             <div>
@@ -44,7 +45,7 @@
             <input type="text" name="organizationName" class="form-control" id="inputName" placeholder="Название"
                    required
                     <#if type == 'edit'>
-                        value="${organization.organizationDTO.organizationName}"
+                value="${organization.organizationDTO.organizationName}"
                     </#if>>
         </div>
 
@@ -52,7 +53,7 @@
             <label for="inputLawAddress">Юридический адрес органазации</label>
             <input type="text" name="lawAddress" class="form-control" id="inputLawAddress" placeholder="Юридич. адрес"
                     <#if type == 'edit'>
-                        value="${organization.organizationDTO.lawAddress}"
+                value="${organization.organizationDTO.lawAddress}"
                     </#if>>
         </div>
 
@@ -60,7 +61,7 @@
             <label for="inputFactAddress">Фактический адрес организации</label>
             <input type="text" name="factAddress" class="form-control" id="inputFactAddress" placeholder="Фактич. адрес"
                     <#if type == 'edit'>
-                        value="${organization.organizationDTO.factAddress}"
+                value="${organization.organizationDTO.factAddress}"
                     </#if>>
         </div>
 
@@ -84,7 +85,7 @@
                 <label for="inputEmail">Email</label>
                 <input type="text" class="form-control" name="email" id="inputEmail" placeholder="example@.com"
                         <#if type == 'edit'>
-                            value="${organization.organizationDTO.email}"
+                    value="${organization.organizationDTO.email}"
                         </#if>>
             </div>
 
@@ -96,7 +97,7 @@
                 <label for="inputINN">ИНН</label>
                 <input type="text" name="inn" class="form-control" id="inputINN" placeholder="ИНН"
                         <#if type == 'edit'>
-                            value="${organization.organizationDTO.inn}"
+                    value="${organization.organizationDTO.inn}"
                         </#if>>
             </div>
 
@@ -104,7 +105,7 @@
                 <label for="inputKPP">КПП</label>
                 <input type="text" name="kpp" class="form-control" id="inputKPP" placeholder="КПП"
                         <#if type == 'edit'>
-                            value="${organization.organizationDTO.kpp}"
+                    value="${organization.organizationDTO.kpp}"
                         </#if>>
             </div>
         </div>
@@ -113,7 +114,7 @@
             <label for="inputOGRN">ОГРН</label>
             <input type="text" class="form-control" name="orgn" id="inputOGRN" placeholder="ОГРН"
                     <#if type == 'edit'>
-                        value="${organization.organizationDTO.orgn}"
+                value="${organization.organizationDTO.orgn}"
                     </#if>>
         </div>
 
@@ -122,7 +123,7 @@
                 <label for="inputOKVED">ОКВЕД</label>
                 <input type="text" class="form-control" name="okved" id="inputOKVED" placeholder="ОКВЕД"
                         <#if type == 'edit'>
-                            value="${organization.organizationDTO.okved}"
+                    value="${organization.organizationDTO.okved}"
                         </#if>>
             </div>
 
@@ -130,7 +131,7 @@
                 <label for="inputOKPO">ОКПО</label>
                 <input type="text" class="form-control" name="okpo" id="inputOKPO" placeholder="ОКВЕД"
                         <#if type == 'edit'>
-                            value="${organization.organizationDTO.okpo}"
+                    value="${organization.organizationDTO.okpo}"
                         </#if>>
             </div>
         </div>
@@ -139,7 +140,7 @@
             <label for="inputCheckingAccount">Р/с</label>
             <input type="text" class="form-control" name="checkingAccount" id="inputCheckingAccount" placeholder="Р/с"
                     <#if type == 'edit'>
-                        value="${organization.organizationDTO.checkingAccount}"
+                value="${organization.organizationDTO.checkingAccount}"
                     </#if>>
         </div>
 
@@ -148,7 +149,7 @@
             <input type="text" class="form-control" name="correspondentAccount" id="inputCorrespondentAccount"
                    placeholder="К/с"
                     <#if type == 'edit'>
-                        value="${organization.organizationDTO.correspondentAccount}"
+                value="${organization.organizationDTO.correspondentAccount}"
                     </#if>>
         </div>
 
@@ -157,7 +158,7 @@
             <label for="inputBIK">БИК</label>
             <input type="text" class="form-control" name="bik" id="inputBIK" placeholder="БИК"
                     <#if type == 'edit'>
-                        value="${organization.organizationDTO.bik}"
+                value="${organization.organizationDTO.bik}"
                     </#if>>
         </div>
     </form>
@@ -226,11 +227,11 @@
         });
 
         <#if type == 'error'>
-            organizationForm.style.display = 'none';
-            organizationAgentForm.style.display = 'none';
-            submitBtn.style.display = 'none';
+        organizationForm.style.display = 'none';
+        organizationAgentForm.style.display = 'none';
+        submitBtn.style.display = 'none';
 
-            backBtn.style.display = 'inline';
+        backBtn.style.display = 'inline';
         </#if>
 
         <#if type == 'add'>
@@ -242,8 +243,10 @@
             xhr.open('POST', '/trudexpert/organization/add');
             xhr.setRequestHeader("Content-Type", "application/json");
 
-            xhr.send(JSON.stringify({organizationDTO : Object.fromEntries(organizationFormData),
-            organizationAgentDTO : Object.fromEntries(organizationAgentData)}));
+            xhr.send(JSON.stringify({
+                organizationDTO: Object.fromEntries(organizationFormData),
+                organizationAgentDTO: Object.fromEntries(organizationAgentData)
+            }));
 
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === XMLHttpRequest.DONE) {

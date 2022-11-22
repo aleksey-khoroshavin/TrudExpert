@@ -33,4 +33,7 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
 
     @Query(value = "select case when count(c) > 0 then true else false end from courses c where c.id = :course_id", nativeQuery = true)
     boolean checkIsCourseExists(@Param("course_id") Long courseId);
+
+    @Query(value = "insert into listener_courses values (?1, ?2)", nativeQuery = true)
+    void addListenerToCourse(Long listenerId, Long courseId);
 }

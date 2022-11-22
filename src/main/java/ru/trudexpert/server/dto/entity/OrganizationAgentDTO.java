@@ -25,8 +25,8 @@ public class OrganizationAgentDTO {
 
     private String post;
 
-    public static OrganizationAgentDTO getFromEntity(OrganizationAgent entity){
-        if(entity == null){
+    public static OrganizationAgentDTO getFromEntity(OrganizationAgent entity) {
+        if (entity == null) {
             return null;
         }
 

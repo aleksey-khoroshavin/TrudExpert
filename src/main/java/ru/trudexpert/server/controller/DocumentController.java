@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 public class DocumentController {
     @GetMapping
-    public String openDocumentPage(){
+    public String openDocumentPage() {
         return "documents";
     }
 }

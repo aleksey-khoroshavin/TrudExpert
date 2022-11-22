@@ -4,7 +4,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import ru.trudexpert.server.dto.entity.ListenerDTO;
 import ru.trudexpert.server.dto.shortinfo.ListenerShortInfoDTO;
 import ru.trudexpert.server.exception.ListenerAlreadyRegisteredException;
@@ -21,12 +25,12 @@ public class ListenerController {
     private final ListenerService listenerService;
 
     @GetMapping
-    public String openListenerPage(){
+    public String openListenerPage() {
         return "listeners";
     }
 
     @GetMapping("/add")
-    public String openListenerAddForm(Model model){
+    public String openListenerAddForm(Model model) {
         model.addAttribute("type", "add");
 
         return "/listeners/listener_info";
@@ -41,16 +45,16 @@ public class ListenerController {
     }
 
     @GetMapping("/search")
-    public String openSearchForm(@RequestParam(required = false, defaultValue = "") String surname, Model model){
+    public String openSearchForm(@RequestParam(required = false, defaultValue = "") String surname, Model model) {
         List<ListenerShortInfoDTO> listeners;
 
-        if(surname != null && !surname.isEmpty()){
+        if (surname != null && !surname.isEmpty()) {
             listeners = listenerService.getListenersBySurname(surname);
-        }else{
+        } else {
             listeners = listenerService.getListeners();
         }
 
-        if(!listeners.isEmpty()){
+        if (!listeners.isEmpty()) {
             model.addAttribute("listeners", listeners);
         }
 
@@ -63,7 +67,7 @@ public class ListenerController {
     public String openListenerEditForm(@RequestParam(name = "id") Long id, Model model) throws ListenerNotFoundException {
         model.addAttribute("type", "edit");
 
-        ListenerDTO listenerDTO = listenerService.getListenerById(id);
+        var listenerDTO = listenerService.getListenerById(id);
         model.addAttribute("listener", listenerDTO);
 
         return "/listeners/listener_info";

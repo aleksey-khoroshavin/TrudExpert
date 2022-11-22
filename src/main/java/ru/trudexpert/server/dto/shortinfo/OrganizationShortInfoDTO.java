@@ -16,8 +16,8 @@ public class OrganizationShortInfoDTO {
 
     private String name;
 
-    public static OrganizationShortInfoDTO getFromEntity(Organization entity){
-        if(entity == null){
+    public static OrganizationShortInfoDTO getFromEntity(Organization entity) {
+        if (entity == null) {
             return null;
         }
 
