@@ -1,9 +1,8 @@
 name: CI
 
 on:
-  push:
   pull_request:
-    types: [opend, reopened]
+    types: [opened, reopened, synchronize]
     
 jobs:
   build-maven:
