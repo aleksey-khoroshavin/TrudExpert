@@ -22,3 +22,8 @@ services:
       POSTGRES_DB: trud_expert
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
+    volumes:
+      - db:/var/lib/postgresql/data
+volumes:
+  db:
+    driver: local
